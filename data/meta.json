@@ -1,0 +1,12 @@
+{
+  "versao": "0.0.0-fixture",
+  "data_remume": "2026-01-10",
+  "data_elenco_pfpb": "2026-01-15",
+  "data_infoms": "2026-01-20",
+  "ultima_verificacao_ci": "2026-01-21",
+  "limite_dias_desatualizado": 45,
+  "flags": {
+    "estoque_oficial": false
+  },
+  "__fixture": true
+}

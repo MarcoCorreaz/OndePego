@@ -1,0 +1,61 @@
+:root {
+  color-scheme: light;
+
+  /* Cores v0 — .agent/skills/busca-design-system/references/tokens.md */
+  --c-bg: #ffffff;
+  --c-bg-soft: #f3f6f9;
+  --c-text: #1f2933;
+  --c-text-2: #5b6770;
+  --c-brand: #0b3d91;
+  --c-brand-tint: #e8eef8;
+  --c-free: #0e7c3a;
+  --c-free-tint: #e6f4ea;
+  --c-attn: #ffc72c;
+  --c-alert: #c62828;
+  --c-alert-tint: #fdecea;
+  --c-border: #1f2933;
+  --c-border-subtle: #cbd5e1;
+
+  /* Tipografia */
+  --font-display: "Barlow Semi Condensed", system-ui, -apple-system, sans-serif;
+  --font-sans: "Atkinson Hyperlegible", system-ui, -apple-system, sans-serif;
+  --fs-base: 18px;
+
+  /* Raios por papel */
+  --r-plate: 8px;
+  --r-button: 10px;
+  --r-search: 14px;
+  --r-chip: 9999px;
+
+  /* Alvo de toque mínimo */
+  --touch-min: 48px;
+}
+
+html[data-font-scale="normal"] {
+  --fs-base: 18px;
+}
+
+html[data-font-scale="large"] {
+  --fs-base: 21px;
+}
+
+html[data-font-scale="xlarge"] {
+  --fs-base: 24px;
+}
+
+/* Alto contraste — razões >= 7:1 */
+html[data-contrast="high"] {
+  --c-bg: #ffffff;
+  --c-bg-soft: #ffffff;
+  --c-text: #000000;
+  --c-text-2: #111111;
+  --c-brand: #002060;
+  --c-brand-tint: #ffffff;
+  --c-free: #00441b;
+  --c-free-tint: #ffffff;
+  --c-attn: #ffcf00;
+  --c-alert: #8b0000;
+  --c-alert-tint: #ffffff;
+  --c-border: #000000;
+  --c-border-subtle: #000000;
+}

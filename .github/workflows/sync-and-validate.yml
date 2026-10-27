@@ -1,0 +1,84 @@
+name: Validação Semanal de Dados e Build (Onde Pego)
+
+on:
+  schedule:
+    # Segunda-feira às 12h00 UTC (08h00 em Cuiabá / AMT UTC-4)
+    - cron: '0 12 * * 1'
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  validate-and-build:
+    name: Validar Contratos, Testes e Build Estático
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Atualizar carimbo ultima_verificacao_ci (execução agendada ou manual)
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: |
+          node -e '
+            const fs = require("fs");
+            const metaPath = "data/meta.json";
+            const meta = JSON.parse(fs.readFileSync(metaPath, "utf8"));
+            const today = new Date().toISOString().slice(0, 10);
+            meta.ultima_verificacao_ci = today;
+            fs.writeFileSync(metaPath, JSON.stringify(meta, null, 2) + "\n", "utf8");
+            console.log("Atualizado ultima_verificacao_ci para", today);
+          '
+
+      - name: Checar tipos TypeScript (strict)
+        run: npm run typecheck
+
+      - name: Executar testes unitários (Vitest)
+        run: npm test
+
+      - name: Validar contratos de dados, unicidade e bbox (Zod)
+        run: npm run validate
+
+      - name: Gerar exportação estática (Next.js build)
+        run: npm run build
+
+      - name: Gravar atualização de ultima_verificacao_ci no repositório
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: |
+          if ! git diff --quiet data/meta.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/meta.json
+            git commit -m "chore(data): atualizar ultima_verificacao_ci [skip ci]"
+            git push
+          else
+            echo "Nenhuma alteração em data/meta.json."
+          fi
+
+      - name: Notificar monitoramento (Healthchecks.io opcional)
+        if: success()
+        env:
+          HEALTHCHECKS_PING_URL: ${{ secrets.HEALTHCHECKS_PING_URL }}
+        run: |
+          if [ -n "$HEALTHCHECKS_PING_URL" ]; then
+            curl -fsS -m 10 --retry 3 "$HEALTHCHECKS_PING_URL"
+          else
+            echo "HEALTHCHECKS_PING_URL não configurado; pulando ping."
+          fi

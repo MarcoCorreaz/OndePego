@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Onde Pego">
+  <rect width="512" height="512" rx="96" fill="#0F4C5C" />
+  <rect x="32" y="32" width="448" height="448" rx="72" fill="none" stroke="#F7F4EE" stroke-width="12" opacity="0.25" />
+  <!-- Cruz de saúde combinada com pino de localização -->
+  <path
+    d="M256 96c-79.5 0-144 64.5-144 144 0 98.4 122.4 205.6 131.6 213.5a19 19 0 0 0 24.8 0C277.6 445.6 400 338.4 400 240c0-79.5-64.5-144-144-144z"
+    fill="#F7F4EE"
+  />
+  <path
+    d="M236 176h40v44h44v40h-44v44h-40v-44h-44v-40h44v-44z"
+    fill="#0F4C5C"
+  />
+</svg>

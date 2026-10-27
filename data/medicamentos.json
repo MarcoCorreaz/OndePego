@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "medicamento-teste-a",
+    "principio_ativo": "MEDICAMENTO_TESTE_A",
+    "nomes_comerciais": ["COMERCIAL_TESTE_A1", "COMERCIAL_TESTE_A2"],
+    "termos_populares": ["TERMO_POPULAR_TESTE_A", "pressão", "diabetes"],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-teste-a-1",
+        "descricao_dosagem": "DOSAGEM_TESTE_1 (50 mg comprimido)",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ],
+    "__fixture": true
+  },
+  {
+    "slug": "medicamento-teste-b",
+    "id_dcb": "DCB_TESTE_000",
+    "codigo_atc": "ATC_TESTE_00",
+    "principio_ativo": "MEDICAMENTO_TESTE_B",
+    "nomes_comerciais": [],
+    "termos_populares": ["asma", "colesterol"],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-teste-b-1",
+        "descricao_dosagem": "DOSAGEM_TESTE_2 (20 mg comprimido)",
+        "status_remume_cuiaba": "NAO_CONSTA_REMUME",
+        "local_dispensacao_sus": "NAO_APLICAVEL",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ],
+    "__fixture": true
+  }
+]
