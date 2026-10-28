@@ -4,9 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "tsx scripts/generate-precache.ts",
     "build": "next build",
+    "build:prod": "npm run validate:prod && next build",
     "validate": "tsx scripts/validate-schemas.ts",
+    "validate:prod": "tsx scripts/validate-schemas.ts --prod",
+    "import:medicamentos": "tsx scripts/import-medicamentos.ts",
+    "import:unidades": "tsx scripts/import-unidades.ts",
     "import:infoms": "tsx scripts/import-infoms-csv.ts",
+    "audit:coords": "tsx scripts/audit-coords.ts",
+    "mark:audited": "tsx scripts/mark-audited.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },

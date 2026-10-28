@@ -1,0 +1,4 @@
+id;nome_fantasia;tipo;bairro;endereco_completo;telefone;dispensa_psicotropicos_sus;polo_vacinacao_municipal;status_funcionamento;mensagem_contingencia;lat;lng
+ubs-sintetica-z1;UBS_SINTETICA_Z1;UBS;BAIRRO_SINTETICO_1;RUA SINTETICA UBS, 10;(65) 0000-2001;NAO;SIM;NORMAL;;-15,5850;-56,0850
+policlinica-sintetica-z2;POLICLINICA_SINTETICA_Z2;POLICLINICA;BAIRRO_SINTETICO_2;RUA SINTETICA POL, 20;(65) 0000-2002;SIM;NAO;NORMAL;;-15,6150;-56,1150
+upa-sintetica-sem-coord-z3;UPA_SINTETICA_SEM_COORD_Z3;UPA;BAIRRO_SINTETICO_3;RUA SINTETICA UPA, 30;(65) 0000-2003;NAO;SIM;CONTINGENCIA_PARCIAL;CONTINGENCIA_SINTETICA;;

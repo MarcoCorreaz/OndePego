@@ -29,6 +29,7 @@ Só ativar quando existir fonte oficial de estoque. Texto a definir e aprovar ne
 
 - **Título:** Gratuito no Farmácia Popular
 - **Texto:** Leve documento oficial com foto e receita médica válida. Confirme com a farmácia se o item está disponível hoje.
+- **Requisito adicional (`FRALDA_GERIATRICA`):** Para fralda geriátrica: ter 60 anos ou mais ou ser pessoa com deficiência, e apresentar prescrição, laudo ou atestado médico indicando a necessidade, conforme as regras do programa
 - Antes de publicar, conferir a lista exata de documentos na página oficial do programa.
 
 ### Item fora do elenco

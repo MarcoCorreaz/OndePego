@@ -1,10 +1,19 @@
 import { GEO_BBOX } from '@/types/schema';
 
+/**
+ * Fonte única do caminho do arquivo `.pmtiles` em todo o app (usado pelo estilo MapLibre,
+ * pelo gerenciador de download offline `offlineMapManager` e pelo componente `OfflineMapDownload`).
+ *
+ * Para atualizar o recorte de mapa no futuro:
+ * 1. Gere o novo arquivo com data no nome (ex.: `/tiles/cuiaba-vg-20261101.pmtiles`);
+ * 2. Atualize esta constante `DEFAULT_PMTILES_ARCHIVE_PATH`;
+ * 3. Remova o arquivo antigo de `public/tiles/` (veja `scripts/extract-tiles.md`).
+ */
 export const DEFAULT_PMTILES_ARCHIVE_PATH = '/tiles/cuiaba-vg.pmtiles';
 
 export const CUIABA_VG_CENTER = {
-  lat: -15.601,
-  lng: -56.097,
+  lat: -15.6014,
+  lng: -56.0979,
 } as const;
 
 export const CUIABA_VG_BOUNDS: [[number, number], [number, number]] = [

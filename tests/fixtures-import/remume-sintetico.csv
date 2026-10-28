@@ -1,0 +1,4 @@
+principio_ativo;descricao_dosagem;local_dispensacao_sus;nota_especifica_cuiaba;id_dcb;codigo_atc
+MEDICAMENTO_SINTETICO_X;50 mg comprimido;UBS;Uso contínuo sintético;DCB_SINT_01;ATC_SINT_01
+MEDICAMENTO_SINTETICO_X;100 mg comprimido;UBS;;DCB_SINT_01;ATC_SINT_01
+MEDICAMENTO_SINTETICO_CONTROLADO_W;2 mg comprimido;POLICLINICA_PORTARIA344;Receita de controle especial sintética;DCB_SINT_02;ATC_SINT_02

@@ -1,3 +1,4 @@
+import { isPlaceholderCoordinate } from '@/lib/dataRules';
 import { normalizePTBR } from '@/lib/normalize';
 import { CUIABA_VG_CENTER } from '@/lib/pmtilesProtocol';
 import { type Estabelecimento, GEO_BBOX } from '@/types/schema';
@@ -15,12 +16,46 @@ export interface InfomsParsedRow {
   lng?: number;
 }
 
+export interface ParseInfomsCsvOptions {
+  /** Lista de municípios aceitos (ex.: `['cuiaba']` ou `'cuiaba,varzea-grande'`). Padrão: `['cuiaba']`. */
+  municipios?: readonly string[] | string;
+}
+
 export interface MergeInfomsResult {
   merged: Estabelecimento[];
   added: number;
   updated: number;
   preservedAuditedCoords: number;
   skippedOutsideMunicipio: number;
+}
+
+export function normalizeHeaderName(header: string): string {
+  return header
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '');
+}
+
+function normalizeMunicipioToken(value: string): string {
+  return normalizePTBR(value.replace(/-/g, ' '));
+}
+
+export function parseMunicipiosFilter(
+  raw: readonly string[] | string | undefined,
+): Set<string> {
+  if (!raw) {
+    return new Set([normalizeMunicipioToken('cuiaba')]);
+  }
+  const list = Array.isArray(raw) ? raw : String(raw).split(',');
+  const normalized = list
+    .map((item) => normalizeMunicipioToken(String(item)))
+    .filter((item) => item.length > 0);
+  if (normalized.length === 0) {
+    return new Set([normalizeMunicipioToken('cuiaba')]);
+  }
+  return new Set(normalized);
 }
 
 /**
@@ -79,7 +114,7 @@ export function splitCsvLine(line: string, delimiter: ';' | ','): string[] {
   return cells;
 }
 
-function isWithinCuiabaVgBbox(lat: number, lng: number): boolean {
+export function isWithinCuiabaVgBbox(lat: number, lng: number): boolean {
   return (
     Number.isFinite(lat) &&
     Number.isFinite(lng) &&
@@ -90,7 +125,7 @@ function isWithinCuiabaVgBbox(lat: number, lng: number): boolean {
   );
 }
 
-function parseCoordinateNumber(raw: string | undefined): number | undefined {
+export function parseCoordinateNumber(raw: string | undefined): number | undefined {
   if (!raw) return undefined;
   const cleaned = raw.trim().replace(',', '.');
   if (!cleaned) return undefined;
@@ -116,12 +151,17 @@ function buildEstablishmentIdFromRaw(rawIdOrCnpj: string, fallbackIndex: number)
 
 /**
  * Lê o texto CSV exportado do painel InfoMS (`SEIDIGI_DEMAS_PFPB_ENDERECOS`)
- * removendo UTF-8 BOM, detectando `;` ou `,` e mapeando as colunas relevantes.
+ * removendo UTF-8 BOM, detectando `;` ou `,`, filtrando por `--municipios` (padrão: `cuiaba`)
+ * e mapeando as colunas relevantes.
  */
-export function parseInfomsCsv(csvText: string): {
+export function parseInfomsCsv(
+  csvText: string,
+  options: ParseInfomsCsvOptions = {},
+): {
   rows: InfomsParsedRow[];
   skippedOutsideMunicipio: number;
 } {
+  const allowedMunicipios = parseMunicipiosFilter(options.municipios);
   const cleanText = stripUtf8Bom(csvText).replace(/\r\n/g, '\n').replace(/\r/g, '\n');
   const lines = cleanText
     .split('\n')
@@ -135,14 +175,7 @@ export function parseInfomsCsv(csvText: string): {
   const headerLine = lines[0]!;
   const delimiter = detectCsvDelimiter(headerLine);
   const rawHeaders = splitCsvLine(headerLine, delimiter);
-  const normHeaders = rawHeaders.map((h) =>
-    h
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9]+/g, '_')
-      .replace(/^_+|_+$/g, ''),
-  );
+  const normHeaders = rawHeaders.map(normalizeHeaderName);
 
   const findColIndex = (candidates: string[]): number => {
     for (const cand of candidates) {
@@ -197,7 +230,7 @@ export function parseInfomsCsv(csvText: string): {
     const uf = getCell(idxUf) || 'MT';
     const municipio = getCell(idxMunicipio) || 'Cuiabá';
 
-    if (idxMunicipio >= 0 && normalizePTBR(municipio) !== 'cuiaba') {
+    if (idxMunicipio >= 0 && !allowedMunicipios.has(normalizeMunicipioToken(municipio))) {
       skippedOutsideMunicipio++;
       continue;
     }
@@ -243,10 +276,11 @@ export function parseInfomsCsv(csvText: string): {
 /**
  * Mescla as linhas importadas do CSV do InfoMS com a lista existente de estabelecimentos.
  *
- * REGRA DE OURO (Seção 12 do DAS e skill `busca-dados-contratos`):
+ * REGRAS DE OURO (Seção 12 do DAS e skill `busca-dados-contratos`):
  * - Se o estabelecimento já existir e `coordenadas.auditado_manualmente === true`,
  *   as coordenadas (`lat`, `lng`) e o flag `auditado_manualmente: true` NUNCA são sobrescritos.
- * - Novos estabelecimentos entram com `auditado_manualmente: false`.
+ * - Farmácia sem `lat`/`lng` válido no CSV NÃO recebe `CUIABA_VG_CENTER` como pino real:
+ *   fica marcada com `sem_localizacao: true` e `auditado_manualmente: false`.
  */
 export function mergeInfomsEstablishments(
   existing: readonly Estabelecimento[],
@@ -274,7 +308,8 @@ export function mergeInfomsEstablishments(
     const hasValidCsvCoords =
       row.lat !== undefined &&
       row.lng !== undefined &&
-      isWithinCuiabaVgBbox(row.lat, row.lng);
+      isWithinCuiabaVgBbox(row.lat, row.lng) &&
+      !isPlaceholderCoordinate(row.lat, row.lng);
 
     if (current) {
       const isAudited = current.coordenadas.auditado_manualmente === true;
@@ -322,6 +357,7 @@ export function mergeInfomsEstablishments(
             lat: CUIABA_VG_CENTER.lat,
             lng: CUIABA_VG_CENTER.lng,
             auditado_manualmente: false,
+            sem_localizacao: true,
           };
 
       const newEst: Estabelecimento = {

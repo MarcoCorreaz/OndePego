@@ -293,8 +293,9 @@ São metas de projeto a medir no CI e em aparelho real, não resultados já obti
 ## 12. Pipeline
 
 - `scripts/validate-schemas.ts` trava o build se um JSON for inválido.
+- Na plataforma de hospedagem (Cloudflare Pages / Vercel), o comando de build configurado é `npm run build:prod` (`npm run validate:prod && next build`), que **falha intencionalmente** enquanto existirem fixtures (`__fixture: true` ou `meta.versao` terminando em `-fixture`) no repositório.
 - `scripts/import-infoms-csv.ts` lê o CSV do InfoMS preservando coordenadas já auditadas.
-- Workflow semanal: validar, atualizar carimbo, avisar monitoramento.
+- Workflow semanal: validar (com `permissions: contents: read` por padrão e escrita isolada apenas no job de carimbo), atualizar carimbo, avisar monitoramento.
 - Sem commits ou migrações automáticas fora do carimbo de verificação.
 
 ---

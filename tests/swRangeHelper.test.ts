@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import {
   canCacheResponse,
@@ -74,5 +76,20 @@ describe('swRangeHelper — proteção Cache API contra 206 e corte exato de Ran
     expect(result.status).toBe(416);
     expect(result.body).toBeNull();
     expect(result.headers['Content-Range']).toBe('bytes */64');
+  });
+
+  it('garante fonte única de verdade em public/sw-range-helper.js e cache de ArrayBuffer com singleflight em public/sw.js', () => {
+    const swCode = fs.readFileSync(path.resolve(process.cwd(), 'public/sw.js'), 'utf-8');
+    expect(swCode).toContain("importScripts('/sw-range-helper.js')");
+    expect(swCode).toContain('const NAVIGATION_TIMEOUT_MS = 3000;');
+    expect(swCode).toContain(
+      'Esta página ainda não foi salva neste aparelho. Volte ao início.',
+    );
+    expect(swCode).toContain('function getOrLoadPmtilesBuffer');
+    expect(swCode).toContain('function cleanupOldPmtilesEntries');
+    expect(swCode).toContain('PMTILES_CACHE_UPDATED');
+    expect(swCode).toContain('PMTILES_CACHE_REMOVED');
+    expect(swCode).not.toContain('function parseHttpByteRange');
+    expect(swCode).not.toContain('function sliceArrayBufferForRange');
   });
 });

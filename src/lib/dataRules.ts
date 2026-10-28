@@ -1,4 +1,70 @@
-import type { Estabelecimento, Medicamento, MetaDados } from '@/types/schema';
+import { GEO_BBOX, type Estabelecimento, type Medicamento, type MetaDados } from '@/types/schema';
+
+export const PLACEHOLDER_CENTER_COORDS = {
+  lat: -15.6014,
+  lng: -56.0979,
+} as const;
+
+/**
+ * Detecta se um par `(lat, lng)` é igual à coordenada-placeholder de centro (`CUIABA_VG_CENTER`:
+ * `-15.6014, -56.0979` ou `-15.601, -56.097`).
+ */
+export function isPlaceholderCoordinate(lat: number, lng: number): boolean {
+  if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
+    return true;
+  }
+  return (
+    Math.abs(lat - PLACEHOLDER_CENTER_COORDS.lat) <= 0.0005 &&
+    Math.abs(lng - PLACEHOLDER_CENTER_COORDS.lng) <= 0.001
+  );
+}
+
+/**
+ * Verifica se um estabelecimento possui coordenada geográfica real e válida para exibição
+ * de pino no mapa, cálculo de distância Haversine e botão "Ver rota".
+ * Retorna `false` quando `sem_localizacao === true`, fora da `GEO_BBOX` ou igual ao placeholder `CUIABA_VG_CENTER`.
+ */
+export function hasValidMapCoordinates(
+  est:
+    | {
+        coordenadas?: {
+          lat?: number | null;
+          lng?: number | null;
+          auditado_manualmente?: boolean;
+          sem_localizacao?: boolean;
+        } | null;
+      }
+    | null
+    | undefined,
+): boolean {
+  if (!est || !est.coordenadas) {
+    return false;
+  }
+  const { lat, lng, sem_localizacao } = est.coordenadas;
+  if (sem_localizacao === true) {
+    return false;
+  }
+  if (
+    typeof lat !== 'number' ||
+    typeof lng !== 'number' ||
+    !Number.isFinite(lat) ||
+    !Number.isFinite(lng)
+  ) {
+    return false;
+  }
+  if (
+    lat < GEO_BBOX.minLat ||
+    lat > GEO_BBOX.maxLat ||
+    lng < GEO_BBOX.minLng ||
+    lng > GEO_BBOX.maxLng
+  ) {
+    return false;
+  }
+  if (isPlaceholderCoordinate(lat, lng)) {
+    return false;
+  }
+  return true;
+}
 
 export interface DuplicateIssue {
   key: string;
@@ -104,15 +170,32 @@ export function findFixtures(
 }
 
 export function findUnauditedPharmacies(estabelecimentos: readonly Estabelecimento[]): string[] {
-  const warnings: string[] = [];
+  const issues: string[] = [];
   for (const est of estabelecimentos) {
-    if (est.tipo === 'FARMACIA_POPULAR' && !est.coordenadas.auditado_manualmente) {
-      warnings.push(
-        `estabelecimentos.json › id="${est.id}" (${est.nome_fantasia}): coordenada com auditado_manualmente=false`,
+    if (est.tipo !== 'FARMACIA_POPULAR') {
+      continue;
+    }
+
+    const reasons: string[] = [];
+    if (est.coordenadas.sem_localizacao === true) {
+      reasons.push('sem_localizacao=true (coordenada ausente)');
+    } else if (isPlaceholderCoordinate(est.coordenadas.lat, est.coordenadas.lng)) {
+      reasons.push('coordenada igual ao placeholder CUIABA_VG_CENTER');
+    } else if (!hasValidMapCoordinates(est)) {
+      reasons.push('coordenada inválida');
+    }
+
+    if (!est.coordenadas.auditado_manualmente) {
+      reasons.push('coordenada com auditado_manualmente=false');
+    }
+
+    if (reasons.length > 0) {
+      issues.push(
+        `estabelecimentos.json › id="${est.id}" (${est.nome_fantasia}): ${reasons.join('; ')}`,
       );
     }
   }
-  return warnings;
+  return issues;
 }
 
 export function validateBusinessRules(params: {
@@ -124,6 +207,16 @@ export function validateBusinessRules(params: {
   const { meta, medicamentos, estabelecimentos, isProduction } = params;
   const errors: string[] = [];
   const warnings: string[] = [];
+
+  if (medicamentos.length === 0) {
+    errors.push('medicamentos.json: a lista de medicamentos não pode estar vazia (length === 0)');
+  }
+
+  if (estabelecimentos.length === 0) {
+    errors.push(
+      'estabelecimentos.json: a lista de estabelecimentos não pode estar vazia (length === 0)',
+    );
+  }
 
   const slugDupes = findDuplicates(medicamentos, (m) => m.slug, 'slug');
   for (const d of slugDupes) {
@@ -153,14 +246,27 @@ export function validateBusinessRules(params: {
     );
   }
 
+  const pharmacyCoordIssues = findUnauditedPharmacies(estabelecimentos);
+  warnings.push(...pharmacyCoordIssues);
+
   if (isProduction) {
+    if (meta.versao.trim().toLowerCase().endsWith('-fixture')) {
+      errors.push(
+        `MODO PRODUÇÃO (--prod / NODE_ENV=production): meta.json › versao="${meta.versao}" termina com "-fixture" e não é permitida em produção`,
+      );
+    }
+
     const fixtures = findFixtures(meta, medicamentos, estabelecimentos);
     for (const f of fixtures) {
       errors.push(`NODE_ENV=production: registro de fixture não permitido em produção: ${f}`);
     }
-  }
 
-  warnings.push(...findUnauditedPharmacies(estabelecimentos));
+    for (const issue of pharmacyCoordIssues) {
+      errors.push(
+        `MODO PRODUÇÃO (--prod): farmácia credenciada sem coordenada válida ou não auditada: ${issue}`,
+      );
+    }
+  }
 
   return { errors, warnings };
 }

@@ -16,6 +16,7 @@ export interface SearchSessionContextValue {
   query: string;
   results: ResultadoBusca[];
   scrollY: number;
+  isHydrated: boolean;
   setQuery: (nextQuery: string) => void;
   clearQuery: () => void;
   recordScrollY: (scrollY: number) => void;
@@ -122,11 +123,12 @@ export function SearchSessionProvider({ catalogo, children }: SearchSessionProvi
       query,
       results,
       scrollY,
+      isHydrated,
       setQuery,
       clearQuery,
       recordScrollY,
     }),
-    [query, results, scrollY, setQuery, clearQuery, recordScrollY],
+    [query, results, scrollY, isHydrated, setQuery, clearQuery, recordScrollY],
   );
 
   return <SearchSessionContext.Provider value={value}>{children}</SearchSessionContext.Provider>;

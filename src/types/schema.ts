@@ -55,6 +55,7 @@ export const Coordenadas = z
     lat: z.number(),
     lng: z.number(),
     auditado_manualmente: z.boolean(),
+    sem_localizacao: z.boolean().optional(),
   })
   .refine(
     (c) =>

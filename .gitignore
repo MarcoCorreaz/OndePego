@@ -3,5 +3,6 @@ node_modules/
 out/
 next-env.d.ts
 *.tsbuildinfo
+public/precache-manifest.json
 .DS_Store
 Thumbs.db

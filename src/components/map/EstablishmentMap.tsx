@@ -16,6 +16,7 @@ import {
   calcularDistanciaKm,
   formatarDistancia,
   gerarUrlRotaGoogleMaps,
+  hasValidMapCoordinates,
 } from '@/lib/geoEngine';
 import { NORMATIVE_TEXTS } from '@/lib/healthCopy';
 import {
@@ -48,25 +49,34 @@ export default function EstablishmentMap({
   const mapInstanceRef = useRef<MapLibreMap | null>(null);
   const markersRef = useRef<Marker[]>([]);
 
+  // Apenas estabelecimentos com coordenada válida aparecem como pino no mapa
+  const estabelecimentosNoMapa = useMemo(
+    () => estabelecimentos.filter((e) => hasValidMapCoordinates(e)),
+    [estabelecimentos],
+  );
+
   const [renderMode, setRenderMode] = useState<MapRenderMode>('checking');
   const [selectedId, setSelectedId] = useState<string>(
-    initialSelectedId ?? estabelecimentos[0]?.id ?? '',
+    initialSelectedId ?? estabelecimentosNoMapa[0]?.id ?? '',
   );
 
   // Mantém um pino válido selecionado quando a lista filtrada muda
   useEffect(() => {
-    if (estabelecimentos.length === 0) {
+    if (estabelecimentosNoMapa.length === 0) {
       setSelectedId('');
       return;
     }
-    if (!estabelecimentos.some((e) => e.id === selectedId)) {
-      setSelectedId(estabelecimentos[0]!.id);
+    if (!estabelecimentosNoMapa.some((e) => e.id === selectedId)) {
+      setSelectedId(estabelecimentosNoMapa[0]!.id);
     }
-  }, [estabelecimentos, selectedId]);
+  }, [estabelecimentosNoMapa, selectedId]);
 
   const selectedEstablishment = useMemo(
-    () => estabelecimentos.find((e) => e.id === selectedId) ?? estabelecimentos[0] ?? null,
-    [estabelecimentos, selectedId],
+    () =>
+      estabelecimentosNoMapa.find((e) => e.id === selectedId) ??
+      estabelecimentosNoMapa[0] ??
+      null,
+    [estabelecimentosNoMapa, selectedId],
   );
 
   // Verifica suporte a WebGL e disponibilidade do arquivo .pmtiles local antes de iniciar o MapLibre
@@ -156,7 +166,7 @@ export default function EstablishmentMap({
     markersRef.current.forEach((m) => m.remove());
     markersRef.current = [];
 
-    for (const est of estabelecimentos) {
+    for (const est of estabelecimentosNoMapa) {
       const badge = getEstablishmentTypeBadge(est.tipo);
       const isSelected = est.id === selectedEstablishment?.id;
 
@@ -193,7 +203,7 @@ export default function EstablishmentMap({
         { duration: 220 },
       );
     }
-  }, [renderMode, estabelecimentos, selectedEstablishment]);
+  }, [renderMode, estabelecimentosNoMapa, selectedEstablishment]);
 
   const distanciaSelecionado = useMemo(() => {
     if (!userCoords || !selectedEstablishment) {
@@ -254,7 +264,7 @@ export default function EstablishmentMap({
             </div>
 
             {/* Pinos clicáveis acessíveis (>= 48x48px) posicionados dentro da GEO_BBOX */}
-            {estabelecimentos.map((est) => {
+            {estabelecimentosNoMapa.map((est) => {
               const pos = projectCoordToSchematicPercent(est.coordenadas);
               const badge = getEstablishmentTypeBadge(est.tipo);
               const isSelected = est.id === selectedEstablishment?.id;
@@ -336,24 +346,31 @@ export default function EstablishmentMap({
             </p>
           )}
 
-          <div className="mt-3 flex flex-wrap gap-3 border-t border-[var(--c-border-subtle)] pt-3">
-            <a
-              href={gerarUrlRotaGoogleMaps(selectedEstablishment.coordenadas, 'transit')}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] border-2 border-[var(--c-border)] bg-[var(--c-brand)] px-4 py-2 font-display text-lg font-bold text-white"
-            >
-              <span>Ver rota para {selectedEstablishment.nome_fantasia} (ônibus/carro)</span>
-            </a>
+          <div className="mt-3 space-y-2 border-t border-[var(--c-border-subtle)] pt-3">
+            {!selectedEstablishment.coordenadas.auditado_manualmente && (
+              <p className="text-sm font-bold text-[var(--c-text-2)]">
+                Localização aproximada. Confira o endereço.
+              </p>
+            )}
+            <div className="flex flex-wrap gap-3">
+              <a
+                href={gerarUrlRotaGoogleMaps(selectedEstablishment.coordenadas, 'transit')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] border-2 border-[var(--c-border)] bg-[var(--c-brand)] px-4 py-2 font-display text-lg font-bold text-white"
+              >
+                <span>Ver rota para {selectedEstablishment.nome_fantasia} (ônibus/carro)</span>
+              </a>
 
-            <a
-              href={gerarUrlRotaGoogleMaps(selectedEstablishment.coordenadas, 'walking')}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] border-2 border-[var(--c-border)] bg-[var(--c-bg-soft)] px-4 py-2 font-display text-lg font-bold text-[var(--c-text)]"
-            >
-              <span>Ver rota a pé</span>
-            </a>
+              <a
+                href={gerarUrlRotaGoogleMaps(selectedEstablishment.coordenadas, 'walking')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] border-2 border-[var(--c-border)] bg-[var(--c-bg-soft)] px-4 py-2 font-display text-lg font-bold text-[var(--c-text)]"
+              >
+                <span>Ver rota a pé</span>
+              </a>
+            </div>
           </div>
         </div>
       )}

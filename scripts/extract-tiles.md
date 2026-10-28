@@ -48,3 +48,23 @@ pmtiles show public/tiles/cuiaba-vg.pmtiles
 - **Opção A (Preferida — Mesma Origem):** manter `public/tiles/cuiaba-vg.pmtiles` no deploy estático do Cloudflare Pages, desde que o arquivo final tenha **menos de 25 MiB** (limite por arquivo do Cloudflare Pages).
 - **Opção B (Bucket dedicado):** se exceder 25 MiB, hospedar no Cloudflare R2 com regras de CORS explícitas para `GET` e `HEAD`, permitindo os cabeçalhos `Range` e `If-Match` e expondo `Content-Range`, `Content-Length` e `ETag`.
 - **Verificação obrigatória antes de publicar:** abrir a aba Rede (Network) do navegador em janela anônima e confirmar respostas **HTTP 206 Partial Content** ao dar zoom no mapa.
+
+---
+
+## 4. Procedimento de Atualização Versionada do Mapa
+
+O caminho do arquivo `.pmtiles` é centralizado na constante `DEFAULT_PMTILES_ARCHIVE_PATH` em `src/lib/pmtilesProtocol.ts`. Quando precisar atualizar a malha viária de Cuiabá e Várzea Grande:
+
+1. **Gere o novo arquivo com a data no nome** (ex.: `cuiaba-vg-20261101.pmtiles`):
+   ```bash
+   pmtiles extract https://build.protomaps.com/20261101.pmtiles public/tiles/cuiaba-vg-20261101.pmtiles \
+     --bbox=-56.35,-15.85,-55.80,-15.35 \
+     --maxzoom=14
+   ```
+2. **Atualize `DEFAULT_PMTILES_ARCHIVE_PATH`** em `src/lib/pmtilesProtocol.ts`:
+   ```ts
+   export const DEFAULT_PMTILES_ARCHIVE_PATH = '/tiles/cuiaba-vg-20261101.pmtiles';
+   ```
+3. **Remova o arquivo antigo** de `public/tiles/` antes do build.
+4. **Limpeza automática no celular do usuário:** assim que o usuário baixar a nova versão pelo botão `"Baixar mapa para usar offline"`, `offlineMapManager.ts` e `public/sw.js` apagam automaticamente quaisquer entradas `.pmtiles` anteriores do cache `onde-pego-tiles-v1` e limpam o `ArrayBuffer` antigo da memória do Service Worker.
+

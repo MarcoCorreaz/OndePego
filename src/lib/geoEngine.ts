@@ -1,5 +1,8 @@
+import { hasValidMapCoordinates } from '@/lib/dataRules';
 import { normalizePTBR } from '@/lib/normalize';
 import type { Estabelecimento } from '@/types/schema';
+
+export { hasValidMapCoordinates };
 
 const EARTH_RADIUS_KM = 6371;
 
@@ -11,6 +14,11 @@ export interface LatLng {
 export interface EstabelecimentoComDistancia {
   estabelecimento: Estabelecimento;
   distanciaKm: number;
+}
+
+export interface EstabelecimentoListavel {
+  estabelecimento: Estabelecimento;
+  distanciaKm: number | null;
 }
 
 function toRadians(degrees: number): number {
@@ -54,12 +62,14 @@ export function formatarDistancia(distanciaKm: number): string {
 
 /**
  * Ordena uma lista de estabelecimentos do mais próximo ao mais distante a partir de `origem`.
+ * Estabelecimentos sem coordenada válida no mapa NUNCA entram no cálculo Haversine.
  */
 export function ordenarEstabelecimentosPorDistancia(
   estabelecimentos: readonly Estabelecimento[],
   origem: LatLng,
 ): EstabelecimentoComDistancia[] {
   return estabelecimentos
+    .filter((estabelecimento) => hasValidMapCoordinates(estabelecimento))
     .map((estabelecimento) => ({
       estabelecimento,
       distanciaKm: calcularDistanciaKm(origem, estabelecimento.coordenadas),
@@ -73,6 +83,33 @@ export function ordenarEstabelecimentosPorDistancia(
         'pt-BR',
       );
     });
+}
+
+/**
+ * Para exibição honesta na lista: quando `origem` (GPS) está ativa, ordena primeiro os estabelecimentos
+ * com coordenada válida por distância Haversine e mantém ao final (com `distanciaKm: null`) os
+ * estabelecimentos sem localização no mapa, para que continuem visíveis pelo endereço.
+ */
+export function ordenarListaComOuSemDistancia(
+  estabelecimentos: readonly Estabelecimento[],
+  origem: LatLng | null,
+): EstabelecimentoListavel[] {
+  if (!origem) {
+    return estabelecimentos.map((estabelecimento) => ({
+      estabelecimento,
+      distanciaKm: null,
+    }));
+  }
+
+  const comCoord = ordenarEstabelecimentosPorDistancia(estabelecimentos, origem);
+  const semCoord = estabelecimentos
+    .filter((e) => !hasValidMapCoordinates(e))
+    .map((estabelecimento) => ({
+      estabelecimento,
+      distanciaKm: null,
+    }));
+
+  return [...comCoord, ...semCoord];
 }
 
 /**

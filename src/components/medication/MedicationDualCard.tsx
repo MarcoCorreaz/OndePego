@@ -4,17 +4,18 @@ import React, { useState } from 'react';
 import { LazyMotion, MotionConfig, domAnimation } from 'motion/react';
 import * as m from 'motion/react-m';
 import { useAccessibility } from '@/components/layout/AccessibilityProvider';
+import { useSearchSession } from '@/components/search/SearchSessionProvider';
 import {
   formatIsoDatePTBR,
   getVia1Copy,
   getVia2Copy,
 } from '@/lib/healthCopy';
+import { resolveMatchState } from '@/lib/searchSession';
 import type { Estabelecimento, Medicamento, MetaDados } from '@/types/schema';
 
 export interface MedicationDualCardProps {
   medicamento: Medicamento;
   meta: MetaDados;
-  exato: boolean;
   selectedApresentacaoId?: string;
   onSelectApresentacao?: (idApresentacao: string) => void;
   controlledUnits?: readonly Estabelecimento[];
@@ -23,12 +24,16 @@ export interface MedicationDualCardProps {
 export function MedicationDualCard({
   medicamento,
   meta,
-  exato,
   selectedApresentacaoId,
   onSelectApresentacao,
   controlledUnits = [],
 }: MedicationDualCardProps) {
   const { effectiveReduceMotion } = useAccessibility();
+  const { results, isHydrated } = useSearchSession();
+
+  const matchState = isHydrated
+    ? resolveMatchState(results, medicamento.slug)
+    : 'desconhecido';
 
   const [internalSelectedId, setInternalSelectedId] = useState<string>(
     medicamento.apresentacoes[0]?.id_apresentacao ?? '',
@@ -56,24 +61,26 @@ export function MedicationDualCard({
       aria-labelledby={`med-title-${medicamento.slug}`}
       className="space-y-6 text-[var(--c-text)]"
     >
-      {/* Cabeçalho do Medicamento: Selo Exato/Aproximado + Princípio Ativo + Dosagem */}
+      {/* Cabeçalho do Medicamento: Selo Exato/Aproximado (apenas quando conhecido) + Princípio Ativo + Dosagem */}
       <header className="rounded-[var(--r-plate)] border-2 border-[var(--c-border)] bg-[var(--c-bg)] p-4 sm:p-5">
-        <div className="mb-3 flex flex-wrap items-center gap-2">
-          {exato ? (
-            <span className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-chip)] border-2 border-[var(--c-brand)] bg-[var(--c-brand-tint)] px-3 py-1 text-base font-bold text-[var(--c-brand)]">
-              <span aria-hidden="true">✓</span>
-              <span>Resultado exato</span>
-            </span>
-          ) : (
-            <span
-              role="status"
-              className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-chip)] border-2 border-[var(--c-border)] bg-[var(--c-attn)] px-3 py-1 text-base font-bold text-[var(--c-text)]"
-            >
-              <span aria-hidden="true">⚠</span>
-              <span>Resultado aproximado — confira princípio ativo e dosagem com sua receita</span>
-            </span>
-          )}
-        </div>
+        {matchState !== 'desconhecido' && (
+          <div className="mb-3 flex flex-wrap items-center gap-2">
+            {matchState === 'exato' ? (
+              <span className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-chip)] border-2 border-[var(--c-brand)] bg-[var(--c-brand-tint)] px-3 py-1 text-base font-bold text-[var(--c-brand)]">
+                <span aria-hidden="true">✓</span>
+                <span>Resultado exato</span>
+              </span>
+            ) : (
+              <span
+                role="status"
+                className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-chip)] border-2 border-[var(--c-border)] bg-[var(--c-attn)] px-3 py-1 text-base font-bold text-[var(--c-text)]"
+              >
+                <span aria-hidden="true">⚠</span>
+                <span>Resultado aproximado — confira princípio ativo e dosagem com sua receita</span>
+              </span>
+            )}
+          </div>
+        )}
 
         <h2
           id={`med-title-${medicamento.slug}`}

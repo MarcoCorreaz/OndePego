@@ -32,6 +32,8 @@ export const NORMATIVE_TEXTS = {
     },
     PINO_E_CARTAO_FARMACIA:
       'Farmácia credenciada ao programa. A disponibilidade do item deve ser confirmada com a farmácia.',
+    FRALDA_GERIATRICA_REQUISITO:
+      'Para fralda geriátrica: ter 60 anos ou mais ou ser pessoa com deficiência, e apresentar prescrição, laudo ou atestado médico indicando a necessidade, conforme as regras do programa',
   },
   avisoIndependencia:
     'O Onde Pego é um projeto independente de tecnologia cívica que usa dados abertos públicos. Não tem vínculo com a Prefeitura de Cuiabá, o SUS ou o Ministério da Saúde. Nenhum medicamento é entregue sem avaliação e receita médica.',
@@ -146,9 +148,7 @@ export function getVia2Copy(apresentacao: Apresentacao): Via2ResolvedCopy {
   ];
 
   if (apresentacao.requisito_farmacia_popular === 'FRALDA_GERIATRICA') {
-    documentosParaLevar.push(
-      'Para fralda geriátrica: indicação para pessoa com 60 anos ou mais ou pessoa com deficiência, conforme regras do programa',
-    );
+    documentosParaLevar.push(NORMATIVE_TEXTS.via2.FRALDA_GERIATRICA_REQUISITO);
   } else if (apresentacao.requisito_farmacia_popular === 'DIGNIDADE_MENSTRUAL') {
     documentosParaLevar.push(
       'Para absorvente (Dignidade Menstrual): autorização emitida no Meu SUS Digital, conforme regras do programa',

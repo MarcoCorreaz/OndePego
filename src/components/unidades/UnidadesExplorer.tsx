@@ -2,6 +2,7 @@
 
 import React, { useId, useMemo, useState } from 'react';
 import { LazyEstablishmentMap } from '@/components/map/LazyEstablishmentMap';
+import { OfflineMapDownload } from '@/components/map/OfflineMapDownload';
 import {
   type EstablishmentFilterType,
   filterEstablishments,
@@ -11,9 +12,10 @@ import {
   type LatLng,
   formatarDistancia,
   gerarUrlRotaGoogleMaps,
+  hasValidMapCoordinates,
   listarBairrosUnicos,
   ordenarEstabelecimentosPorBairro,
-  ordenarEstabelecimentosPorDistancia,
+  ordenarListaComOuSemDistancia,
 } from '@/lib/geoEngine';
 import { NORMATIVE_TEXTS, formatIsoDatePTBR } from '@/lib/healthCopy';
 import type { Estabelecimento, MetaDados } from '@/types/schema';
@@ -61,13 +63,7 @@ export function UnidadesExplorer({ estabelecimentos, meta }: UnidadesExplorerPro
 
   const listaOrdenada = useMemo(() => {
     const porBairro = ordenarEstabelecimentosPorBairro(estabelecimentosFiltrados);
-    if (userCoords) {
-      return ordenarEstabelecimentosPorDistancia(porBairro, userCoords);
-    }
-    return porBairro.map((estabelecimento) => ({
-      estabelecimento,
-      distanciaKm: null as number | null,
-    }));
+    return ordenarListaComOuSemDistancia(porBairro, userCoords);
   }, [estabelecimentosFiltrados, userCoords]);
 
   const handleRequestGps = () => {
@@ -214,9 +210,12 @@ export function UnidadesExplorer({ estabelecimentos, meta }: UnidadesExplorerPro
       </section>
 
       {/* Mapa sob demanda (MapLibre + PMTiles / Esquemático local) */}
-      <section aria-label="Visualização no mapa">
+      <section aria-label="Visualização no mapa" className="space-y-3">
+        <OfflineMapDownload />
         <LazyEstablishmentMap
-          estabelecimentos={listaOrdenada.map((item) => item.estabelecimento)}
+          estabelecimentos={listaOrdenada
+            .map((item) => item.estabelecimento)
+            .filter((e) => hasValidMapCoordinates(e))}
           userCoords={userCoords}
           defaultOpen={false}
           toggleButtonLabelOpen="Abrir mapa das unidades e farmácias"
@@ -252,6 +251,7 @@ export function UnidadesExplorer({ estabelecimentos, meta }: UnidadesExplorerPro
             {listaOrdenada.map(({ estabelecimento, distanciaKm }) => {
               const badge = getEstablishmentTypeBadge(estabelecimento.tipo);
               const statusOp = estabelecimento.atributos_operacionais.status_funcionamento;
+              const temCoordenadaValida = hasValidMapCoordinates(estabelecimento);
 
               return (
                 <li
@@ -304,24 +304,39 @@ export function UnidadesExplorer({ estabelecimentos, meta }: UnidadesExplorerPro
                     </p>
                   )}
 
-                  <div className="mt-4 flex flex-wrap gap-3 border-t-2 border-[var(--c-border-subtle)] pt-3">
-                    <a
-                      href={gerarUrlRotaGoogleMaps(estabelecimento.coordenadas, 'transit')}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex min-h-[48px] items-center justify-center rounded-[var(--r-button)] border-2 border-[var(--c-border)] bg-[var(--c-brand)] px-4 py-2 font-display text-lg font-bold text-white"
-                    >
-                      Ver rota para {estabelecimento.nome_fantasia}
-                    </a>
+                  <div className="mt-4 space-y-2 border-t-2 border-[var(--c-border-subtle)] pt-3">
+                    {!temCoordenadaValida ? (
+                      <p className="rounded border-2 border-[var(--c-border-subtle)] bg-[var(--c-bg-soft)] px-3 py-2 text-base font-bold text-[var(--c-text-2)]">
+                        Localização no mapa indisponível. Use o endereço.
+                      </p>
+                    ) : (
+                      <>
+                        {!estabelecimento.coordenadas.auditado_manualmente && (
+                          <p className="text-sm font-bold text-[var(--c-text-2)]">
+                            Localização aproximada. Confira o endereço.
+                          </p>
+                        )}
+                        <div className="flex flex-wrap gap-3">
+                          <a
+                            href={gerarUrlRotaGoogleMaps(estabelecimento.coordenadas, 'transit')}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex min-h-[48px] items-center justify-center rounded-[var(--r-button)] border-2 border-[var(--c-border)] bg-[var(--c-brand)] px-4 py-2 font-display text-lg font-bold text-white"
+                          >
+                            Ver rota para {estabelecimento.nome_fantasia}
+                          </a>
 
-                    <a
-                      href={gerarUrlRotaGoogleMaps(estabelecimento.coordenadas, 'walking')}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex min-h-[48px] items-center justify-center rounded-[var(--r-button)] border-2 border-[var(--c-border)] bg-[var(--c-bg-soft)] px-4 py-2 font-display text-lg font-bold text-[var(--c-text)]"
-                    >
-                      Ver rota a pé
-                    </a>
+                          <a
+                            href={gerarUrlRotaGoogleMaps(estabelecimento.coordenadas, 'walking')}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex min-h-[48px] items-center justify-center rounded-[var(--r-button)] border-2 border-[var(--c-border)] bg-[var(--c-bg-soft)] px-4 py-2 font-display text-lg font-bold text-[var(--c-text)]"
+                          >
+                            Ver rota a pé
+                          </a>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </li>
               );

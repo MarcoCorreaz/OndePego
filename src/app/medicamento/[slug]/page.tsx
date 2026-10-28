@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { CredenciadasSection } from '@/components/medication/CredenciadasSection';
-import { MedicationDualCard } from '@/components/medication/MedicationDualCard';
-import { ShareMedicationButton } from '@/components/medication/ShareMedicationButton';
+import { MedicationDetailView } from '@/components/medication/MedicationDetailView';
 import { FreshnessBanner } from '@/components/ui/FreshnessBanner';
 import type { Estabelecimento, Medicamento, MetaDados } from '@/types/schema';
 import estabelecimentosJson from '../../../../data/estabelecimentos.json';
@@ -68,24 +66,12 @@ export default async function MedicamentoDetailPage({
           </Link>
         </nav>
 
-        <MedicationDualCard
+        <MedicationDetailView
           medicamento={medicamento}
+          estabelecimentos={estabelecimentos}
           meta={meta}
-          exato
           controlledUnits={unidadesControlados}
         />
-
-        <section
-          aria-label="Compartilhar informações deste medicamento"
-          className="rounded-[var(--r-plate)] border-2 border-[var(--c-border)] bg-[var(--c-bg)] p-4"
-        >
-          <h2 className="mb-3 font-display text-xl font-bold text-[var(--c-text)]">
-            Guardar ou enviar para um familiar:
-          </h2>
-          <ShareMedicationButton medicamento={medicamento} />
-        </section>
-
-        <CredenciadasSection estabelecimentos={estabelecimentos} meta={meta} />
       </main>
     </>
   );

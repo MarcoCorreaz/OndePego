@@ -11,12 +11,24 @@ import { validateBusinessRules } from '../src/lib/dataRules';
 export interface ValidateFilesOptions {
   dataDir?: string;
   isProduction?: boolean;
+  argv?: readonly string[];
 }
 
 export interface ValidateFilesResult {
   ok: boolean;
   errors: string[];
   warnings: string[];
+}
+
+/**
+ * Detecta se a validação deve rodar em modo produção, seja pela flag CLI `--prod`
+ * ou pela variável de ambiente `NODE_ENV=production`.
+ */
+export function isProductionValidationMode(
+  argv: readonly string[] = process.argv,
+  nodeEnv: string | undefined = process.env.NODE_ENV,
+): boolean {
+  return argv.includes('--prod') || nodeEnv === 'production';
 }
 
 function formatZodIssues(fileName: string, issues: readonly z.core.$ZodIssue[]): string[] {
@@ -39,7 +51,8 @@ function readJsonFile(filePath: string, fileName: string, errors: string[]): unk
 
 export function validateDataFiles(options: ValidateFilesOptions = {}): ValidateFilesResult {
   const dataDir = options.dataDir ?? path.resolve(process.cwd(), 'data');
-  const isProduction = options.isProduction ?? process.env.NODE_ENV === 'production';
+  const isProduction =
+    options.isProduction ?? isProductionValidationMode(options.argv ?? process.argv);
 
   const errors: string[] = [];
   const warnings: string[] = [];
@@ -93,21 +106,30 @@ export function validateDataFiles(options: ValidateFilesOptions = {}): ValidateF
 }
 
 function main(): void {
-  const result = validateDataFiles();
+  const isProd = isProductionValidationMode(process.argv, process.env.NODE_ENV);
+  const result = validateDataFiles({ isProduction: isProd });
 
   for (const warning of result.warnings) {
     console.warn(`[AVISO] ${warning}`);
   }
 
   if (!result.ok) {
-    console.error('Validação de dados falhou:');
+    console.error(
+      isProd
+        ? 'Validação de dados em MODO PRODUÇÃO (--prod) falhou:'
+        : 'Validação de dados falhou:',
+    );
     for (const err of result.errors) {
       console.error(`  - ${err}`);
     }
     process.exit(1);
   }
 
-  console.log('Validação de dados concluída com sucesso.');
+  console.log(
+    isProd
+      ? 'Validação de dados em MODO PRODUÇÃO (--prod) concluída com sucesso.'
+      : 'Validação de dados concluída com sucesso.',
+  );
 }
 
 const isDirectRun =

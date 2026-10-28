@@ -98,6 +98,18 @@ describe('Textos normativos de saúde (src/lib/healthCopy.ts)', () => {
     );
     expect(via2Sim.documentosParaLevar.length).toBeGreaterThanOrEqual(2);
 
+    const apFralda: Apresentacao = {
+      ...apGratuito,
+      id_apresentacao: 'ap-fp-fralda',
+      requisito_farmacia_popular: 'FRALDA_GERIATRICA',
+    };
+
+    const via2Fralda = getVia2Copy(apFralda);
+    expect(via2Fralda.gratuito).toBe(true);
+    expect(via2Fralda.documentosParaLevar).toContain(
+      'Para fralda geriátrica: ter 60 anos ou mais ou ser pessoa com deficiência, e apresentar prescrição, laudo ou atestado médico indicando a necessidade, conforme as regras do programa',
+    );
+
     const apFora: Apresentacao = {
       ...apGratuito,
       farmacia_popular_gratuito: false,

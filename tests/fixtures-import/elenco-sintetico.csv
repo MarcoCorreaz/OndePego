@@ -1,0 +1,3 @@
+principio_ativo;descricao_dosagem;farmacia_popular_gratuito;requisito_farmacia_popular;id_dcb;codigo_atc
+MEDICAMENTO_SINTETICO_X;50 mg comprimido;SIM;PADRAO_RECEITA_DOCUMENTO;DCB_SINT_01;ATC_SINT_01
+INSUMO_SINTETICO_ELENCO_PFPB;Tamanho G pacote;SIM;FRALDA_GERIATRICA;DCB_SINT_03;ATC_SINT_03
