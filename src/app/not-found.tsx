@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ArrowRightIcon, MapPinIcon, SearchIcon } from '@/components/ui/Icons';
 
 export default function NotFoundPage() {
   return (
@@ -8,14 +9,14 @@ export default function NotFoundPage() {
     >
       <section
         aria-labelledby="titulo-pagina-nao-encontrada"
-        className="rounded-[var(--r-card)] border-2 border-[var(--c-border)] bg-[var(--c-surface)] p-6 shadow-sm sm:p-8"
+        className="ui-card-elevated p-6 sm:p-8"
       >
-        <p className="text-base font-bold uppercase tracking-wide text-[var(--c-text-2)]">
+        <p className="inline-block rounded-[var(--r-chip)] bg-[var(--c-bg-soft)] px-3 py-1 text-sm font-bold text-[var(--c-text-2)]">
           Página não encontrada (erro 404)
         </p>
         <h1
           id="titulo-pagina-nao-encontrada"
-          className="mt-2 font-[family-name:var(--font-display)] text-2xl font-bold text-[var(--c-text)] sm:text-3xl"
+          className="mt-3 font-display text-2xl font-extrabold text-[var(--c-text)] sm:text-3xl"
         >
           Não encontramos este endereço no Onde Pego
         </h1>
@@ -28,15 +29,18 @@ export default function NotFoundPage() {
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
             href="/"
-            className="inline-flex min-h-[48px] items-center justify-center rounded-[var(--r-button)] border-2 border-[var(--c-primary)] bg-[var(--c-primary)] px-5 py-3 text-base font-bold text-[var(--c-primary-fg)] transition-opacity hover:opacity-95"
+            className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] bg-[var(--c-brand)] px-5 py-3 text-base font-bold text-white shadow-xs transition-opacity hover:opacity-95"
           >
-            Buscar um medicamento
+            <SearchIcon className="h-4 w-4" />
+            <span>Buscar um medicamento</span>
           </Link>
           <Link
-            href="/unidades"
-            className="inline-flex min-h-[48px] items-center justify-center rounded-[var(--r-button)] border-2 border-[var(--c-border)] bg-[var(--c-bg)] px-5 py-3 text-base font-bold text-[var(--c-text)] transition-colors hover:bg-[var(--c-surface-2)]"
+            href="/unidades/"
+            className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] border border-[var(--c-border)] bg-[var(--c-bg)] px-5 py-3 text-base font-bold text-[var(--c-text)] transition-colors hover:bg-[var(--c-bg-soft)]"
           >
-            Ver farmácias e unidades
+            <MapPinIcon className="h-4 w-4 text-[var(--c-brand)]" />
+            <span>Ver farmácias e unidades</span>
+            <ArrowRightIcon className="h-4 w-4" />
           </Link>
         </div>
       </section>

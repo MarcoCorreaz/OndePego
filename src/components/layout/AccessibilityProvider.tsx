@@ -122,10 +122,19 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
   return <AccessibilityContext.Provider value={value}>{children}</AccessibilityContext.Provider>;
 }
 
+const FALLBACK_ACCESSIBILITY_CONTEXT: AccessibilityContextValue = {
+  prefs: DEFAULT_PREFS,
+  effectiveReduceMotion: false,
+  isPanelOpen: false,
+  openPanel: () => {},
+  closePanel: () => {},
+  setFontScale: () => {},
+  setHighContrast: () => {},
+  setReduceMotion: () => {},
+  resetPrefs: () => {},
+};
+
 export function useAccessibility(): AccessibilityContextValue {
   const ctx = useContext(AccessibilityContext);
-  if (!ctx) {
-    throw new Error('useAccessibility deve ser usado dentro de um AccessibilityProvider');
-  }
-  return ctx;
+  return ctx ?? FALLBACK_ACCESSIBILITY_CONTEXT;
 }

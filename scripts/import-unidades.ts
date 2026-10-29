@@ -35,6 +35,13 @@ export function parseImportUnidadesArgs(argv: readonly string[]): ImportUnidades
     }
   }
 
+  if (!inputPath) {
+    const defaultInput = path.resolve(process.cwd(), 'fontes/unidades.csv');
+    if (fs.existsSync(defaultInput)) {
+      inputPath = defaultInput;
+    }
+  }
+
   return { inputPath, outputPath, write };
 }
 

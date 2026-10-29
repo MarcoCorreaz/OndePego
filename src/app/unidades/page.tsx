@@ -18,7 +18,7 @@ export default function UnidadesPage() {
   return (
     <>
       <FreshnessBanner meta={meta} />
-      <main id="conteudo-principal" className="mx-auto max-w-4xl space-y-6 px-4 py-6">
+      <main id="conteudo-principal" className="mx-auto max-w-4xl space-y-6 px-4 py-6 sm:py-8">
         <header className="space-y-2">
           <h1 className="font-display text-3xl font-extrabold text-[var(--c-text)] sm:text-4xl">
             Farmácias credenciadas e unidades de saúde

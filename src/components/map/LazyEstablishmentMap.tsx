@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import type { EstablishmentMapProps } from '@/components/map/EstablishmentMap';
+import { ChevronUpIcon, MapFoldedIcon } from '@/components/ui/Icons';
 
 const DynamicEstablishmentMap = dynamic(
   () => import('@/components/map/EstablishmentMap'),
@@ -12,7 +13,7 @@ const DynamicEstablishmentMap = dynamic(
       <div
         role="status"
         aria-live="polite"
-        className="flex min-h-[220px] items-center justify-center rounded-[var(--r-plate)] border-2 border-[var(--c-border)] bg-[var(--c-bg-soft)] p-6 text-center font-display text-xl font-bold text-[var(--c-text)]"
+        className="ui-card flex min-h-[220px] items-center justify-center p-6 text-center font-display text-xl font-bold text-[var(--c-text)]"
       >
         Carregando mapa de Cuiabá e Várzea Grande...
       </div>
@@ -42,9 +43,13 @@ export function LazyEstablishmentMap({
           type="button"
           aria-expanded={isOpen}
           onClick={() => setIsOpen((prev) => !prev)}
-          className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] border-2 border-[var(--c-border)] bg-[var(--c-bg-soft)] px-4 py-2 font-display text-lg font-bold text-[var(--c-brand)] hover:bg-[var(--c-brand-tint)] active:translate-y-px"
+          className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] border border-[var(--c-brand)]/30 bg-[var(--c-brand-tint)] px-4 py-2 font-display text-lg font-bold text-[var(--c-brand)] transition-colors hover:bg-[var(--c-brand)] hover:text-white active:translate-y-px"
         >
-          <span aria-hidden="true">{isOpen ? '▲' : '🗺'}</span>
+          {isOpen ? (
+            <ChevronUpIcon className="h-5 w-5" />
+          ) : (
+            <MapFoldedIcon className="h-5 w-5" />
+          )}
           <span>{isOpen ? toggleButtonLabelClose : toggleButtonLabelOpen}</span>
         </button>
 

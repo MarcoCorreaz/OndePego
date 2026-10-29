@@ -94,6 +94,19 @@ export function parseImportMedicamentosArgs(
     }
   }
 
+  if (!remumePath && !elencoPath) {
+    const defaultRemume = path.resolve(process.cwd(), 'fontes/remume.csv');
+    const defaultElenco = path.resolve(process.cwd(), 'fontes/elenco.csv');
+    const defaultSinonimos = path.resolve(process.cwd(), 'fontes/sinonimos.csv');
+    if (fs.existsSync(defaultRemume) && fs.existsSync(defaultElenco)) {
+      remumePath = defaultRemume;
+      elencoPath = defaultElenco;
+      if (!sinonimosPath && fs.existsSync(defaultSinonimos)) {
+        sinonimosPath = defaultSinonimos;
+      }
+    }
+  }
+
   return {
     remumePath,
     elencoPath,

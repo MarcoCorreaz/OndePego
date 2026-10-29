@@ -21,6 +21,20 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+li,
+a,
+button,
+span {
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .font-display {
@@ -29,6 +43,55 @@ body {
 
 .font-body {
   font-family: var(--font-sans);
+}
+
+/* Superfícies reutilizáveis com elevação suave no tema padrão e borda 2px no alto contraste */
+.ui-card {
+  background-color: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-plate);
+  box-shadow: var(--shadow-card);
+}
+
+.ui-card-elevated {
+  background-color: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-plate);
+  box-shadow: var(--shadow-elevated);
+}
+
+.ui-card-soft {
+  background-color: var(--c-bg-soft);
+  border: 1px solid var(--c-border-subtle);
+  border-radius: var(--r-plate);
+}
+
+.ui-search-shell {
+  background-color: var(--c-surface);
+  border: 1.5px solid var(--c-border-strong);
+  border-radius: var(--r-search);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.ui-search-shell:focus-within {
+  border-color: var(--c-brand);
+  box-shadow: var(--shadow-search-focus);
+}
+
+/* Reforço automático de bordas para 2px sólido apenas quando o modo Alto Contraste estiver ativo */
+html[data-contrast="high"] .ui-card,
+html[data-contrast="high"] .ui-card-elevated,
+html[data-contrast="high"] .ui-card-soft,
+html[data-contrast="high"] .ui-search-shell,
+html[data-contrast="high"] .border,
+html[data-contrast="high"] button,
+html[data-contrast="high"] select,
+html[data-contrast="high"] input {
+  border-width: 2px !important;
+  border-color: #000000 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
 }
 
 :focus-visible {

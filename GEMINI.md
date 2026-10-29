@@ -1,6 +1,6 @@
 # Onde Pego — regras do projeto
 
-Estas regras valem para **toda** interação neste repositório. Detalhes de domínio ficam nas skills em `.agent/skills/` (ver seção 8). A especificação completa está em `docs/DAS.md`.
+Estas regras valem para **toda** interação neste repositório. Detalhes de domínio ficam nas skills em `.agents/skills/` (ver seção 8). A especificação completa está em `docs/DAS.md`.
 
 ## 1. O que é este projeto
 
@@ -62,7 +62,7 @@ Público: muitos idosos e pessoas com baixa visão, em celulares simples e 4G in
 - Funciona offline após a primeira visita (busca, dados e mapa).
 - Não adicionar dependência pesada sem medir o impacto no bundle e relatar o número.
 
-## 8. Quando usar cada skill
+## 8. Quando usar cada skill (`.agents/skills/`)
 
 | Skill | Use quando |
 |---|---|
@@ -72,6 +72,9 @@ Público: muitos idosos e pessoas com baixa visão, em celulares simples e 4G in
 | `busca-a11y-audit` | Antes de aceitar qualquer componente novo e ao fechar cada tela |
 | `busca-dados-contratos` | Mexer em schemas, `data/*.json`, scripts de validação ou fixtures |
 | `busca-mapa-pmtiles` | Mapa, `.pmtiles`, service worker de tiles, "perto de mim", rotas |
+| `engenharia-software-senior` | Criar ou refatorar código, manter higiene de repositório, prevenir código morto e proteger performance |
+| `ui-ux-produto-premium` | Aplicar direção de arte e UI/UX Sênior (nível Apple Health / Linear), hierarquia visual e 5 estados de UI |
+| `qa-usuario-real` | Executar testes e auditorias simulando as 5 Personas Reais de usuários finais de Cuiabá |
 
 ## 9. Definição de pronto
 

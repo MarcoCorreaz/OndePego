@@ -23,7 +23,7 @@ const DEFAULT_SHELL_CACHE_NAME = `${SHELL_CACHE_PREFIX}v1`;
 const STATIC_CACHE_NAME = 'onde-pego-static-v1';
 const TILES_CACHE_NAME = 'onde-pego-tiles-v1';
 
-const FALLBACK_FIXED_ROUTES = ['/', '/buscar/', '/unidades/', '/plantao/', '/sobre/'];
+const FALLBACK_FIXED_ROUTES = ['/', '/buscar/', '/minha-receita/', '/unidades/', '/plantao/', '/sobre/'];
 const SHELL_STATIC_ASSETS = [
   '/manifest.webmanifest',
   '/icon.svg',
@@ -53,6 +53,7 @@ async function fetchPrecacheManifest() {
         return {
           version: data.version.trim(),
           routes: data.routes,
+          staticAssets: Array.isArray(data.staticAssets) ? data.staticAssets : [],
         };
       }
     }
@@ -62,6 +63,7 @@ async function fetchPrecacheManifest() {
   return {
     version: 'v1',
     routes: FALLBACK_FIXED_ROUTES,
+    staticAssets: [],
   };
 }
 
@@ -95,49 +97,53 @@ function buildOffline503Html() {
     }
     body {
       margin: 0;
-      padding: 24px 16px;
-      background-color: #FBF9F5;
-      color: #141413;
+      padding: 32px 16px;
+      background-color: #F7F4EE;
+      color: #1F2933;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       font-size: 18px;
       line-height: 1.55;
     }
     main {
-      max-width: 640px;
-      margin: 24px auto;
-      padding: 24px;
+      max-width: 580px;
+      margin: 32px auto;
+      padding: 28px 24px;
       background-color: #FFFFFF;
-      border: 2px solid #141413;
-      border-radius: 10px;
+      border: 1px solid rgba(31, 41, 51, 0.12);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px -2px rgba(17, 24, 39, 0.08);
     }
     h1 {
       margin-top: 0;
       font-size: 1.5rem;
+      font-weight: 800;
       line-height: 1.25;
-      color: #141413;
+      color: #1F2933;
     }
     p {
       margin: 12px 0 24px;
       font-size: 1.125rem;
-      color: #141413;
+      color: #52606D;
     }
     a.btn-home {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       min-height: 48px;
-      min-width: 48px;
-      padding: 12px 20px;
-      background-color: #0B4F3A;
+      padding: 12px 24px;
+      background-color: #0B3D91;
       color: #FFFFFF;
       font-weight: 700;
       font-size: 1.125rem;
       text-decoration: none;
-      border: 2px solid #141413;
-      border-radius: 8px;
+      border-radius: 12px;
+      transition: opacity 0.15s ease;
+    }
+    a.btn-home:hover {
+      opacity: 0.95;
     }
     a.btn-home:focus-visible {
-      outline: 3px solid #B24C00;
+      outline: 3px solid #0B3D91;
       outline-offset: 2px;
     }
   </style>
@@ -172,6 +178,19 @@ self.addEventListener('install', (event) => {
           }
         }),
       );
+
+      // Pré-cache dos chunks e assets estáticos adicionais se listados no manifesto
+      if (Array.isArray(manifest.staticAssets) && manifest.staticAssets.length > 0) {
+        const staticCache = await caches.open(STATIC_CACHE_NAME);
+        await Promise.allSettled(
+          manifest.staticAssets.map(async (assetUrl) => {
+            const response = await fetch(assetUrl, { cache: 'no-cache' });
+            if (canCacheResponse(response.status, false)) {
+              await staticCache.put(assetUrl, response);
+            }
+          }),
+        );
+      }
 
       await self.skipWaiting();
     })(),

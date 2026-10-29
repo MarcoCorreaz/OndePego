@@ -4,11 +4,13 @@ import type { Medicamento } from '@/types/schema';
 export interface PrecacheManifest {
   version: string;
   routes: string[];
+  staticAssets?: string[];
 }
 
 export const FIXED_PRECACHE_ROUTES = [
   '/',
   '/buscar/',
+  '/minha-receita/',
   '/unidades/',
   '/plantao/',
   '/sobre/',
@@ -45,6 +47,7 @@ export function computeDataVersionHash(rawContents: readonly string[]): string {
 export function buildPrecacheManifest(params: {
   medicamentos: readonly Pick<Medicamento, 'slug'>[];
   rawDataContents: readonly string[];
+  staticAssets?: readonly string[];
 }): PrecacheManifest {
   const version = computeDataVersionHash(params.rawDataContents);
   const seen = new Set<string>();
@@ -68,8 +71,14 @@ export function buildPrecacheManifest(params: {
     }
   }
 
-  return {
+  const manifest: PrecacheManifest = {
     version,
     routes,
   };
+
+  if (params.staticAssets && params.staticAssets.length > 0) {
+    manifest.staticAssets = Array.from(new Set(params.staticAssets)).sort();
+  }
+
+  return manifest;
 }

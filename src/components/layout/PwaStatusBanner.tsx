@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { AlertTriangleIcon, DownloadIcon } from '@/components/ui/Icons';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -19,7 +20,6 @@ export function PwaStatusBanner() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // Estado inicial de conexão
     setIsOffline(!window.navigator.onLine);
 
     const handleOnline = () => setIsOffline(false);
@@ -28,7 +28,6 @@ export function PwaStatusBanner() {
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
 
-    // Verifica se o convite de instalação já foi dispensado nesta sessão
     try {
       if (window.sessionStorage.getItem(DISMISS_INSTALL_SESSION_KEY) === '1') {
         setInstallDismissed(true);
@@ -44,18 +43,30 @@ export function PwaStatusBanner() {
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 
-    // Registro seguro do Service Worker Offline-First
     if ('serviceWorker' in window.navigator) {
-      const registerSw = () => {
-        window.navigator.serviceWorker.register('/sw.js').catch(() => {
-          // Falha silenciosa em ambientes sem HTTPS/SW
-        });
-      };
-
-      if (document.readyState === 'complete') {
-        registerSw();
+      if (process.env.NODE_ENV !== 'production') {
+        window.navigator.serviceWorker
+          .getRegistrations()
+          .then((registrations) => {
+            for (const reg of registrations) {
+              void reg.unregister();
+            }
+          })
+          .catch(() => {
+            // Ignora falhas de limpeza em dev
+          });
       } else {
-        window.addEventListener('load', registerSw, { once: true });
+        const registerSw = () => {
+          window.navigator.serviceWorker.register('/sw.js').catch(() => {
+            // Falha silenciosa em ambientes sem HTTPS/SW
+          });
+        };
+
+        if (document.readyState === 'complete') {
+          registerSw();
+        } else {
+          window.addEventListener('load', registerSw, { once: true });
+        }
       }
     }
 
@@ -95,19 +106,20 @@ export function PwaStatusBanner() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-4 pt-2">
+    <div className="mx-auto max-w-4xl px-4 pt-3">
       {isOffline ? (
         <div
           role="status"
           aria-live="polite"
           data-testid="offline-status-banner"
-          className="mb-2 flex items-start gap-3 rounded-[var(--r-card)] border-2 border-[var(--c-attn-border)] bg-[var(--c-attn)] px-4 py-3 text-base font-medium text-[var(--c-text)]"
+          className="mb-2 flex items-start gap-3 rounded-[var(--r-plate)] border border-[var(--c-attn-border)] bg-[var(--c-attn)] px-4 py-3 text-base font-bold text-[var(--c-text)] shadow-xs"
         >
           <span
             aria-hidden="true"
-            className="mt-0.5 inline-flex shrink-0 rounded border border-[var(--c-border)] bg-[var(--c-surface)] px-2 py-0.5 text-sm font-bold"
+            className="mt-0.5 inline-flex shrink-0 items-center gap-1 rounded-[var(--r-chip)] bg-[var(--c-surface)] px-2.5 py-0.5 text-sm font-extrabold text-[var(--c-text)]"
           >
-            OFFLINE
+            <AlertTriangleIcon className="h-4 w-4" />
+            <span>OFFLINE</span>
           </span>
           <p>
             Você está sem internet no momento. A busca de remédios e os dados já salvos no
@@ -120,10 +132,10 @@ export function PwaStatusBanner() {
         <aside
           aria-label="Convite para instalar o aplicativo no celular"
           data-testid="pwa-install-banner"
-          className="mb-2 flex flex-col justify-between gap-3 rounded-[var(--r-card)] border-2 border-[var(--c-border)] bg-[var(--c-surface)] p-4 sm:flex-row sm:items-center"
+          className="ui-card mb-2 flex flex-col justify-between gap-3 p-4 sm:flex-row sm:items-center"
         >
           <div>
-            <p className="font-[family-name:var(--font-display)] text-lg font-bold text-[var(--c-text)]">
+            <p className="font-display text-lg font-bold text-[var(--c-text)]">
               Instalar o Onde Pego no celular
             </p>
             <p className="text-base text-[var(--c-text-2)]">
@@ -134,14 +146,15 @@ export function PwaStatusBanner() {
             <button
               type="button"
               onClick={handleInstallClick}
-              className="inline-flex min-h-[48px] min-w-[48px] items-center justify-center rounded-[var(--r-button)] border-2 border-[var(--c-primary)] bg-[var(--c-primary)] px-4 py-2 text-base font-bold text-[var(--c-primary-fg)]"
+              className="inline-flex min-h-[48px] min-w-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] bg-[var(--c-brand)] px-4 py-2 text-base font-bold text-white shadow-xs active:translate-y-px"
             >
-              Instalar aplicativo
+              <DownloadIcon className="h-4 w-4" />
+              <span>Instalar aplicativo</span>
             </button>
             <button
               type="button"
               onClick={handleDismissInstall}
-              className="inline-flex min-h-[48px] min-w-[48px] items-center justify-center rounded-[var(--r-button)] border-2 border-[var(--c-border)] bg-[var(--c-bg)] px-4 py-2 text-base font-semibold text-[var(--c-text)]"
+              className="inline-flex min-h-[48px] min-w-[48px] items-center justify-center rounded-[var(--r-button)] border border-[var(--c-border)] bg-[var(--c-bg)] px-4 py-2 text-base font-bold text-[var(--c-text)] hover:bg-[var(--c-bg-soft)]"
             >
               Agora não
             </button>

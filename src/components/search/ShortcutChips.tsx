@@ -3,6 +3,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useSearchSession } from '@/components/search/SearchSessionProvider';
+import { CheckCircleIcon, PlusCircleIcon } from '@/components/ui/Icons';
 
 export interface ShortcutChipItem {
   label: string;
@@ -10,10 +11,10 @@ export interface ShortcutChipItem {
 }
 
 const DEFAULT_SHORTCUTS: ShortcutChipItem[] = [
-  { label: 'Pressão alta', query: 'pressão' },
-  { label: 'Diabetes', query: 'diabetes' },
-  { label: 'Asma', query: 'asma' },
-  { label: 'Colesterol', query: 'colesterol' },
+  { label: 'Buscar: Losartana', query: 'losartana' },
+  { label: 'Buscar: Metformina 850', query: 'metformina 850' },
+  { label: 'Buscar: Salbutamol', query: 'salbutamol' },
+  { label: 'Assunto: Pressão / Diabetes', query: 'pressão' },
 ];
 
 export interface ShortcutChipsProps {
@@ -37,9 +38,9 @@ export function ShortcutChips({
   };
 
   return (
-    <section aria-label="Atalhos de busca mais procurados" className="space-y-2">
-      <h2 className="font-display text-lg font-bold text-[var(--c-text)]">
-        Ou toque em um assunto comum:
+    <section aria-label="Exemplos rápidos de busca" className="space-y-2.5">
+      <h2 className="font-display text-lg font-bold text-[var(--c-text-2)]">
+        Exemplos rápidos para testar a consulta:
       </h2>
       <div className="flex flex-wrap gap-2.5">
         {shortcuts.map((item) => {
@@ -50,13 +51,17 @@ export function ShortcutChips({
               type="button"
               aria-pressed={active}
               onClick={() => handleSelect(item.query)}
-              className={`inline-flex min-h-[48px] items-center gap-2 rounded-[var(--r-chip)] border-2 px-4 py-2 text-base font-bold transition-colors active:translate-y-px ${
+              className={`inline-flex min-h-[48px] items-center gap-2 rounded-[var(--r-chip)] border px-4 py-2 text-base font-bold transition-all active:translate-y-px ${
                 active
-                  ? 'border-[var(--c-brand)] bg-[var(--c-brand)] text-white'
-                  : 'border-[var(--c-border)] bg-[var(--c-bg-soft)] text-[var(--c-text)] hover:bg-[var(--c-brand-tint)]'
+                  ? 'border-[var(--c-brand)] bg-[var(--c-brand)] text-white shadow-xs'
+                  : 'border-[var(--c-border)] bg-[var(--c-surface)] text-[var(--c-text)] shadow-2xs hover:border-[var(--c-brand)] hover:bg-[var(--c-brand-tint)] hover:text-[var(--c-brand)]'
               }`}
             >
-              <span aria-hidden="true">{active ? '●' : '+'}</span>
+              {active ? (
+                <CheckCircleIcon className="h-4 w-4" />
+              ) : (
+                <PlusCircleIcon className="h-4 w-4 text-[var(--c-brand)]" />
+              )}
               <span>{item.label}</span>
             </button>
           );

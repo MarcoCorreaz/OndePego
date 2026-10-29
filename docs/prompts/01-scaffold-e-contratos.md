@@ -10,7 +10,7 @@ TAREFA 1 — Scaffold e contratos
    output: 'export' e trailingSlash configurado para hospedagem estática.
 2. Instalar apenas: fuse.js, zod, vitest, tsx. Mostrar antes a lista exata e as versões.
 3. src/types/schema.ts: Zod como fonte única e tipos via z.infer, conforme
-   .agent/skills/busca-dados-contratos/references/schema.md.
+   .agents/skills/busca-dados-contratos/references/schema.md.
 4. data/meta.json, data/medicamentos.json, data/estabelecimentos.json: apenas
    fixtures marcadas com "__fixture": true e nomes claramente falsos.
 5. src/lib/freshness.ts: "dado desatualizado" derivado de meta.json (limite em dias configurável).

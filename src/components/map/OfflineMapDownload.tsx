@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useId, useState } from 'react';
+import { CheckCircleIcon, DownloadIcon } from '@/components/ui/Icons';
 import {
   type OfflineMapProgress,
   type OfflineMapState,
@@ -108,7 +109,7 @@ export function OfflineMapDownload({
       role="region"
       aria-label="Mapa para uso sem internet"
       aria-live="polite"
-      className="rounded-[var(--r-plate)] border-2 border-[var(--c-border)] bg-[var(--c-bg-soft)] p-3.5 sm:p-4"
+      className="rounded-[var(--r-plate)] border border-[var(--c-border)] bg-[var(--c-bg)] p-4"
     >
       {state === 'checando' && (
         <p className="text-base font-bold text-[var(--c-text-2)]">
@@ -124,9 +125,9 @@ export function OfflineMapDownload({
           <button
             type="button"
             onClick={handleStartDownload}
-            className="inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2 rounded-[var(--r-button)] border-2 border-[var(--c-border)] bg-[var(--c-brand)] px-4 py-2 font-display text-lg font-bold text-white active:translate-y-px"
+            className="inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2 rounded-[var(--r-button)] bg-[var(--c-brand)] px-4 py-2 font-display text-lg font-bold text-white shadow-xs transition-opacity hover:opacity-95 active:translate-y-px"
           >
-            <span aria-hidden="true">⬇</span>
+            <DownloadIcon className="h-4 w-4" />
             <span>Baixar mapa para usar offline</span>
           </button>
         </div>
@@ -149,22 +150,22 @@ export function OfflineMapDownload({
             aria-valuemin={0}
             aria-valuemax={100}
             aria-valuenow={progress.percent !== null ? progress.percent : undefined}
-            className="h-4 w-full overflow-hidden rounded-[var(--r-chip)] border-2 border-[var(--c-border)] accent-[var(--c-brand)]"
+            className="h-3.5 w-full overflow-hidden rounded-[var(--r-chip)] border border-[var(--c-border)] accent-[var(--c-brand)]"
           />
         </div>
       )}
 
       {state === 'salvo' && (
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <span className="inline-flex min-h-[48px] items-center gap-2 rounded-[var(--r-chip)] border-2 border-[var(--c-free)] bg-[var(--c-free-tint)] px-3.5 py-1.5 font-display text-lg font-bold text-[var(--c-free)]">
-            <span aria-hidden="true">✓</span>
+          <span className="inline-flex min-h-[48px] items-center gap-2 rounded-[var(--r-chip)] border border-[var(--c-free)]/30 bg-[var(--c-free-tint)] px-3.5 py-1.5 font-display text-lg font-bold text-[var(--c-free)]">
+            <CheckCircleIcon className="h-5 w-5" />
             <span>{formatSavedMapCopy(sizeBytes)}</span>
           </span>
 
           <button
             type="button"
             onClick={handleRemoveSavedMap}
-            className="inline-flex min-h-[48px] items-center justify-center rounded-[var(--r-button)] border-2 border-[var(--c-border)] bg-[var(--c-bg)] px-4 py-2 font-display text-base font-bold text-[var(--c-text)] hover:bg-[var(--c-brand-tint)] active:translate-y-px"
+            className="inline-flex min-h-[48px] items-center justify-center rounded-[var(--r-button)] border border-[var(--c-border)] bg-[var(--c-surface)] px-4 py-2 font-display text-base font-bold text-[var(--c-text)] hover:bg-[var(--c-brand-tint)] active:translate-y-px"
           >
             Remover mapa salvo
           </button>
@@ -173,7 +174,7 @@ export function OfflineMapDownload({
 
       {state === 'erro' && (
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="rounded border-2 border-[var(--c-border)] bg-[var(--c-attn)] px-3 py-2 text-base font-bold text-[var(--c-text)]">
+          <p className="rounded-[var(--r-button)] border border-[var(--c-attn-border)] bg-[var(--c-attn)] px-3.5 py-2.5 text-base font-bold text-[var(--c-text)]">
             Não foi possível baixar o mapa agora. A lista completa continua disponível logo
             abaixo; quando tiver sinal estável, você pode tentar de novo.
           </p>
@@ -181,7 +182,7 @@ export function OfflineMapDownload({
           <button
             type="button"
             onClick={handleStartDownload}
-            className="inline-flex min-h-[48px] shrink-0 items-center justify-center rounded-[var(--r-button)] border-2 border-[var(--c-border)] bg-[var(--c-brand)] px-4 py-2 font-display text-lg font-bold text-white active:translate-y-px"
+            className="inline-flex min-h-[48px] shrink-0 items-center justify-center rounded-[var(--r-button)] bg-[var(--c-brand)] px-4 py-2 font-display text-lg font-bold text-white shadow-xs active:translate-y-px"
           >
             Tentar de novo
           </button>

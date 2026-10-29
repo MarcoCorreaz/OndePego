@@ -1,11 +1,11 @@
-import type { ResultadoBusca } from '@/lib/searchEngine';
+import { type MatchState, resolveMatchState } from '@/lib/matchState';
+
+export { type MatchState, resolveMatchState };
 
 export interface SearchSessionState {
   lastQuery: string;
   scrollY: number;
 }
-
-export type MatchState = 'exato' | 'aproximado' | 'desconhecido';
 
 export const SEARCH_SESSION_STORAGE_KEY = 'onde_pego_search_session_v1';
 
@@ -13,39 +13,6 @@ export const DEFAULT_SEARCH_SESSION: SearchSessionState = {
   lastQuery: '',
   scrollY: 0,
 };
-
-function normalizeSlugForMatch(rawSlug: string): string {
-  return rawSlug.trim().toLowerCase().replace(/\/+$/, '');
-}
-
-/**
- * Resolve de forma determinística o estado do selo ("exato" / "aproximado" / "desconhecido")
- * para a página de detalhe do medicamento a partir dos resultados ativos da busca.
- *
- * - Normaliza `slug` (trim, lowercase e remoção de eventual barra `/` final) antes de comparar.
- * - Retorna `'exato'` ou `'aproximado'` quando o `slug` consta em `results`.
- * - Retorna `'desconhecido'` quando `results` está vazio ou o `slug` não consta na lista
- *   (ex.: link compartilhado pelo WhatsApp, acesso direto pela URL ou recarga sem busca ativa).
- */
-export function resolveMatchState(
-  results: readonly Pick<ResultadoBusca, 'item' | 'exato'>[],
-  slug: string,
-): MatchState {
-  const targetSlug = normalizeSlugForMatch(slug);
-  if (!targetSlug || results.length === 0) {
-    return 'desconhecido';
-  }
-
-  const found = results.find(
-    (r) => normalizeSlugForMatch(r.item.slug) === targetSlug,
-  );
-
-  if (!found) {
-    return 'desconhecido';
-  }
-
-  return found.exato ? 'exato' : 'aproximado';
-}
 
 /**
  * Interpreta de forma segura o JSON salvo no `sessionStorage` da aba.

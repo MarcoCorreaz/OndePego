@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { BackToSearchLink } from '@/components/medication/BackToSearchLink';
 import { MedicationDetailView } from '@/components/medication/MedicationDetailView';
 import { FreshnessBanner } from '@/components/ui/FreshnessBanner';
+import { buildMedicationMetadata } from '@/lib/seo';
 import type { Estabelecimento, Medicamento, MetaDados } from '@/types/schema';
 import estabelecimentosJson from '../../../../data/estabelecimentos.json';
 import medicamentosJson from '../../../../data/medicamentos.json';
@@ -25,15 +26,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const med = medicamentos.find((m) => m.slug === slug);
-  if (!med) {
-    return {
-      title: 'Medicamento não encontrado — Onde Pego',
-    };
-  }
-  return {
-    title: `${med.principio_ativo} — Onde Pego em Cuiabá`,
-    description: `Veja se ${med.principio_ativo} consta na lista municipal (REMUME SUS Cuiabá) e se é gratuito no Programa Farmácia Popular.`,
-  };
+  return buildMedicationMetadata(med);
 }
 
 export default async function MedicamentoDetailPage({
@@ -55,15 +48,9 @@ export default async function MedicamentoDetailPage({
   return (
     <>
       <FreshnessBanner meta={meta} />
-      <main id="conteudo-principal" className="mx-auto max-w-4xl space-y-6 px-4 py-6">
+      <main id="conteudo-principal" className="mx-auto max-w-4xl space-y-6 px-4 py-6 sm:py-8">
         <nav aria-label="Retorno para a busca">
-          <Link
-            href="/buscar/"
-            className="inline-flex min-h-[48px] items-center gap-2 rounded-[var(--r-button)] border-2 border-[var(--c-border)] bg-[var(--c-bg-soft)] px-4 py-2 font-display text-lg font-bold text-[var(--c-text)] hover:bg-[var(--c-brand-tint)]"
-          >
-            <span aria-hidden="true">←</span>
-            <span>Voltar para os resultados da busca</span>
-          </Link>
+          <BackToSearchLink />
         </nav>
 
         <MedicationDetailView

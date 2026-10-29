@@ -1,6 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
+import {
+  CheckCircleIcon,
+  CopyLinkIcon,
+  ShareExternalIcon,
+} from '@/components/ui/Icons';
 import { gerarDadosCompartilhamentoMedicamento } from '@/lib/share';
 import type { Medicamento } from '@/types/schema';
 
@@ -45,23 +50,29 @@ export function ShareMedicationButton({ medicamento }: ShareMedicationButtonProp
         href={payload.whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] border-2 border-[var(--c-border)] bg-[var(--c-free)] px-4 py-2.5 font-display text-lg font-bold text-white active:translate-y-px"
+        className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] bg-[var(--c-free)] px-4 py-2.5 font-display text-lg font-bold text-white shadow-xs transition-opacity hover:opacity-95 active:translate-y-px"
       >
-        <span aria-hidden="true">↗</span>
+        <ShareExternalIcon className="h-4 w-4" />
         <span>Compartilhar no WhatsApp</span>
       </a>
 
       <button
         type="button"
         onClick={handleNativeShareOrCopy}
-        className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] border-2 border-[var(--c-border)] bg-[var(--c-bg-soft)] px-4 py-2.5 font-display text-lg font-bold text-[var(--c-text)] active:translate-y-px"
+        className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] border border-[var(--c-border)] bg-[var(--c-bg)] px-4 py-2.5 font-display text-lg font-bold text-[var(--c-text)] transition-colors hover:bg-[var(--c-bg-soft)] active:translate-y-px"
       >
+        <CopyLinkIcon className="h-4 w-4 text-[var(--c-brand)]" />
         <span>Copiar ou enviar link</span>
       </button>
 
       {copiedFeedback && (
-        <span role="status" aria-live="polite" className="text-base font-bold text-[var(--c-free)]">
-          ✓ {copiedFeedback}
+        <span
+          role="status"
+          aria-live="polite"
+          className="inline-flex items-center gap-1.5 text-base font-bold text-[var(--c-free)]"
+        >
+          <CheckCircleIcon className="h-4 w-4" />
+          <span>{copiedFeedback}</span>
         </span>
       )}
     </div>

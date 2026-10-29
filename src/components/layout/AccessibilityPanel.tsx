@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import { useAccessibility } from '@/components/layout/AccessibilityProvider';
+import { CheckCircleIcon, CloseIcon, RadioDotIcon } from '@/components/ui/Icons';
 import type { FontScale } from '@/lib/prefs';
 
 const FONT_SCALE_OPTIONS: Array<{ value: FontScale; label: string; description: string }> = [
@@ -22,10 +23,20 @@ export function AccessibilityPanel() {
   } = useAccessibility();
 
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+  const previousActiveElementRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (!isPanelOpen) {
+      if (previousActiveElementRef.current) {
+        previousActiveElementRef.current.focus();
+        previousActiveElementRef.current = null;
+      }
       return;
+    }
+
+    if (typeof document !== 'undefined' && document.activeElement instanceof HTMLElement) {
+      previousActiveElementRef.current = document.activeElement;
     }
 
     closeButtonRef.current?.focus();
@@ -34,6 +45,32 @@ export function AccessibilityPanel() {
       if (event.key === 'Escape') {
         event.preventDefault();
         closePanel();
+        return;
+      }
+
+      if (event.key === 'Tab' && dialogRef.current) {
+        const focusableElements = dialogRef.current.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        );
+
+        if (focusableElements.length === 0) return;
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (firstElement && lastElement) {
+          if (event.shiftKey) {
+            if (document.activeElement === firstElement) {
+              event.preventDefault();
+              lastElement.focus();
+            }
+          } else {
+            if (document.activeElement === lastElement) {
+              event.preventDefault();
+              firstElement.focus();
+            }
+          }
+        }
       }
     };
 
@@ -49,7 +86,7 @@ export function AccessibilityPanel() {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 sm:items-center sm:p-4"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 backdrop-blur-xs sm:items-center sm:p-4"
       role="presentation"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
@@ -58,31 +95,33 @@ export function AccessibilityPanel() {
       }}
     >
       <div
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="a11y-panel-title"
-        className="w-full max-w-lg border-t-4 border-[var(--c-brand)] bg-[var(--c-bg)] p-5 text-[var(--c-text)] transition-opacity duration-150 sm:rounded-[var(--r-plate)] sm:border-2 sm:border-[var(--c-border)]"
+        className="ui-card-elevated max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-t-[20px] border-t-4 border-t-[var(--c-brand)] bg-[var(--c-surface)] p-4 text-[var(--c-text)] transition-opacity duration-150 sm:rounded-[var(--r-plate)] sm:p-6"
       >
-        <div className="flex items-center justify-between gap-4 border-b-2 border-[var(--c-border-subtle)] pb-3">
-          <h2 id="a11y-panel-title" className="font-display text-2xl font-bold">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--c-border-subtle)] pb-4">
+          <h2 id="a11y-panel-title" className="font-display text-xl font-extrabold sm:text-2xl">
             Opções de leitura e acessibilidade
           </h2>
           <button
             ref={closeButtonRef}
             type="button"
             onClick={closePanel}
-            className="inline-flex min-h-[48px] min-w-[48px] items-center justify-center rounded-[var(--r-button)] border-2 border-[var(--c-border)] bg-[var(--c-bg-soft)] px-4 font-bold text-[var(--c-text)] active:translate-y-px"
+            className="inline-flex min-h-[48px] min-w-[48px] shrink-0 items-center justify-center gap-1.5 rounded-[var(--r-button)] border border-[var(--c-border)] bg-[var(--c-bg)] px-4 font-bold text-[var(--c-text)] hover:bg-[var(--c-bg-soft)] active:translate-y-px"
           >
-            Fechar
+            <CloseIcon className="h-4 w-4" />
+            <span>Fechar</span>
           </button>
         </div>
 
-        <div className="mt-4 space-y-5">
+        <div className="mt-5 space-y-5">
           <fieldset>
             <legend className="font-display text-xl font-bold text-[var(--c-text)]">
               Tamanho da letra
             </legend>
-            <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-3">
+            <div className="mt-2.5 grid grid-cols-1 gap-2.5 sm:grid-cols-3">
               {FONT_SCALE_OPTIONS.map((option) => {
                 const selected = prefs.fontScale === option.value;
                 return (
@@ -91,25 +130,27 @@ export function AccessibilityPanel() {
                     type="button"
                     aria-pressed={selected}
                     onClick={() => setFontScale(option.value)}
-                    className={`flex min-h-[56px] flex-col items-start justify-center rounded-[var(--r-button)] border-2 px-3 py-2 text-left transition-colors ${
+                    className={`flex min-h-[60px] flex-col items-start justify-center rounded-[var(--r-button)] border px-3.5 py-2.5 text-left transition-colors ${
                       selected
-                        ? 'border-[var(--c-brand)] bg-[var(--c-brand-tint)] font-bold text-[var(--c-brand)]'
-                        : 'border-[var(--c-border-subtle)] bg-[var(--c-bg)] text-[var(--c-text)]'
+                        ? 'border-[var(--c-brand)] bg-[var(--c-brand-tint)] font-bold text-[var(--c-brand)] shadow-2xs'
+                        : 'border-[var(--c-border)] bg-[var(--c-bg)] text-[var(--c-text)] hover:bg-[var(--c-bg-soft)]'
                     }`}
                   >
-                    <span className="text-base font-bold">
-                      {selected ? '✓ ' : ''}
-                      {option.label}
+                    <span className="inline-flex items-center gap-1.5 text-base font-bold">
+                      <RadioDotIcon checked={selected} className="h-4 w-4" />
+                      <span>{option.label}</span>
                     </span>
-                    <span className="text-sm text-[var(--c-text-2)]">{option.description}</span>
+                    <span className="mt-0.5 text-sm text-[var(--c-text-2)]">
+                      {option.description}
+                    </span>
                   </button>
                 );
               })}
             </div>
           </fieldset>
 
-          <div className="flex flex-col gap-3 border-t-2 border-[var(--c-border-subtle)] pt-4">
-            <div className="flex items-center justify-between gap-4">
+          <div className="flex flex-col gap-3.5 border-t border-[var(--c-border-subtle)] pt-4">
+            <div className="flex flex-col items-start justify-between gap-3 rounded-[var(--r-button)] bg-[var(--c-bg)] p-3.5 sm:flex-row sm:items-center">
               <div>
                 <p id="label-alto-contraste" className="font-display text-xl font-bold">
                   Alto contraste máximo
@@ -123,17 +164,18 @@ export function AccessibilityPanel() {
                 aria-labelledby="label-alto-contraste"
                 aria-pressed={prefs.highContrast}
                 onClick={() => setHighContrast(!prefs.highContrast)}
-                className={`min-h-[48px] min-w-[120px] rounded-[var(--r-button)] border-2 px-4 font-bold ${
+                className={`inline-flex min-h-[48px] w-full min-w-[130px] items-center justify-center gap-1.5 rounded-[var(--r-button)] border px-4 font-bold transition-colors sm:w-auto ${
                   prefs.highContrast
-                    ? 'border-[var(--c-border)] bg-[var(--c-brand)] text-white'
-                    : 'border-[var(--c-border)] bg-[var(--c-bg-soft)] text-[var(--c-text)]'
+                    ? 'border-[var(--c-brand)] bg-[var(--c-brand)] text-white'
+                    : 'border-[var(--c-border-strong)] bg-[var(--c-surface)] text-[var(--c-text)] hover:bg-[var(--c-bg-soft)]'
                 }`}
               >
-                {prefs.highContrast ? '✓ Ativado' : 'Desativado'}
+                {prefs.highContrast && <CheckCircleIcon className="h-4 w-4" />}
+                <span>{prefs.highContrast ? 'Ativado' : 'Desativado'}</span>
               </button>
             </div>
 
-            <div className="flex items-center justify-between gap-4 border-t border-[var(--c-border-subtle)] pt-3">
+            <div className="flex flex-col items-start justify-between gap-3 rounded-[var(--r-button)] bg-[var(--c-bg)] p-3.5 sm:flex-row sm:items-center">
               <div>
                 <p id="label-reduzir-movimento" className="font-display text-xl font-bold">
                   Reduzir animações
@@ -147,25 +189,26 @@ export function AccessibilityPanel() {
                 aria-labelledby="label-reduzir-movimento"
                 aria-pressed={prefs.reduceMotion}
                 onClick={() => setReduceMotion(!prefs.reduceMotion)}
-                className={`min-h-[48px] min-w-[120px] rounded-[var(--r-button)] border-2 px-4 font-bold ${
+                className={`inline-flex min-h-[48px] w-full min-w-[130px] items-center justify-center gap-1.5 rounded-[var(--r-button)] border px-4 font-bold transition-colors sm:w-auto ${
                   prefs.reduceMotion
-                    ? 'border-[var(--c-border)] bg-[var(--c-brand)] text-white'
-                    : 'border-[var(--c-border)] bg-[var(--c-bg-soft)] text-[var(--c-text)]'
+                    ? 'border-[var(--c-brand)] bg-[var(--c-brand)] text-white'
+                    : 'border-[var(--c-border-strong)] bg-[var(--c-surface)] text-[var(--c-text)] hover:bg-[var(--c-bg-soft)]'
                 }`}
               >
-                {prefs.reduceMotion ? '✓ Ativado' : 'Desativado'}
+                {prefs.reduceMotion && <CheckCircleIcon className="h-4 w-4" />}
+                <span>{prefs.reduceMotion ? 'Ativado' : 'Desativado'}</span>
               </button>
             </div>
           </div>
 
-          <div className="flex items-center justify-between gap-3 border-t-2 border-[var(--c-border-subtle)] pt-4">
+          <div className="flex flex-col items-start justify-between gap-3 border-t border-[var(--c-border-subtle)] pt-4 sm:flex-row sm:items-center">
             <p className="text-sm text-[var(--c-text-2)]">
               Suas escolhas ficam salvas somente neste aparelho.
             </p>
             <button
               type="button"
               onClick={resetPrefs}
-              className="min-h-[48px] rounded-[var(--r-button)] border-2 border-[var(--c-border)] bg-[var(--c-bg)] px-3 text-sm font-bold text-[var(--c-text)]"
+              className="min-h-[48px] w-full rounded-[var(--r-button)] border border-[var(--c-border)] bg-[var(--c-bg)] px-3.5 text-sm font-bold text-[var(--c-text)] hover:bg-[var(--c-bg-soft)] sm:w-auto"
             >
               Restaurar padrão
             </button>

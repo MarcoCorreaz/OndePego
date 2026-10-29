@@ -135,7 +135,7 @@ const FIXTURE_CATALOG: Medicamento[] = [
 describe('Motor de busca de medicamentos (searchEngine)', () => {
   const engine = createMedicationSearchEngine(FIXTURE_CATALOG);
 
-  it('retorna exato: true quando a consulta normalizada é igual ao princípio ativo, comercial ou termo popular', () => {
+  it('retorna exato: true quando a consulta normalizada é igual ao princípio ativo ou comercial', () => {
     const porPrincipio = engine.search('Lovastatina');
     expect(porPrincipio[0]?.item.slug).toBe('lovastatina-fixture');
     expect(porPrincipio[0]?.exato).toBe(true);
@@ -150,10 +150,11 @@ describe('Motor de busca de medicamentos (searchEngine)', () => {
     expect(porFonetica[0]?.exato).toBe(true);
   });
 
-  it('encontra termo com cedilha omitida no celular como exato: true graças às duas chaves no índice', () => {
+  it('classifica busca por termo popular/assunto como exato: false e porAssunto: true graças ao estado "assunto"', () => {
     const semCedilha = engine.search('remedio para acucar alto teste');
     expect(semCedilha[0]?.item.slug).toBe('metformina-fixture');
-    expect(semCedilha[0]?.exato).toBe(true);
+    expect(semCedilha[0]?.exato).toBe(false);
+    expect(semCedilha[0]?.porAssunto).toBe(true);
   });
 
   it('retorna exato: false para buscas aproximadas (erro de digitação) e preserva princípio ativo e dosagem', () => {

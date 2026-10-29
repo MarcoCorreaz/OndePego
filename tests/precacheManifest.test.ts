@@ -60,7 +60,7 @@ describe('precacheManifest — geração determinística de N + 5 rotas com barr
       };
 
       expect(parsedFromDisk).toEqual(generated);
-      expect(parsedFromDisk.routes).toHaveLength(medicamentos.length + 5);
+      expect(parsedFromDisk.routes).toHaveLength(medicamentos.length + FIXED_PRECACHE_ROUTES.length);
     } finally {
       fs.rmSync(tmpDir, { recursive: true, force: true });
     }

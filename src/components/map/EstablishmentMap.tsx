@@ -10,6 +10,7 @@ import {
 } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { Protocol } from 'pmtiles';
+import { MapPinIcon, NavigationIcon, PhoneIcon } from '@/components/ui/Icons';
 import { getEstablishmentTypeBadge } from '@/lib/establishmentsFilter';
 import {
   type LatLng,
@@ -49,7 +50,6 @@ export default function EstablishmentMap({
   const mapInstanceRef = useRef<MapLibreMap | null>(null);
   const markersRef = useRef<Marker[]>([]);
 
-  // Apenas estabelecimentos com coordenada válida aparecem como pino no mapa
   const estabelecimentosNoMapa = useMemo(
     () => estabelecimentos.filter((e) => hasValidMapCoordinates(e)),
     [estabelecimentos],
@@ -60,7 +60,6 @@ export default function EstablishmentMap({
     initialSelectedId ?? estabelecimentosNoMapa[0]?.id ?? '',
   );
 
-  // Mantém um pino válido selecionado quando a lista filtrada muda
   useEffect(() => {
     if (estabelecimentosNoMapa.length === 0) {
       setSelectedId('');
@@ -79,7 +78,6 @@ export default function EstablishmentMap({
     [estabelecimentosNoMapa, selectedId],
   );
 
-  // Verifica suporte a WebGL e disponibilidade do arquivo .pmtiles local antes de iniciar o MapLibre
   useEffect(() => {
     let active = true;
 
@@ -114,7 +112,6 @@ export default function EstablishmentMap({
     };
   }, [pmtilesArchivePath]);
 
-  // Inicializa o MapLibre GL somente quando renderMode === 'webgl_pmtiles'
   useEffect(() => {
     if (renderMode !== 'webgl_pmtiles' || !mapContainerRef.current) {
       return;
@@ -156,7 +153,6 @@ export default function EstablishmentMap({
     }
   }, [renderMode, pmtilesArchivePath]);
 
-  // Atualiza marcadores HTML acessíveis no MapLibre quando renderMode === 'webgl_pmtiles'
   useEffect(() => {
     const map = mapInstanceRef.current;
     if (renderMode !== 'webgl_pmtiles' || !map) {
@@ -215,15 +211,15 @@ export default function EstablishmentMap({
   return (
     <div className="space-y-4">
       {/* Quadro visual do mapa (WebGL PMTiles ou Mapa Esquemático Local) */}
-      <div className="overflow-hidden rounded-[var(--r-plate)] border-2 border-[var(--c-border)] bg-[var(--c-bg-soft)]">
+      <div className="ui-card overflow-hidden">
         {/* Legenda clara com forma + sigla + cor (nunca só cor) */}
-        <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-[var(--c-border)] bg-[var(--c-bg)] px-3 py-2 text-sm font-bold text-[var(--c-text)]">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--c-border-subtle)] bg-[var(--c-surface)] px-4 py-2.5 text-sm font-bold text-[var(--c-text)]">
           <span>Toque em um pino para ver o endereço e traçar a rota:</span>
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1 rounded border border-[var(--c-border)] bg-[var(--c-free)] px-2 py-0.5 text-white">
+            <span className="inline-flex items-center gap-1 rounded-[var(--r-chip)] bg-[var(--c-free)] px-2.5 py-0.5 text-white">
               [FP] Farmácia Popular
             </span>
-            <span className="inline-flex items-center gap-1 rounded border border-[var(--c-border)] bg-[var(--c-brand)] px-2 py-0.5 text-white">
+            <span className="inline-flex items-center gap-1 rounded-[var(--r-chip)] bg-[var(--c-brand)] px-2.5 py-0.5 text-white">
               [UBS / POL / UPA] Rede Municipal
             </span>
           </div>
@@ -245,7 +241,7 @@ export default function EstablishmentMap({
             {/* Grade esquemática de referência visual */}
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 opacity-40"
+              className="pointer-events-none absolute inset-0 opacity-35"
               style={{
                 backgroundImage:
                   'linear-gradient(to right, #94a3b8 1px, transparent 1px), linear-gradient(to bottom, #94a3b8 1px, transparent 1px)',
@@ -259,7 +255,7 @@ export default function EstablishmentMap({
               className="pointer-events-none absolute left-0 right-0 top-1/2 h-4 -rotate-6 bg-[#93C5FD]/60"
             />
 
-            <div className="pointer-events-none absolute left-3 top-2 rounded border border-[var(--c-border)] bg-[var(--c-bg)]/95 px-2.5 py-1 text-xs font-bold text-[var(--c-text)]">
+            <div className="pointer-events-none absolute left-3 top-2.5 rounded-[var(--r-chip)] border border-[var(--c-border)] bg-[var(--c-surface)]/95 px-3 py-1 text-xs font-bold text-[var(--c-text)] shadow-2xs">
               Recorte local Cuiabá / Várzea Grande (modo leve offline)
             </div>
 
@@ -281,7 +277,7 @@ export default function EstablishmentMap({
                     top: `${pos.yPercent}%`,
                     transform: 'translate(-50%, -50%)',
                   }}
-                  className={`absolute inline-flex min-h-[48px] min-w-[48px] items-center justify-center gap-1 rounded-[var(--r-chip)] border-2 px-3 py-1 font-display text-sm font-extrabold transition-transform ${
+                  className={`absolute inline-flex min-h-[48px] min-w-[48px] items-center justify-center gap-1 rounded-[var(--r-chip)] border-2 px-3 py-1 font-display text-sm font-extrabold shadow-sm transition-transform ${
                     isSelected
                       ? 'z-20 scale-110 border-black bg-[var(--c-attn)] text-black ring-4 ring-black'
                       : badge.isPharmacy
@@ -298,7 +294,7 @@ export default function EstablishmentMap({
         )}
 
         {/* Atribuição obrigatória (DAS Seção 9 / busca-mapa-pmtiles) */}
-        <div className="flex flex-wrap items-center justify-between gap-2 border-t-2 border-[var(--c-border)] bg-[var(--c-bg)] px-3 py-1.5 text-sm text-[var(--c-text-2)]">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[var(--c-border-subtle)] bg-[var(--c-bg-soft)]/70 px-4 py-2 text-sm text-[var(--c-text-2)]">
           <span>Atribuição: © OpenStreetMap contributors • Basemap Protomaps (PMTiles local)</span>
           <span>A lista completa abaixo tem todas as informações do mapa.</span>
         </div>
@@ -310,43 +306,49 @@ export default function EstablishmentMap({
           role="region"
           aria-live="polite"
           aria-label={`Detalhes do pino selecionado: ${selectedEstablishment.nome_fantasia}`}
-          className="rounded-[var(--r-plate)] border-2 border-[var(--c-border)] bg-[var(--c-bg)] p-4"
+          className="ui-card-elevated p-5"
         >
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
-              <span className="inline-block rounded border border-[var(--c-border)] bg-[var(--c-bg-soft)] px-2 py-0.5 font-display text-sm font-bold text-[var(--c-text)]">
+              <span className="inline-block rounded-[var(--r-chip)] bg-[var(--c-bg-soft)] px-3 py-0.5 font-display text-sm font-bold text-[var(--c-text)]">
                 Pino selecionado: [{getEstablishmentTypeBadge(selectedEstablishment.tipo).code}]{' '}
                 {getEstablishmentTypeBadge(selectedEstablishment.tipo).fullLabel}
               </span>
-              <h3 className="mt-1 font-display text-2xl font-extrabold text-[var(--c-text)]">
+              <h3 className="mt-1.5 font-display text-2xl font-extrabold text-[var(--c-text)]">
                 {selectedEstablishment.nome_fantasia}
               </h3>
-              <p className="text-base font-bold text-[var(--c-brand)]">
-                Bairro: {selectedEstablishment.bairro}
-                {distanciaSelecionado !== null &&
-                  ` • Aprox. ${formatarDistancia(distanciaSelecionado)}`}
+              <p className="mt-0.5 inline-flex items-center gap-1.5 text-base font-bold text-[var(--c-brand)]">
+                <MapPinIcon className="h-4 w-4" />
+                <span>
+                  Bairro: {selectedEstablishment.bairro}
+                  {distanciaSelecionado !== null &&
+                    ` • Aprox. ${formatarDistancia(distanciaSelecionado)}`}
+                </span>
               </p>
             </div>
           </div>
 
           {/* Regra inviolável #4: Pino de farmácia credenciada SEMPRE exibe o texto normativo literal */}
           {selectedEstablishment.tipo === 'FARMACIA_POPULAR' && (
-            <p className="mt-2 rounded border-2 border-[var(--c-free)] bg-[var(--c-free-tint)] px-3 py-2 text-base font-bold text-[var(--c-text)]">
+            <p className="mt-3 rounded-[var(--r-button)] border border-[var(--c-free)]/25 bg-[var(--c-free-tint)] px-3.5 py-2.5 text-base font-bold text-[var(--c-text)]">
               {NORMATIVE_TEXTS.via2.PINO_E_CARTAO_FARMACIA}
             </p>
           )}
 
-          <p className="mt-2 text-base text-[var(--c-text)]">
+          <p className="mt-3 text-base text-[var(--c-text)]">
             <strong>Endereço:</strong> {selectedEstablishment.endereco_completo}
           </p>
 
           {selectedEstablishment.telefone && (
-            <p className="mt-1 text-base text-[var(--c-text)]">
-              <strong>Telefone:</strong> {selectedEstablishment.telefone}
+            <p className="mt-1 inline-flex items-center gap-1.5 text-base text-[var(--c-text)]">
+              <PhoneIcon className="h-4 w-4 text-[var(--c-brand)]" />
+              <span>
+                <strong>Telefone:</strong> {selectedEstablishment.telefone}
+              </span>
             </p>
           )}
 
-          <div className="mt-3 space-y-2 border-t border-[var(--c-border-subtle)] pt-3">
+          <div className="mt-4 space-y-2 border-t border-[var(--c-border-subtle)] pt-3.5">
             {!selectedEstablishment.coordenadas.auditado_manualmente && (
               <p className="text-sm font-bold text-[var(--c-text-2)]">
                 Localização aproximada. Confira o endereço.
@@ -357,8 +359,9 @@ export default function EstablishmentMap({
                 href={gerarUrlRotaGoogleMaps(selectedEstablishment.coordenadas, 'transit')}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] border-2 border-[var(--c-border)] bg-[var(--c-brand)] px-4 py-2 font-display text-lg font-bold text-white"
+                className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] bg-[var(--c-brand)] px-4 py-2 font-display text-lg font-bold text-white shadow-xs transition-opacity hover:opacity-95"
               >
+                <NavigationIcon className="h-4 w-4" />
                 <span>Ver rota para {selectedEstablishment.nome_fantasia} (ônibus/carro)</span>
               </a>
 
@@ -366,7 +369,7 @@ export default function EstablishmentMap({
                 href={gerarUrlRotaGoogleMaps(selectedEstablishment.coordenadas, 'walking')}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] border-2 border-[var(--c-border)] bg-[var(--c-bg-soft)] px-4 py-2 font-display text-lg font-bold text-[var(--c-text)]"
+                className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] border border-[var(--c-border)] bg-[var(--c-bg)] px-4 py-2 font-display text-lg font-bold text-[var(--c-text)] hover:bg-[var(--c-bg-soft)]"
               >
                 <span>Ver rota a pé</span>
               </a>

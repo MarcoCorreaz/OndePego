@@ -10,6 +10,7 @@ A promessa de privacidade (ADR-05) diz que nada digitado sai do aparelho. Query 
 - O slug do medicamento (vem do catálogo) pode aparecer na URL do detalhe; a página "Sobre" informa que links compartilhados contêm o nome do medicamento.
 - Fontes autohospedadas (`@fontsource/*`); sem Google Fonts nem CDN de ícones/scripts; glifos e sprites do mapa próprios.
 - Sem analytics de terceiros no MVP.
+- Para o botão "Voltar": estado em memória + `sessionStorage` apenas para o último termo e a rolagem (não enviado pela rede, some ao fechar a aba); nunca `localStorage` para isso.
 
 ## Consequências
 - Nenhuma requisição a terceiros em tempo de execução além do host do próprio app e do host do `.pmtiles`.

@@ -106,3 +106,4 @@ export type Medicamento = z.infer<typeof MedicamentoCatalogo>;
 export type Apresentacao = z.infer<typeof ApresentacaoMedicamento>;
 export type Estabelecimento = z.infer<typeof EstabelecimentoSaude>;
 export type MetaDados = z.infer<typeof Meta>;
+export type LocalDispensacaoSUS = z.infer<typeof LocalDispensacaoSUS>;

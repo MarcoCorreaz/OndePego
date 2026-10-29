@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { FreshnessBanner } from '@/components/ui/FreshnessBanner';
+import { AlertTriangleIcon, ShieldCheckIcon } from '@/components/ui/Icons';
 import { NORMATIVE_TEXTS, formatIsoDatePTBR } from '@/lib/healthCopy';
 import type { MetaDados } from '@/types/schema';
 import metaJson from '../../../data/meta.json';
@@ -16,7 +17,7 @@ export default function SobrePage() {
   return (
     <>
       <FreshnessBanner meta={meta} />
-      <main id="conteudo-principal" className="mx-auto max-w-4xl space-y-6 px-4 py-6">
+      <main id="conteudo-principal" className="mx-auto max-w-4xl space-y-6 px-4 py-6 sm:py-8">
         <header className="space-y-2">
           <h1 className="font-display text-3xl font-extrabold text-[var(--c-text)] sm:text-4xl">
             Sobre o Onde Pego, fontes e privacidade
@@ -30,15 +31,20 @@ export default function SobrePage() {
         {/* Aviso de independência (literal de busca-textos-saude) */}
         <section
           aria-labelledby="sobre-independencia-heading"
-          className="rounded-[var(--r-plate)] border-2 border-[var(--c-border)] bg-[var(--c-bg)] p-5"
+          className="ui-card-elevated p-5 sm:p-6"
         >
-          <h2
-            id="sobre-independencia-heading"
-            className="font-display text-2xl font-extrabold text-[var(--c-text)]"
-          >
-            Projeto independente de utilidade pública
-          </h2>
-          <p className="mt-2 max-w-[65ch] text-base leading-relaxed text-[var(--c-text)]">
+          <div className="flex items-center gap-2.5">
+            <span className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] bg-[var(--c-brand-tint)] text-[var(--c-brand)]">
+              <ShieldCheckIcon className="h-5 w-5" />
+            </span>
+            <h2
+              id="sobre-independencia-heading"
+              className="font-display text-2xl font-extrabold text-[var(--c-text)]"
+            >
+              Projeto independente de utilidade pública
+            </h2>
+          </div>
+          <p className="mt-3 max-w-[65ch] text-base leading-relaxed text-[var(--c-text)]">
             {NORMATIVE_TEXTS.avisoIndependencia}
           </p>
         </section>
@@ -46,7 +52,7 @@ export default function SobrePage() {
         {/* Origem e data de cada fonte oficial */}
         <section
           aria-labelledby="sobre-fontes-heading"
-          className="rounded-[var(--r-plate)] border-2 border-[var(--c-border)] bg-[var(--c-bg)] p-5"
+          className="ui-card p-5 sm:p-6"
         >
           <h2
             id="sobre-fontes-heading"
@@ -54,13 +60,13 @@ export default function SobrePage() {
           >
             Fontes oficiais dos dados e datas de verificação
           </h2>
-          <p className="mt-2 max-w-[65ch] text-base text-[var(--c-text)]">
+          <p className="mt-2 max-w-[65ch] text-base text-[var(--c-text-2)]">
             Todas as informações exibidas no aplicativo vêm de publicações abertas de órgãos
             públicos:
           </p>
 
-          <dl className="mt-4 space-y-3 border-t-2 border-[var(--c-border-subtle)] pt-4 text-base">
-            <div className="rounded bg-[var(--c-bg-soft)] p-3">
+          <dl className="mt-4 space-y-3 border-t border-[var(--c-border-subtle)] pt-4 text-base">
+            <div className="rounded-[var(--r-button)] border border-[var(--c-border-subtle)] bg-[var(--c-bg)] p-4">
               <dt className="font-display text-lg font-bold text-[var(--c-brand)]">
                 1. Relação Municipal de Medicamentos Essenciais (REMUME — SMS Cuiabá)
               </dt>
@@ -72,7 +78,7 @@ export default function SobrePage() {
               </dd>
             </div>
 
-            <div className="rounded bg-[var(--c-bg-soft)] p-3">
+            <div className="rounded-[var(--r-button)] border border-[var(--c-border-subtle)] bg-[var(--c-bg)] p-4">
               <dt className="font-display text-lg font-bold text-[var(--c-free)]">
                 2. Elenco do Programa Farmácia Popular do Brasil (Ministério da Saúde)
               </dt>
@@ -84,18 +90,19 @@ export default function SobrePage() {
               </dd>
             </div>
 
-            <div className="rounded bg-[var(--c-bg-soft)] p-3">
+            <div className="rounded-[var(--r-button)] border border-[var(--c-border-subtle)] bg-[var(--c-bg)] p-4">
               <dt className="font-display text-lg font-bold text-[var(--c-text)]">
                 3. Painel de Endereços de Farmácias Credenciadas (InfoMS / Ministério da Saúde)
               </dt>
               <dd className="mt-1 text-[var(--c-text)]">
-                Cadastro de drogarias credenciadas em Cuiabá/MT, com coordenadas conferidas.
+                Cadastro e endereço oficial de drogarias credenciadas em Cuiabá/MT fornecidos pelo
+                painel do Ministério da Saúde. A posição no mapa passa por auditoria gradual.
                 <br />
                 <strong>Data da base verificada:</strong> {formatIsoDatePTBR(meta.data_infoms)}
               </dd>
             </div>
 
-            <div className="rounded bg-[var(--c-bg-soft)] p-3">
+            <div className="rounded-[var(--r-button)] border border-[var(--c-border-subtle)] bg-[var(--c-bg)] p-4">
               <dt className="font-display text-lg font-bold text-[var(--c-text)]">
                 Última checagem automática de integridade (CI)
               </dt>
@@ -110,7 +117,7 @@ export default function SobrePage() {
         {/* Privacidade em linguagem simples (literal de busca-textos-saude / ADR-09) */}
         <section
           aria-labelledby="sobre-privacidade-heading"
-          className="rounded-[var(--r-plate)] border-2 border-[var(--c-border)] bg-[var(--c-bg)] p-5"
+          className="ui-card p-5 sm:p-6"
         >
           <h2
             id="sobre-privacidade-heading"
@@ -121,7 +128,7 @@ export default function SobrePage() {
           <p className="mt-2 max-w-[65ch] text-base leading-relaxed text-[var(--c-text)]">
             {NORMATIVE_TEXTS.privacidadeResumo}
           </p>
-          <ul className="mt-3 list-disc space-y-1.5 pl-5 text-base text-[var(--c-text)]">
+          <ul className="mt-3.5 list-disc space-y-1.5 rounded-[var(--r-button)] bg-[var(--c-bg)] p-4 pl-8 text-base text-[var(--c-text)]">
             <li>
               O texto que você digita na busca <strong>nunca</strong> entra no endereço da página
               (URL) e não é enviado para nenhum servidor.
@@ -139,7 +146,7 @@ export default function SobrePage() {
         {/* Como reportar erro ou endereço desatualizado */}
         <section
           aria-labelledby="sobre-contato-heading"
-          className="space-y-4 rounded-[var(--r-plate)] border-2 border-[var(--c-border)] bg-[var(--c-bg)] p-5"
+          className="ui-card space-y-4 p-5 sm:p-6"
         >
           <h2
             id="sobre-contato-heading"
@@ -150,10 +157,13 @@ export default function SobrePage() {
 
           <div
             role="note"
-            className="rounded-[var(--r-plate)] border-2 border-[var(--c-border)] bg-[var(--c-attn)] p-3.5 text-base font-bold text-[var(--c-text)]"
+            className="flex items-start gap-2.5 rounded-[var(--r-button)] border border-[var(--c-attn-border)] bg-[var(--c-attn)] p-4 text-base font-bold text-[var(--c-text)]"
           >
-            ⚠ Importante para sua segurança: NUNCA envie foto de receita médica, número de CPF,
-            Cartão do SUS, telefone ou dados pessoais de saúde ao relatar uma correção.
+            <AlertTriangleIcon className="mt-0.5 h-5 w-5 shrink-0" />
+            <span>
+              Importante para sua segurança: NUNCA envie foto de receita médica, número de CPF,
+              Cartão do SUS, telefone ou dados pessoais de saúde ao relatar uma correção.
+            </span>
           </div>
 
           <p className="max-w-[65ch] text-base text-[var(--c-text)]">
@@ -163,20 +173,8 @@ export default function SobrePage() {
 
           <ul className="list-disc space-y-2 pl-5 text-base text-[var(--c-text)]">
             <li>
-              <strong>Canal público do projeto Onde Pego:</strong> registre um aviso técnico no{' '}
-              <a
-                href="https://github.com/marcocorrea/onde-pego/issues"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-bold text-[var(--c-brand)] underline"
-              >
-                repositório público do projeto (GitHub Issues)
-              </a>{' '}
-              informando apenas o nome da farmácia ou unidade e o bairro.
-            </li>
-            <li>
               <strong>Programa Farmácia Popular (Ministério da Saúde):</strong> caso uma farmácia
-              listada na base oficial não seja localizada no endereço cadastrado, você também pode
+              listada na base oficial não seja localizada no endereço cadastrado, você pode
               comunicar diretamente a equipe nacional do programa pelo e-mail oficial{' '}
               <a
                 href="mailto:analise.fpopular@saude.gov.br"
@@ -188,8 +186,8 @@ export default function SobrePage() {
             </li>
             <li>
               <strong>Rede Municipal de Cuiabá (UBS, Policlínicas e UPAs):</strong> dúvidas ou
-              manifestações sobre atendimento e abastecimento municipal podem ser registradas na
-              Ouvidoria Geral / e-SIC da Prefeitura de Cuiabá.
+              manifestações sobre atendimento, endereços de unidades públicas e abastecimento
+              municipal podem ser registradas na Ouvidoria Geral / e-SIC da Prefeitura de Cuiabá.
             </li>
           </ul>
         </section>

@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { CredenciadasSection } from '@/components/medication/CredenciadasSection';
 import { MedicationDualCard } from '@/components/medication/MedicationDualCard';
 import { ShareMedicationButton } from '@/components/medication/ShareMedicationButton';
+import { AddToPrescriptionButton } from '@/components/prescription/AddToPrescriptionButton';
+import { findSelectedApresentacao, resolveInitialApresentacaoId } from '@/lib/dosageSelection';
 import type { Estabelecimento, Medicamento, MetaDados } from '@/types/schema';
 
 export interface MedicationDetailViewProps {
@@ -20,12 +22,13 @@ export function MedicationDetailView({
   controlledUnits,
 }: MedicationDetailViewProps) {
   const [selectedApresentacaoId, setSelectedApresentacaoId] = useState<string>(
-    medicamento.apresentacoes[0]?.id_apresentacao ?? '',
+    resolveInitialApresentacaoId(medicamento.apresentacoes),
   );
 
-  const apresentacaoAtiva =
-    medicamento.apresentacoes.find((a) => a.id_apresentacao === selectedApresentacaoId) ??
-    medicamento.apresentacoes[0];
+  const apresentacaoAtiva = findSelectedApresentacao(
+    medicamento.apresentacoes,
+    selectedApresentacaoId,
+  );
 
   return (
     <div className="space-y-6">
@@ -37,21 +40,45 @@ export function MedicationDetailView({
         controlledUnits={controlledUnits}
       />
 
-      <section
-        aria-label="Compartilhar informações deste medicamento"
-        className="rounded-[var(--r-plate)] border-2 border-[var(--c-border)] bg-[var(--c-bg)] p-4"
-      >
-        <h2 className="mb-3 font-display text-xl font-bold text-[var(--c-text)]">
-          Guardar ou enviar para um familiar:
-        </h2>
-        <ShareMedicationButton medicamento={medicamento} />
-      </section>
+      {apresentacaoAtiva && (
+        <>
+          <section
+            aria-label="Minha Receita"
+            className="ui-card flex flex-col justify-between gap-4 p-5 sm:flex-row sm:items-center"
+          >
+            <div>
+              <h2 className="font-display text-xl font-extrabold text-[var(--c-text)]">
+                Montando a lista da receita?
+              </h2>
+              <p className="text-sm text-[var(--c-text-2)]">
+                Adicione a dosagem selecionada (<span className="font-bold text-[var(--c-text)]">{apresentacaoAtiva.descricao_dosagem}</span>) para juntar todos os remédios em um checklist único.
+              </p>
+            </div>
+            <AddToPrescriptionButton medicamento={medicamento} apresentacao={apresentacaoAtiva} />
+          </section>
 
-      <CredenciadasSection
-        estabelecimentos={estabelecimentos}
-        meta={meta}
-        apresentacaoAtiva={apresentacaoAtiva}
-      />
+          <section
+            aria-label="Compartilhar informações deste medicamento"
+            className="ui-card flex flex-col justify-between gap-4 p-5 sm:flex-row sm:items-center"
+          >
+            <div>
+              <h2 className="font-display text-xl font-extrabold text-[var(--c-text)]">
+                Guardar ou enviar para um familiar
+              </h2>
+              <p className="text-sm text-[var(--c-text-2)]">
+                Envie o resumo deste medicamento com as regras de retirada em Cuiabá.
+              </p>
+            </div>
+            <ShareMedicationButton medicamento={medicamento} />
+          </section>
+
+          <CredenciadasSection
+            estabelecimentos={estabelecimentos}
+            meta={meta}
+            apresentacaoAtiva={apresentacaoAtiva}
+          />
+        </>
+      )}
     </div>
   );
 }
