@@ -175,7 +175,8 @@ export function createMedicationSearchEngine(
   });
 
   function search(query: string, options?: SearchOptions): ResultadoBusca[] {
-    const queryKeys = uniqueNormalizedKeys(query);
+    const sanitizedRaw = typeof query === 'string' ? query.slice(0, 100) : '';
+    const queryKeys = uniqueNormalizedKeys(sanitizedRaw);
     if (queryKeys.length === 0) {
       return [];
     }
@@ -186,7 +187,7 @@ export function createMedicationSearchEngine(
       return [];
     }
 
-    const parsed = parseMedicationQuery(query);
+    const parsed = parseMedicationQuery(sanitizedRaw);
     const limit = options?.limit ?? 20;
 
     const candidateMap = new Map<string, { doc: IndexedMedicationDoc; bestScore: number }>();

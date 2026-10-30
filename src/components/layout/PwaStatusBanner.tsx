@@ -2,6 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import { AlertTriangleIcon, DownloadIcon } from '@/components/ui/Icons';
+import {
+  getSafeSessionStorage,
+  safeStorageGetItem,
+  safeStorageSetItem,
+} from '@/lib/safeStorage';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -28,12 +33,9 @@ export function PwaStatusBanner() {
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
 
-    try {
-      if (window.sessionStorage.getItem(DISMISS_INSTALL_SESSION_KEY) === '1') {
-        setInstallDismissed(true);
-      }
-    } catch {
-      // Ignora restrições de sessionStorage
+    const session = getSafeSessionStorage();
+    if (safeStorageGetItem(session, DISMISS_INSTALL_SESSION_KEY) === '1') {
+      setInstallDismissed(true);
     }
 
     const handleBeforeInstallPrompt = (event: Event) => {
@@ -92,11 +94,8 @@ export function PwaStatusBanner() {
   const handleDismissInstall = () => {
     setInstallDismissed(true);
     setDeferredPrompt(null);
-    try {
-      window.sessionStorage.setItem(DISMISS_INSTALL_SESSION_KEY, '1');
-    } catch {
-      // Ignora restrições de sessionStorage
-    }
+    const session = getSafeSessionStorage();
+    safeStorageSetItem(session, DISMISS_INSTALL_SESSION_KEY, '1');
   };
 
   const showInstallBanner = Boolean(deferredPrompt) && !installDismissed;

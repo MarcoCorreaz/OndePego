@@ -31,7 +31,8 @@ export function MedicationDetailView({
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
+      {/* 1. Placas (MedicationDualCard) */}
       <MedicationDualCard
         medicamento={medicamento}
         meta={meta}
@@ -40,44 +41,32 @@ export function MedicationDetailView({
         controlledUnits={controlledUnits}
       />
 
+      {/* 2. Onde buscar (Abas + Mapa) */}
       {apresentacaoAtiva && (
-        <>
-          <section
-            aria-label="Minha Receita"
-            className="ui-card flex flex-col justify-between gap-4 p-5 sm:flex-row sm:items-center"
-          >
-            <div>
-              <h2 className="font-display text-xl font-extrabold text-[var(--c-text)]">
-                Montando a lista da receita?
-              </h2>
-              <p className="text-sm text-[var(--c-text-2)]">
-                Adicione a dosagem selecionada (<span className="font-bold text-[var(--c-text)]">{apresentacaoAtiva.descricao_dosagem}</span>) para juntar todos os remédios em um checklist único.
-              </p>
-            </div>
-            <AddToPrescriptionButton medicamento={medicamento} apresentacao={apresentacaoAtiva} />
-          </section>
+        <CredenciadasSection
+          estabelecimentos={estabelecimentos}
+          meta={meta}
+          apresentacaoAtiva={apresentacaoAtiva}
+        />
+      )}
 
-          <section
-            aria-label="Compartilhar informações deste medicamento"
-            className="ui-card flex flex-col justify-between gap-4 p-5 sm:flex-row sm:items-center"
-          >
-            <div>
-              <h2 className="font-display text-xl font-extrabold text-[var(--c-text)]">
-                Guardar ou enviar para um familiar
-              </h2>
-              <p className="text-sm text-[var(--c-text-2)]">
-                Envie o resumo deste medicamento com as regras de retirada em Cuiabá.
-              </p>
-            </div>
-            <ShareMedicationButton medicamento={medicamento} />
-          </section>
+      {/* 3. Compartilhar no WhatsApp numa linha única com botão de 48px + Salvar na Receita */}
+      {apresentacaoAtiva && (
+        <section
+          aria-label="Ações para compartilhar ou salvar medicamento"
+          className="flex flex-wrap items-center justify-between gap-3 rounded-[var(--r-card)] border border-[var(--c-border)] bg-[var(--c-surface)] p-4 shadow-2xs sm:p-5"
+        >
+          <div className="flex flex-wrap items-center gap-3">
+            <ShareMedicationButton medicamento={medicamento} compact />
+          </div>
 
-          <CredenciadasSection
-            estabelecimentos={estabelecimentos}
-            meta={meta}
-            apresentacaoAtiva={apresentacaoAtiva}
-          />
-        </>
+          <div className="flex items-center">
+            <AddToPrescriptionButton
+              medicamento={medicamento}
+              apresentacao={apresentacaoAtiva}
+            />
+          </div>
+        </section>
       )}
     </div>
   );

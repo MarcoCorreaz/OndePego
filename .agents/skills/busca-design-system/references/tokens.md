@@ -14,10 +14,12 @@
 | Tinta azul | `--c-brand-tint` | `#E8EEF8` | Fundo de badges e destaques azuis |
 | Verde gratuito | `--c-free` | `#0E7C3A` | Via 2 (Farmácia Popular), selos de gratuidade e confirmação |
 | Tinta verde | `--c-free-tint` | `#E6F4EA` | Fundo de badges e destaques de gratuidade |
+| Verde tinta texto | `--c-free-ink` | `#0A5C2B` | Texto de badge sobre `--c-free-tint` (7.17:1 AAA) |
 | Amarelo ipê | `--c-attn` | `#FFC72C` | Atenção, resultado aproximado e contingência (sempre com texto `#1F2933`) |
-| Tinta âmbar | `--c-attn-tint` | `#FEF9E7` | Fundo suave de blocos de aviso com borda âmbar |
+| Tinta âmbar | `--c-attn-tint` | `#FFF4D1` | Fundo suave de avisos e FreshnessBanner |
+| Âmbar tinta texto | `--c-attn-ink` | `#7A5A00` | Ícone/texto sobre `--c-attn-tint` (5.81:1 AA) |
 | Vermelho alerta | `--c-alert` | `#C62828` | Alerta crítico e interdição |
-| Tinta alerta | `--c-alert-tint` | `#FDECEA` | Fundo de badges de interdição |
+| Tinta alerta | `--c-alert-tint` | `#FDE7E7` | Fundo de badges de interdição e chip de pressão |
 | Borda de cartão | `--c-border` | `rgba(31, 41, 51, 0.13)` | Borda refinada de 1px em cartões e containers no tema padrão |
 | Borda sutil | `--c-border-subtle` | `rgba(31, 41, 51, 0.08)` | Divisórias internas de 1px |
 | Borda forte | `--c-border-strong` | `rgba(31, 41, 51, 0.24)` | Contorno de inputs e controles interativos |
@@ -28,14 +30,19 @@
 |---|---|---|
 | Asfalto (`#1F2933`) / Superfície (`#FFFFFF`) | 14,76:1 | AAA |
 | Asfalto (`#1F2933`) / Papel quente (`#F7F4EE`) | 13,40:1 | AAA |
+| Asfalto (`#1F2933`) / Tinta âmbar (`#FFF4D1`) | 13,43:1 | AAA |
+| Azul institucional (`#0B3D91`) / Tinta âmbar (`#FFF4D1`) | 9,14:1 | AAA |
 | Cinza poste (`#4B5563`) / Superfície (`#FFFFFF`) | 7,56:1 | AAA |
 | Cinza poste (`#4B5563`) / Papel quente (`#F7F4EE`) | 6,86:1 | AA+ |
 | Azul institucional (`#0B3D91`) / Superfície (`#FFFFFF`) | 10,04:1 | AAA |
 | Azul institucional (`#0B3D91`) / Tinta azul (`#E8EEF8`) | 8,62:1 | AAA |
 | Verde gratuito (`#0E7C3A`) / Superfície (`#FFFFFF`) | 5,30:1 | AA |
 | Verde gratuito (`#0E7C3A`) / Tinta verde (`#E6F4EA`) | 4,67:1 | AA |
+| Verde tinta texto (`#0A5C2B`) / Tinta verde (`#E6F4EA`) | 7,17:1 | AAA |
 | Asfalto (`#1F2933`) / Amarelo ipê (`#FFC72C`) | 9,46:1 | AAA |
+| Âmbar tinta texto (`#7A5A00`) / Tinta âmbar (`#FFF4D1`) | 5,81:1 | AA |
 | Vermelho alerta (`#C62828`) / Superfície (`#FFFFFF`) | 5,62:1 | AA |
+| Vermelho alerta (`#C62828`) / Tinta alerta (`#FDE7E7`) | 4,75:1 | AA |
 
 Texto branco sobre amarelo ipê **não** é permitido.
 

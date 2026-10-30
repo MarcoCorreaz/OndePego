@@ -51,6 +51,7 @@ span {
   border: 1px solid var(--c-border);
   border-radius: var(--r-plate);
   box-shadow: var(--shadow-card);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 
 .ui-card-elevated {
@@ -71,12 +72,67 @@ span {
   border: 1.5px solid var(--c-border-strong);
   border-radius: var(--r-search);
   box-shadow: var(--shadow-card);
-  transition: box-shadow 180ms ease, border-color 180ms ease;
+  transition: box-shadow 180ms ease, border-color 180ms ease, background-color 180ms ease;
 }
 
 .ui-search-shell:focus-within {
   border-color: var(--c-brand);
   box-shadow: var(--shadow-search-focus);
+}
+
+/* Microinteração tátil de produto comercial premium (Linear / Apple Health / Origin UI) */
+.ui-pressable {
+  transition: transform 120ms cubic-bezier(0.2, 0, 0, 1), opacity 120ms ease, background-color 150ms ease;
+}
+
+.ui-pressable:active {
+  transform: translateY(1px) scale(0.985);
+}
+
+html[data-reduce-motion="true"] .ui-pressable {
+  transition: none !important;
+  transform: none !important;
+}
+
+/* Ponto pulsante de status de utilidade pública */
+@keyframes status-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(1.15);
+  }
+}
+
+.ui-status-dot-pulse {
+  animation: status-pulse 2.4s ease-in-out infinite;
+}
+
+html[data-reduce-motion="true"] .ui-status-dot-pulse {
+  animation: none !important;
+}
+
+/* Skeletons de carregamento em CSS puro (desativados com movimento reduzido) */
+@keyframes ui-skeleton-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.ui-skeleton {
+  background-color: var(--c-bg-soft);
+  border-radius: var(--r-card);
+  animation: ui-skeleton-pulse 1.8s ease-in-out infinite;
+}
+
+html[data-reduce-motion="true"] .ui-skeleton {
+  animation: none !important;
+  opacity: 0.7;
 }
 
 /* Reforço automático de bordas para 2px sólido apenas quando o modo Alto Contraste estiver ativo */

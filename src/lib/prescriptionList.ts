@@ -1,4 +1,10 @@
 import { formatIsoDatePTBR, getVia1Copy, getVia2Copy } from '@/lib/healthCopy';
+import {
+  getSafeSessionStorage,
+  safeStorageGetItem,
+  safeStorageRemoveItem,
+  safeStorageSetItem,
+} from '@/lib/safeStorage';
 import type { Apresentacao, LocalDispensacaoSUS, Medicamento, MetaDados } from '@/types/schema';
 
 export const PRESCRIPTION_STORAGE_KEY = 'onde_pego_minha_receita_v1';
@@ -110,62 +116,36 @@ export function parsePrescriptionSession(
 export function loadPrescriptionSession(
   storage?: Pick<Storage, 'getItem'> | null,
 ): PrescriptionSessionState {
-  const target =
-    storage !== undefined
-      ? storage
-      : typeof window !== 'undefined'
-        ? window.sessionStorage
-        : null;
+  const target = storage !== undefined ? storage : getSafeSessionStorage();
 
   if (!target) {
     return { items: [], checkedDocs: [] };
   }
 
-  try {
-    return parsePrescriptionSession(target.getItem(PRESCRIPTION_STORAGE_KEY));
-  } catch {
-    return { items: [], checkedDocs: [] };
-  }
+  const raw = safeStorageGetItem(target as Storage, PRESCRIPTION_STORAGE_KEY);
+  return parsePrescriptionSession(raw);
 }
 
 export function savePrescriptionSession(
   state: PrescriptionSessionState,
   storage?: Pick<Storage, 'setItem'> | null,
 ): void {
-  const target =
-    storage !== undefined
-      ? storage
-      : typeof window !== 'undefined'
-        ? window.sessionStorage
-        : null;
+  const target = storage !== undefined ? storage : getSafeSessionStorage();
 
   if (!target) {
     return;
   }
 
-  try {
-    target.setItem(PRESCRIPTION_STORAGE_KEY, JSON.stringify(state));
-  } catch {
-    // Ignora falha de quota em modo restrito
-  }
+  safeStorageSetItem(target as Storage, PRESCRIPTION_STORAGE_KEY, JSON.stringify(state));
 }
 
 export function clearPrescriptionSession(
   storage?: Pick<Storage, 'removeItem'> | null,
 ): PrescriptionSessionState {
-  const target =
-    storage !== undefined
-      ? storage
-      : typeof window !== 'undefined'
-        ? window.sessionStorage
-        : null;
+  const target = storage !== undefined ? storage : getSafeSessionStorage();
 
   if (target) {
-    try {
-      target.removeItem(PRESCRIPTION_STORAGE_KEY);
-    } catch {
-      // Ignora erro
-    }
+    safeStorageRemoveItem(target as Storage, PRESCRIPTION_STORAGE_KEY);
   }
 
   return { items: [], checkedDocs: [] };

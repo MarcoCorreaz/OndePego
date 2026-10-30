@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
-import { CheckCircleIcon, CopyLinkIcon, PhoneIcon } from '@/components/ui/Icons';
+import React, { useEffect, useRef, useState } from 'react';
+import { CopyLinkIcon, PhoneIcon } from '@/components/ui/Icons';
+import { Icon } from '@/components/ui/Icon';
 
 export interface EstablishmentContactActionsProps {
   telefone?: string;
@@ -28,13 +29,21 @@ export function EstablishmentContactActions({
   nomeFantasia,
 }: EstablishmentContactActionsProps) {
   const [copied, setCopied] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   const handleCopyAddress = async () => {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
       try {
         await navigator.clipboard.writeText(endereco);
         setCopied(true);
-        setTimeout(() => setCopied(false), 3000);
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        timeoutRef.current = setTimeout(() => setCopied(false), 3000);
       } catch {
         // Fallback silencioso
       }
@@ -48,7 +57,7 @@ export function EstablishmentContactActions({
           <div className="flex flex-wrap items-center gap-2">
             <a
               href={`tel:${sanitizePhoneNumber(telefone)}`}
-              className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-button)] border border-[var(--c-brand)]/20 bg-[var(--c-brand-tint)] px-3 py-1.5 font-display text-base font-bold text-[var(--c-brand)] transition-colors hover:bg-[var(--c-brand)] hover:text-white active:translate-y-px"
+              className="inline-flex min-h-[48px] items-center gap-2 rounded-[var(--r-button)] border border-[var(--c-brand)]/20 bg-[var(--c-brand-tint)] px-3.5 py-2 font-display text-base font-bold text-[var(--c-brand)] transition-colors hover:bg-[var(--c-brand)] hover:text-white active:translate-y-px"
               aria-label={`Ligar para ${nomeFantasia} no telefone ${telefone}`}
             >
               <PhoneIcon className="h-4 w-4" />
@@ -59,10 +68,21 @@ export function EstablishmentContactActions({
               type="button"
               onClick={handleCopyAddress}
               aria-label={`Copiar endereço de ${nomeFantasia}`}
-              className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-button)] border border-[var(--c-border)] bg-[var(--c-surface)] px-3 py-1.5 text-sm font-bold text-[var(--c-text)] shadow-2xs transition-colors hover:bg-[var(--c-bg-soft)] active:translate-y-px"
+              className={`ui-pressable inline-flex min-h-[48px] items-center gap-1.5 rounded-[var(--r-button)] border px-3.5 py-2 text-sm font-bold shadow-2xs transition-all ${
+                copied
+                  ? 'border-[var(--c-free)] bg-[var(--c-free-tint)] text-[var(--c-free)]'
+                  : 'border-[var(--c-border)] bg-[var(--c-surface)] text-[var(--c-text)] hover:bg-[var(--c-bg-soft)]'
+              }`}
             >
-              <CopyLinkIcon className="h-4 w-4 text-[var(--c-brand)]" />
-              <span>{copied ? '✓ Endereço copiado' : 'Copiar endereço'}</span>
+              <CopyLinkIcon className={`h-4 w-4 ${copied ? 'text-[var(--c-free)]' : 'text-[var(--c-brand)]'}`} />
+              {copied ? (
+                <span className="inline-flex items-center gap-1 text-[var(--c-free)]">
+                  <Icon name="check" className="h-4 w-4" />
+                  <span>Endereço copiado</span>
+                </span>
+              ) : (
+                <span>Copiar endereço</span>
+              )}
             </button>
           </div>
           <p className="text-xs text-[var(--c-text-2)]">
@@ -77,10 +97,21 @@ export function EstablishmentContactActions({
             type="button"
             onClick={handleCopyAddress}
             aria-label={`Copiar endereço de ${nomeFantasia}`}
-            className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-button)] border border-[var(--c-border)] bg-[var(--c-surface)] px-3 py-1.5 text-sm font-bold text-[var(--c-text)] shadow-2xs transition-colors hover:bg-[var(--c-bg-soft)] active:translate-y-px"
+            className={`ui-pressable inline-flex min-h-[48px] items-center gap-1.5 rounded-[var(--r-button)] border px-3.5 py-2 text-sm font-bold shadow-2xs transition-all ${
+              copied
+                ? 'border-[var(--c-free)] bg-[var(--c-free-tint)] text-[var(--c-free)]'
+                : 'border-[var(--c-border)] bg-[var(--c-surface)] text-[var(--c-text)] hover:bg-[var(--c-bg-soft)]'
+            }`}
           >
-            <CopyLinkIcon className="h-4 w-4 text-[var(--c-brand)]" />
-            <span>{copied ? '✓ Endereço copiado' : 'Copiar endereço'}</span>
+            <CopyLinkIcon className={`h-4 w-4 ${copied ? 'text-[var(--c-free)]' : 'text-[var(--c-brand)]'}`} />
+            {copied ? (
+              <span className="inline-flex items-center gap-1 text-[var(--c-free)]">
+                <Icon name="check" className="h-4 w-4" />
+                <span>Endereço copiado</span>
+              </span>
+            ) : (
+              <span>Copiar endereço</span>
+            )}
           </button>
         </div>
       )}

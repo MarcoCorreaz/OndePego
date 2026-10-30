@@ -1,4 +1,10 @@
 import { type MatchState, resolveMatchState } from '@/lib/matchState';
+import {
+  getSafeSessionStorage,
+  safeStorageGetItem,
+  safeStorageRemoveItem,
+  safeStorageSetItem,
+} from '@/lib/safeStorage';
 
 export { type MatchState, resolveMatchState };
 
@@ -45,67 +51,41 @@ export function parseSearchSession(raw: string | null | undefined): SearchSessio
 export function loadSearchSession(
   storage?: Pick<Storage, 'getItem'> | null,
 ): SearchSessionState {
-  const target =
-    storage !== undefined
-      ? storage
-      : typeof window !== 'undefined'
-        ? window.sessionStorage
-        : null;
+  const target = storage !== undefined ? storage : getSafeSessionStorage();
 
   if (!target) {
     return { ...DEFAULT_SEARCH_SESSION };
   }
 
-  try {
-    return parseSearchSession(target.getItem(SEARCH_SESSION_STORAGE_KEY));
-  } catch {
-    return { ...DEFAULT_SEARCH_SESSION };
-  }
+  const raw = safeStorageGetItem(target as Storage, SEARCH_SESSION_STORAGE_KEY);
+  return parseSearchSession(raw);
 }
 
 export function saveSearchSession(
   state: SearchSessionState,
   storage?: Pick<Storage, 'setItem'> | null,
 ): void {
-  const target =
-    storage !== undefined
-      ? storage
-      : typeof window !== 'undefined'
-        ? window.sessionStorage
-        : null;
+  const target = storage !== undefined ? storage : getSafeSessionStorage();
 
   if (!target) {
     return;
   }
 
-  try {
-    const sanitized: SearchSessionState = {
-      lastQuery: state.lastQuery,
-      scrollY: Math.max(0, Math.round(state.scrollY)),
-    };
-    target.setItem(SEARCH_SESSION_STORAGE_KEY, JSON.stringify(sanitized));
-  } catch {
-    // Ignora falha de quota em modo restrito
-  }
+  const sanitized: SearchSessionState = {
+    lastQuery: state.lastQuery,
+    scrollY: Math.max(0, Math.round(state.scrollY)),
+  };
+  safeStorageSetItem(target as Storage, SEARCH_SESSION_STORAGE_KEY, JSON.stringify(sanitized));
 }
 
 export function clearSearchSession(
   storage?: Pick<Storage, 'removeItem'> | null,
 ): void {
-  const target =
-    storage !== undefined
-      ? storage
-      : typeof window !== 'undefined'
-        ? window.sessionStorage
-        : null;
+  const target = storage !== undefined ? storage : getSafeSessionStorage();
 
   if (!target) {
     return;
   }
 
-  try {
-    target.removeItem(SEARCH_SESSION_STORAGE_KEY);
-  } catch {
-    // Ignora erro
-  }
+  safeStorageRemoveItem(target as Storage, SEARCH_SESSION_STORAGE_KEY);
 }

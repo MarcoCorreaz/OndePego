@@ -1,13 +1,10 @@
+import React from 'react';
 import Link from 'next/link';
 import { SearchBar } from '@/components/search/SearchBar';
 import { ShortcutChips } from '@/components/search/ShortcutChips';
 import { FreshnessBanner } from '@/components/ui/FreshnessBanner';
-import {
-  ArrowRightIcon,
-  BuildingSusIcon,
-  MapPinIcon,
-  PharmacyCrossIcon,
-} from '@/components/ui/Icons';
+import { Icon } from '@/components/ui/Icon';
+import { SignpostIllustration } from '@/components/ui/SignpostIllustration';
 import type { MetaDados } from '@/types/schema';
 import metaJson from '../../data/meta.json';
 
@@ -17,134 +14,119 @@ export default function HomePage() {
   return (
     <>
       <FreshnessBanner meta={meta} />
-      <main id="conteudo-principal" className="mx-auto max-w-4xl space-y-8 px-4 py-8 sm:py-10">
-        {/* Bloco Herói de Busca (ADR-07) com iluminação de superfície suave */}
+
+      <main id="conteudo-principal" className="space-y-6">
+        {/* Hero Oficial v2 (Fase 10B) */}
         <section
           aria-label="Consulta de medicamentos"
-          className="ui-card-elevated relative overflow-hidden p-5 sm:p-8"
+          className="relative overflow-hidden rounded-b-[28px] bg-[var(--c-brand)] px-4 pb-8 pt-6 text-white shadow-md sm:px-8 sm:pb-10 sm:pt-8"
         >
-          <div
-            aria-hidden="true"
-            className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[var(--c-brand)] via-[var(--c-brand)] to-[var(--c-free)]"
-          />
+          {/* Ilustração decorativa do poste no canto superior direito */}
+          <div className="absolute right-2 top-2 sm:right-6 sm:top-4">
+            <SignpostIllustration className="h-28 w-28 sm:h-36 sm:w-36 text-white" />
+          </div>
 
-          <header className="space-y-3">
-            <div className="inline-flex items-center gap-2 rounded-[var(--r-chip)] border border-[var(--c-border)] bg-[var(--c-bg)] px-3.5 py-1 text-sm font-bold text-[var(--c-brand)]">
-              <span className="h-2 w-2 rounded-full bg-[var(--c-free)]" aria-hidden="true" />
-              <span>Consulta pública gratuita • SUS Cuiabá &amp; Farmácia Popular</span>
+          <div className="relative z-10 mx-auto max-w-3xl space-y-4">
+            <header className="space-y-2">
+              <h1 className="font-display text-3xl font-black leading-tight tracking-tight sm:text-[38px]">
+                Onde pego meu remédio?
+              </h1>
+              <p className="max-w-[54ch] text-lg leading-snug text-white/95">
+                Veja se consta na lista da Prefeitura e se é gratuito no Farmácia Popular.
+              </p>
+            </header>
+
+            {/* Campo de busca e botão dentro do Hero */}
+            <div className="pt-2">
+              <SearchBar variant="hero" navigateOnSubmit />
             </div>
-
-            <h1 className="font-display text-3xl font-extrabold tracking-tight text-[var(--c-text)] sm:text-4xl">
-              Onde pego meu remédio em Cuiabá?
-            </h1>
-            <p className="max-w-[65ch] text-lg leading-relaxed text-[var(--c-text-2)]">
-              Digite o nome do remédio da sua receita para ver, lado a lado, se ele consta na lista
-              da Prefeitura (postos do SUS) e se é gratuito nas farmácias credenciadas ao Farmácia
-              Popular.
-            </p>
-          </header>
-
-          <div className="mt-6 space-y-6 border-t border-[var(--c-border-subtle)] pt-6">
-            {/* Guia visual curto em 3 passos */}
-            <ol
-              aria-label="Como funciona em 3 passos"
-              className="grid grid-cols-1 gap-2.5 rounded-[var(--r-plate)] border border-[var(--c-border-subtle)] bg-[var(--c-bg)] p-3.5 text-base font-bold text-[var(--c-text)] sm:grid-cols-3"
-            >
-              <li className="flex items-center gap-2.5">
-                <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--c-brand)] font-display text-sm font-extrabold text-white">
-                  1
-                </span>
-                <span>Digite o nome da receita</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--c-brand)] font-display text-sm font-extrabold text-white">
-                  2
-                </span>
-                <span>Escolha a dosagem</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--c-free)] font-display text-sm font-extrabold text-white">
-                  3
-                </span>
-                <span>Veja onde retirar e o que levar</span>
-              </li>
-            </ol>
-
-            <SearchBar navigateOnSubmit />
-            <ShortcutChips navigateOnSelect />
           </div>
         </section>
 
-        {/* Bento Grid de Acesso Rápido (ADR-07) */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
-          {/* Card Principal Bento: Unidades e Farmácias Perto de Mim */}
+        {/* Conteúdo logo abaixo do Hero */}
+        <div className="mx-auto max-w-3xl space-y-6 px-4">
+          {/* Toque num assunto comum: grade 2 colunas */}
+          <ShortcutChips navigateOnSelect />
+
+          {/* Cartão "Perto de você?" com mini-mapa SVG */}
           <section
-            aria-labelledby="atalho-unidades-heading"
-            className="ui-card flex flex-col justify-between gap-5 p-5 sm:p-6 md:col-span-7"
+            aria-labelledby="perto-de-voce-heading"
+            className="flex flex-col justify-between gap-4 rounded-[var(--r-card)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 shadow-2xs sm:flex-row sm:items-center sm:p-6"
           >
-            <div className="space-y-2.5">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-[12px] bg-[var(--c-brand-tint)] text-[var(--c-brand)]">
-                <MapPinIcon className="h-5 w-5" />
-              </span>
-              <h2
-                id="atalho-unidades-heading"
-                className="font-display text-2xl font-extrabold text-[var(--c-text)]"
-              >
-                Procura um endereço perto de você?
-              </h2>
-              <p className="max-w-[55ch] text-base leading-relaxed text-[var(--c-text-2)]">
-                Veja a lista e o mapa das farmácias credenciadas ao Farmácia Popular e unidades de
-                saúde por bairro.
+            <div className="space-y-2">
+              <div className="inline-flex items-center gap-2 text-[var(--c-brand)]">
+                <Icon name="pin" className="h-5 w-5" />
+                <h2
+                  id="perto-de-voce-heading"
+                  className="font-display text-2xl font-black text-[var(--c-text)]"
+                >
+                  Perto de você?
+                </h2>
+              </div>
+              <p className="max-w-[45ch] text-base leading-relaxed text-[var(--c-text-2)]">
+                Encontre farmácias credenciadas e unidades públicas de saúde em Cuiabá no mapa ou por bairro.
               </p>
+              <div>
+                <Link
+                  href="/unidades/"
+                  className="ui-pressable inline-flex min-h-[48px] items-center gap-2 rounded-[var(--r-button)] bg-[var(--c-brand-tint)] px-4 py-2 font-display text-base font-bold text-[var(--c-brand)] transition-colors hover:bg-[var(--c-brand)] hover:text-white"
+                >
+                  <span>Ver farmácias perto de mim</span>
+                  <Icon name="chev" className="h-4 w-4" />
+                </Link>
+              </div>
             </div>
 
-            <div>
-              <Link
-                href="/unidades/"
-                className="inline-flex min-h-[52px] w-full items-center justify-center gap-2.5 rounded-[var(--r-button)] border border-[var(--c-brand)] bg-[var(--c-brand-tint)] px-5 py-2.5 font-display text-xl font-extrabold text-[var(--c-brand)] transition-colors hover:bg-[var(--c-brand)] hover:text-white sm:w-auto"
+            {/* Mini-mapa SVG decorativo à direita */}
+            <div
+              aria-hidden="true"
+              className="hidden h-28 w-28 shrink-0 items-center justify-center rounded-[var(--r-card)] border border-[var(--c-border-subtle)] bg-[var(--c-bg-soft)] text-[var(--c-brand)] sm:flex"
+            >
+              <svg
+                viewBox="0 0 100 100"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2.5}
+                className="h-20 w-20 opacity-80"
               >
-                <MapPinIcon className="h-5 w-5" />
-                <span>Ver farmácias perto de mim</span>
-                <ArrowRightIcon className="h-4 w-4" />
-              </Link>
+                {/* Linhas de rua estilizadas */}
+                <path d="M10 30 Q 50 20 90 40" stroke="currentColor" strokeWidth={3} />
+                <path d="M20 80 Q 45 40 85 70" stroke="currentColor" strokeWidth={2} />
+                <path d="M50 10 L 50 90" stroke="currentColor" strokeWidth={2.5} />
+                {/* Marcadores de pino */}
+                <circle cx="50" cy="40" r="5" fill="var(--c-brand)" />
+                <circle cx="30" cy="30" r="4" fill="var(--c-free)" />
+                <circle cx="75" cy="55" r="4" fill="var(--c-attn)" />
+              </svg>
             </div>
           </section>
 
-          {/* Coluna Lateral Bento: Resumo das 2 Vias + Plantão 24h */}
-          <div className=" flex flex-col justify-between gap-4 md:col-span-5">
-            <div className="ui-card flex items-start gap-3.5 p-4 sm:p-5">
-              <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-[var(--c-brand-tint)] text-[var(--c-brand)]">
-                <BuildingSusIcon className="h-5 w-5" />
+          {/* Cartão de Plantão 24h e Emergências */}
+          <section
+            aria-labelledby="plantao-heading"
+            className="flex items-center justify-between rounded-[var(--r-card)] border border-[var(--c-border)] bg-[var(--c-surface)] p-4 shadow-2xs sm:p-5"
+          >
+            <div className="flex items-center gap-3">
+              <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[var(--c-alert-tint)] text-[var(--c-alert)]">
+                <Icon name="cross" className="h-5 w-5" />
               </span>
-              <div className="space-y-1">
-                <h3 className="font-display text-lg font-extrabold text-[var(--c-text)]">
-                  Via 1 — Postos, Policlínicas e UPAs
-                </h3>
-                <p className="text-sm leading-relaxed text-[var(--c-text-2)]">
-                  Confira a lista municipal (REMUME), locais de controlados e o{' '}
-                  <Link href="/plantao/" className="font-bold text-[var(--c-brand)] underline">
-                    painel de plantão 24h
-                  </Link>
-                  .
+              <div>
+                <h2 id="plantao-heading" className="font-display text-lg font-black text-[var(--c-text)]">
+                  Plantão 24h e UPAs
+                </h2>
+                <p className="text-sm text-[var(--c-text-2)]">
+                  Unidades com atendimento de urgência e emergência sem interrupção.
                 </p>
               </div>
             </div>
-
-            <div className="ui-card flex items-start gap-3.5 p-4 sm:p-5">
-              <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-[var(--c-free-tint)] text-[var(--c-free)]">
-                <PharmacyCrossIcon className="h-5 w-5" />
-              </span>
-              <div className="space-y-1">
-                <h3 className="font-display text-lg font-extrabold text-[var(--c-text)]">
-                  Via 2 — Farmácia Popular
-                </h3>
-                <p className="text-sm leading-relaxed text-[var(--c-text-2)]">
-                  Veja se o item é 100% gratuito no programa federal e quais drogarias credenciadas
-                  atendem seu bairro.
-                </p>
-              </div>
-            </div>
-          </div>
+            <Link
+              href="/plantao/"
+              className="ui-pressable inline-flex min-h-[48px] min-w-[48px] items-center justify-center rounded-[var(--r-button)] border border-[var(--c-border)] bg-[var(--c-bg)] px-3 text-sm font-bold text-[var(--c-text)] hover:bg-[var(--c-bg-soft)]"
+              aria-label="Ver unidades de plantão 24 horas"
+            >
+              <Icon name="chev" className="h-5 w-5 text-[var(--c-brand)]" />
+            </Link>
+          </section>
         </div>
       </main>
     </>

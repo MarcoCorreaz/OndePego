@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Onde Pego — Open Graph Template (1200×630)</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+      background-color: #0B3D91;
+      color: #FFFFFF;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 64px 80px;
+      position: relative;
+    }
+    /* Fundo com iluminação sutil de superfície */
+    .bg-accent {
+      position: absolute;
+      right: -80px;
+      top: -60px;
+      width: 480px;
+      height: 480px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 199, 44, 0.18) 0%, rgba(11, 61, 145, 0) 70%);
+      pointer-events: none;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      z-index: 10;
+    }
+    .logo-badge {
+      width: 64px;
+      height: 64px;
+      background-color: #FFFFFF;
+      color: #0B3D91;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    .brand-name {
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .brand-sub {
+      font-size: 20px;
+      font-weight: 700;
+      color: #FFC72C;
+      letter-spacing: -0.01em;
+      margin-top: 4px;
+    }
+    .main-content {
+      z-index: 10;
+      max-width: 820px;
+    }
+    .main-title {
+      font-size: 64px;
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    .main-desc {
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 1.35;
+      color: rgba(255, 255, 255, 0.92);
+    }
+    .tags-row {
+      display: flex;
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .tag {
+      padding: 10px 22px;
+      border-radius: 9999px;
+      font-size: 20px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tag-sus {
+      background-color: rgba(255, 255, 255, 0.15);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: #FFFFFF;
+    }
+    .tag-pfpb {
+      background-color: #E6F4EA;
+      color: #0A5C2B;
+    }
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding-top: 24px;
+      font-size: 19px;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 600;
+      z-index: 10;
+    }
+    .signpost-illustration {
+      position: absolute;
+      right: 70px;
+      bottom: 80px;
+      width: 260px;
+      height: 260px;
+      opacity: 0.25;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-accent"></div>
+
+  <!-- Cabeçalho da Marca -->
+  <div class="header">
+    <div class="logo-badge">
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" width="38" height="38">
+        <line x1="16" y1="4" x2="16" y2="28" stroke-width="3" />
+        <path d="M16 8h10l3 3.5-3 3.5H16V8z" fill="currentColor" fill-opacity="0.15" />
+        <path d="M16 17H6l-3 3.5 3 3.5h10v-7z" fill="currentColor" fill-opacity="0.15" />
+        <line x1="12" y1="28" x2="20" y2="28" stroke-width="3" />
+      </svg>
+    </div>
+    <div>
+      <div class="brand-name">Onde Pego</div>
+      <div class="brand-sub">Cuiabá • MT</div>
+    </div>
+  </div>
+
+  <!-- Conteúdo Principal -->
+  <div class="main-content">
+    <h1 class="main-title">Onde pego meu remédio?</h1>
+    <p class="main-desc">
+      Consulta pública rápida e independente: veja se consta na lista do SUS Cuiabá e se é gratuito no Farmácia Popular.
+    </p>
+
+    <div class="tags-row">
+      <div class="tag tag-sus">✓ SUS Cuiabá (REMUME)</div>
+      <div class="tag tag-pfpb">✓ Farmácia Popular 100% Gratuito</div>
+    </div>
+  </div>
+
+  <!-- Ilustração do poste à direita -->
+  <div class="signpost-illustration">
+    <svg viewBox="0 0 100 100" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" width="100%" height="100%">
+      <line x1="50" y1="10" x2="50" y2="90" stroke-width="6" />
+      <path d="M50 20 H82 L94 30 L82 40 H50 Z" fill="#FFFFFF" fill-opacity="0.3" stroke-width="4" />
+      <path d="M50 48 H18 L6 58 L18 68 H50 Z" fill="#FFFFFF" fill-opacity="0.3" stroke-width="4" />
+      <path d="M42 90 H58" stroke-width="6" />
+    </svg>
+  </div>
+
+  <!-- Rodapé -->
+  <div class="footer">
+    <div>Sem cadastro • Sem rastreamento • 100% no seu aparelho</div>
+    <div>Cuiabá, Mato Grosso</div>
+  </div>
+</body>
+</html>

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { FreshnessBanner } from '@/components/ui/FreshnessBanner';
-import { AlertTriangleIcon, ShieldCheckIcon } from '@/components/ui/Icons';
+import { Icon } from '@/components/ui/Icon';
 import { NORMATIVE_TEXTS, formatIsoDatePTBR } from '@/lib/healthCopy';
 import type { MetaDados } from '@/types/schema';
 import metaJson from '../../../data/meta.json';
@@ -28,18 +28,18 @@ export default function SobrePage() {
           </p>
         </header>
 
-        {/* Aviso de independência (literal de busca-textos-saude) */}
+        {/* 1. Aviso de independência (visível, não recolhido) */}
         <section
           aria-labelledby="sobre-independencia-heading"
-          className="ui-card-elevated p-5 sm:p-6"
+          className="rounded-[var(--r-card)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 shadow-2xs sm:p-6"
         >
           <div className="flex items-center gap-2.5">
             <span className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] bg-[var(--c-brand-tint)] text-[var(--c-brand)]">
-              <ShieldCheckIcon className="h-5 w-5" />
+              <Icon name="check" className="h-5 w-5" />
             </span>
             <h2
               id="sobre-independencia-heading"
-              className="font-display text-2xl font-extrabold text-[var(--c-text)]"
+              className="font-display text-2xl font-black text-[var(--c-text)]"
             >
               Projeto independente de utilidade pública
             </h2>
@@ -49,17 +49,22 @@ export default function SobrePage() {
           </p>
         </section>
 
-        {/* Origem e data de cada fonte oficial */}
+        {/* 2. Origem e data de cada fonte oficial */}
         <section
           aria-labelledby="sobre-fontes-heading"
-          className="ui-card p-5 sm:p-6"
+          className="rounded-[var(--r-card)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 shadow-2xs sm:p-6"
         >
-          <h2
-            id="sobre-fontes-heading"
-            className="font-display text-2xl font-extrabold text-[var(--c-text)]"
-          >
-            Fontes oficiais dos dados e datas de verificação
-          </h2>
+          <div className="flex items-center gap-2.5">
+            <span className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] bg-[var(--c-brand-tint)] text-[var(--c-brand)]">
+              <Icon name="doc" className="h-5 w-5" />
+            </span>
+            <h2
+              id="sobre-fontes-heading"
+              className="font-display text-2xl font-black text-[var(--c-text)]"
+            >
+              Fontes oficiais dos dados e datas de verificação
+            </h2>
+          </div>
           <p className="mt-2 max-w-[65ch] text-base text-[var(--c-text-2)]">
             Todas as informações exibidas no aplicativo vêm de publicações abertas de órgãos
             públicos:
@@ -102,30 +107,44 @@ export default function SobrePage() {
               </dd>
             </div>
 
-            <div className="rounded-[var(--r-button)] border border-[var(--c-border-subtle)] bg-[var(--c-bg)] p-4">
-              <dt className="font-display text-lg font-bold text-[var(--c-text)]">
-                Última checagem automática de integridade (CI)
-              </dt>
-              <dd className="mt-1 text-[var(--c-text)]">
-                <strong>Verificado em:</strong> {formatIsoDatePTBR(meta.ultima_verificacao_ci)}{' '}
-                (versão do pacote de dados: <code>{meta.versao}</code>)
-              </dd>
-            </div>
+            {/* Conteúdo longo secundário em <details> */}
+            <details className="group rounded-[var(--r-button)] border border-[var(--c-border-subtle)] bg-[var(--c-bg)] p-4">
+              <summary className="inline-flex min-h-[44px] cursor-pointer items-center gap-2 font-display text-base font-bold text-[var(--c-brand)] hover:underline focus:outline-none">
+                <span>Detalhes técnicos da base e checagem contínua</span>
+                <Icon name="chev" className="h-4 w-4 transition-transform group-open:rotate-90" />
+              </summary>
+              <div className="pt-2 text-sm text-[var(--c-text)]">
+                <p>
+                  <strong>Última checagem automática de integridade (CI):</strong>{' '}
+                  {formatIsoDatePTBR(meta.ultima_verificacao_ci)} (versão do pacote:{' '}
+                  <code>{meta.versao}</code>)
+                </p>
+                <p className="mt-1 text-xs text-[var(--c-text-2)]">
+                  Cada compilação valida os esquemas com Zod em modo strict e garante a
+                  correspondência exata entre os princípios ativos e as apresentações.
+                </p>
+              </div>
+            </details>
           </dl>
         </section>
 
-        {/* Privacidade em linguagem simples (literal de busca-textos-saude / ADR-09) */}
+        {/* 3. Privacidade em linguagem simples (visível, não recolhido) */}
         <section
           aria-labelledby="sobre-privacidade-heading"
-          className="ui-card p-5 sm:p-6"
+          className="rounded-[var(--r-card)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 shadow-2xs sm:p-6"
         >
-          <h2
-            id="sobre-privacidade-heading"
-            className="font-display text-2xl font-extrabold text-[var(--c-text)]"
-          >
-            Sua privacidade (LGPD)
-          </h2>
-          <p className="mt-2 max-w-[65ch] text-base leading-relaxed text-[var(--c-text)]">
+          <div className="flex items-center gap-2.5">
+            <span className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] bg-[var(--c-brand-tint)] text-[var(--c-brand)]">
+              <Icon name="a11y" className="h-5 w-5" />
+            </span>
+            <h2
+              id="sobre-privacidade-heading"
+              className="font-display text-2xl font-black text-[var(--c-text)]"
+            >
+              Sua privacidade (LGPD)
+            </h2>
+          </div>
+          <p className="mt-3 max-w-[65ch] text-base leading-relaxed text-[var(--c-text)]">
             {NORMATIVE_TEXTS.privacidadeResumo}
           </p>
           <ul className="mt-3.5 list-disc space-y-1.5 rounded-[var(--r-button)] bg-[var(--c-bg)] p-4 pl-8 text-base text-[var(--c-text)]">
@@ -143,23 +162,28 @@ export default function SobrePage() {
           </ul>
         </section>
 
-        {/* Como reportar erro ou endereço desatualizado */}
+        {/* 4. Como reportar erro ou endereço desatualizado */}
         <section
           aria-labelledby="sobre-contato-heading"
-          className="ui-card space-y-4 p-5 sm:p-6"
+          className="rounded-[var(--r-card)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 shadow-2xs sm:p-6 space-y-4"
         >
-          <h2
-            id="sobre-contato-heading"
-            className="font-display text-2xl font-extrabold text-[var(--c-text)]"
-          >
-            Encontrou um erro ou endereço desatualizado?
-          </h2>
+          <div className="flex items-center gap-2.5">
+            <span className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] bg-[var(--c-attn-tint)] text-[var(--c-attn-ink)]">
+              <Icon name="info" className="h-5 w-5" />
+            </span>
+            <h2
+              id="sobre-contato-heading"
+              className="font-display text-2xl font-black text-[var(--c-text)]"
+            >
+              Encontrou um erro ou endereço desatualizado?
+            </h2>
+          </div>
 
           <div
             role="note"
-            className="flex items-start gap-2.5 rounded-[var(--r-button)] border border-[var(--c-attn-border)] bg-[var(--c-attn)] p-4 text-base font-bold text-[var(--c-text)]"
+            className="flex items-start gap-2.5 rounded-[var(--r-button)] border border-[var(--c-attn-border)] bg-[var(--c-attn-tint)] p-4 text-base font-bold text-[var(--c-attn-ink)]"
           >
-            <AlertTriangleIcon className="mt-0.5 h-5 w-5 shrink-0" />
+            <Icon name="info" className="mt-0.5 h-5 w-5 shrink-0" />
             <span>
               Importante para sua segurança: NUNCA envie foto de receita médica, número de CPF,
               Cartão do SUS, telefone ou dados pessoais de saúde ao relatar uma correção.
@@ -171,25 +195,31 @@ export default function SobrePage() {
             Se você notou algum endereço de unidade ou farmácia que mudou em Cuiabá:
           </p>
 
-          <ul className="list-disc space-y-2 pl-5 text-base text-[var(--c-text)]">
-            <li>
-              <strong>Programa Farmácia Popular (Ministério da Saúde):</strong> caso uma farmácia
-              listada na base oficial não seja localizada no endereço cadastrado, você pode
-              comunicar diretamente a equipe nacional do programa pelo e-mail oficial{' '}
-              <a
-                href="mailto:analise.fpopular@saude.gov.br"
-                className="font-bold text-[var(--c-brand)] underline"
-              >
-                analise.fpopular@saude.gov.br
-              </a>
-              .
-            </li>
-            <li>
-              <strong>Rede Municipal de Cuiabá (UBS, Policlínicas e UPAs):</strong> dúvidas ou
-              manifestações sobre atendimento, endereços de unidades públicas e abastecimento
-              municipal podem ser registradas na Ouvidoria Geral / e-SIC da Prefeitura de Cuiabá.
-            </li>
-          </ul>
+          <details className="group rounded-[var(--r-button)] border border-[var(--c-border-subtle)] bg-[var(--c-bg)] p-4">
+            <summary className="inline-flex min-h-[44px] cursor-pointer items-center gap-2 font-display text-base font-bold text-[var(--c-brand)] hover:underline focus:outline-none">
+              <span>Ver canais oficiais para registrar correção</span>
+              <Icon name="chev" className="h-4 w-4 transition-transform group-open:rotate-90" />
+            </summary>
+            <ul className="mt-3 list-disc space-y-2 pl-5 text-base text-[var(--c-text)]">
+              <li>
+                <strong>Programa Farmácia Popular (Ministério da Saúde):</strong> caso uma farmácia
+                listada na base oficial não seja localizada no endereço cadastrado, você pode
+                comunicar diretamente a equipe nacional do programa pelo e-mail oficial{' '}
+                <a
+                  href="mailto:analise.fpopular@saude.gov.br"
+                  className="font-bold text-[var(--c-brand)] underline"
+                >
+                  analise.fpopular@saude.gov.br
+                </a>
+                .
+              </li>
+              <li>
+                <strong>Rede Municipal de Cuiabá (UBS, Policlínicas e UPAs):</strong> dúvidas ou
+                manifestações sobre atendimento, endereços de unidades públicas e abastecimento
+                municipal podem ser registradas na Ouvidoria Geral / e-SIC da Prefeitura de Cuiabá.
+              </li>
+            </ul>
+          </details>
         </section>
       </main>
     </>

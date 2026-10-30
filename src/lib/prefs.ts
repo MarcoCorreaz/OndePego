@@ -1,3 +1,9 @@
+import {
+  getSafeLocalStorage,
+  safeStorageGetItem,
+  safeStorageSetItem,
+} from '@/lib/safeStorage';
+
 export type FontScale = 'normal' | 'large' | 'xlarge';
 
 export interface AccessibilityPrefs {
@@ -55,22 +61,14 @@ export function loadPrefs(
   storage?: Pick<Storage, 'getItem'> | null,
 ): AccessibilityPrefs {
   const targetStorage =
-    storage !== undefined
-      ? storage
-      : typeof window !== 'undefined'
-        ? window.localStorage
-        : null;
+    storage !== undefined ? storage : getSafeLocalStorage();
 
   if (!targetStorage) {
     return { ...DEFAULT_PREFS };
   }
 
-  try {
-    const raw = targetStorage.getItem(A11Y_PREFS_STORAGE_KEY);
-    return parsePrefs(raw);
-  } catch {
-    return { ...DEFAULT_PREFS };
-  }
+  const raw = safeStorageGetItem(targetStorage as Storage, A11Y_PREFS_STORAGE_KEY);
+  return parsePrefs(raw);
 }
 
 export function savePrefs(
@@ -78,21 +76,13 @@ export function savePrefs(
   storage?: Pick<Storage, 'setItem'> | null,
 ): void {
   const targetStorage =
-    storage !== undefined
-      ? storage
-      : typeof window !== 'undefined'
-        ? window.localStorage
-        : null;
+    storage !== undefined ? storage : getSafeLocalStorage();
 
   if (!targetStorage) {
     return;
   }
 
-  try {
-    targetStorage.setItem(A11Y_PREFS_STORAGE_KEY, JSON.stringify(prefs));
-  } catch {
-    // Ignora falha de quota ou modo privado restrito
-  }
+  safeStorageSetItem(targetStorage as Storage, A11Y_PREFS_STORAGE_KEY, JSON.stringify(prefs));
 }
 
 /**

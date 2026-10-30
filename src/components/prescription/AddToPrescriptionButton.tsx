@@ -1,9 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePrescription } from '@/components/prescription/PrescriptionProvider';
-import { CheckCircleIcon } from '@/components/ui/Icons';
+import { CheckCircleIcon, SparklesIcon } from '@/components/ui/Icons';
 import type { Apresentacao, Medicamento } from '@/types/schema';
 
 export interface AddToPrescriptionButtonProps {
@@ -17,6 +17,14 @@ export function AddToPrescriptionButton({
 }: AddToPrescriptionButtonProps) {
   const { isItemAdded, addItem, removeItem, items } = usePrescription();
   const isSaved = isItemAdded(medicamento.slug, apresentacao.id_apresentacao);
+  const [justAdded, setJustAdded] = useState(false);
+  const timeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  React.useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   const handleToggle = () => {
     const entry = {
@@ -25,8 +33,12 @@ export function AddToPrescriptionButton({
     };
     if (isSaved) {
       removeItem(entry);
+      setJustAdded(false);
     } else {
       addItem(entry);
+      setJustAdded(true);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => setJustAdded(false), 700);
     }
   };
 
@@ -36,16 +48,20 @@ export function AddToPrescriptionButton({
         type="button"
         onClick={handleToggle}
         aria-pressed={isSaved}
-        className={`inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] px-4 py-2 font-display text-base font-bold shadow-2xs transition-all active:translate-y-px ${
+        className={`ui-pressable inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] px-4 py-2 font-display text-base font-bold shadow-2xs transition-all ${
           isSaved
             ? 'border border-[var(--c-free)] bg-[var(--c-free-tint)] text-[var(--c-free)] hover:bg-[var(--c-free-tint)]/80'
             : 'border border-[var(--c-brand)] bg-[var(--c-brand-tint)] text-[var(--c-brand)] hover:bg-[var(--c-brand)] hover:text-white'
-        }`}
+        } ${justAdded ? 'scale-105 ring-4 ring-[var(--c-free)]/20' : ''}`}
       >
         {isSaved ? (
           <>
-            <CheckCircleIcon className="h-5 w-5 text-[var(--c-free)]" />
-            <span>Na Minha Receita (toque para remover)</span>
+            {justAdded ? (
+              <SparklesIcon className="h-5 w-5 text-[var(--c-free)]" />
+            ) : (
+              <CheckCircleIcon className="h-5 w-5 text-[var(--c-free)]" />
+            )}
+            <span>{justAdded ? 'Salvo na receita!' : 'Na Minha Receita (toque para remover)'}</span>
           </>
         ) : (
           <>
@@ -69,10 +85,16 @@ export function AddToPrescriptionButton({
       {isSaved && (
         <Link
           href="/minha-receita/"
-          className="inline-flex min-h-[48px] items-center gap-1 rounded-[var(--r-button)] border border-[var(--c-border)] bg-[var(--c-surface)] px-3 py-2 text-sm font-bold text-[var(--c-text)] hover:bg-[var(--c-bg-soft)]"
+          className="ui-pressable inline-flex min-h-[48px] items-center gap-1 rounded-[var(--r-button)] border border-[var(--c-border)] bg-[var(--c-surface)] px-3 py-2 text-sm font-bold text-[var(--c-text)] shadow-2xs hover:bg-[var(--c-bg-soft)]"
         >
           <span>Ver receita ({items.length}) →</span>
         </Link>
+      )}
+
+      {justAdded && (
+        <p role="status" aria-live="polite" className="sr-only">
+          {medicamento.principio_ativo} {apresentacao.descricao_dosagem} adicionado à Minha Receita.
+        </p>
       )}
     </div>
   );
