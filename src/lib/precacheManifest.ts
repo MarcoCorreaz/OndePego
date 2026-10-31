@@ -10,6 +10,7 @@ export interface PrecacheManifest {
 export const FIXED_PRECACHE_ROUTES = [
   '/',
   '/buscar/',
+  '/mapa/',
   '/minha-receita/',
   '/unidades/',
   '/plantao/',

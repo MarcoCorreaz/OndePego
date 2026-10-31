@@ -27,17 +27,23 @@ export function BottomNav() {
       iconName: 'search',
     },
     {
-      href: '/minha-receita/',
-      label: 'Receita',
-      match: (p) => p.startsWith('/minha-receita'),
-      badge: prescriptionCount > 0 ? prescriptionCount : undefined,
-      iconName: 'doc',
+      href: '/mapa/',
+      label: 'Mapa',
+      match: (p) => p.startsWith('/mapa'),
+      iconName: 'map',
     },
     {
       href: '/unidades/',
       label: 'Unidades',
       match: (p) => p.startsWith('/unidades'),
       iconName: 'pin',
+    },
+    {
+      href: '/minha-receita/',
+      label: 'Receita',
+      match: (p) => p.startsWith('/minha-receita'),
+      badge: prescriptionCount > 0 ? prescriptionCount : undefined,
+      iconName: 'doc',
     },
     {
       href: '/plantao/',
@@ -50,9 +56,9 @@ export function BottomNav() {
   return (
     <nav
       aria-label="Navegação principal"
-      className="fixed bottom-0 left-0 right-0 z-40 h-[74px] border-t border-[var(--c-border)] bg-[var(--c-surface)] shadow-[var(--shadow-dock)]"
+      className="fixed bottom-0 left-0 right-0 z-40 h-[74px] border-t border-[var(--c-border)] bg-[var(--c-surface)]/90 backdrop-blur-md shadow-[var(--shadow-dock)]"
     >
-      <ul className="mx-auto grid h-full max-w-2xl grid-cols-4 items-center gap-1 px-2 sm:gap-2 sm:px-3">
+      <ul className="mx-auto grid h-full max-w-2xl grid-cols-5 items-center gap-0.5 px-1 sm:gap-1.5 sm:px-3">
         {navItems.map((item) => {
           const active = item.match(pathname);
           return (
@@ -60,7 +66,7 @@ export function BottomNav() {
               <Link
                 href={item.href}
                 aria-current={active ? 'page' : undefined}
-                className={`relative z-10 flex h-[62px] w-full flex-col items-center justify-center gap-0.5 rounded-[var(--r-button)] px-1 transition-all active:scale-[0.98] ${
+                className={`relative z-10 flex h-[62px] w-full flex-col items-center justify-center gap-0.5 rounded-[var(--r-button)] px-0.5 transition-all active:scale-[0.98] ${
                   active
                     ? 'font-extrabold text-[var(--c-brand)]'
                     : 'font-bold text-[var(--c-text-2)] hover:bg-[var(--c-bg-soft)]/70 hover:text-[var(--c-text)]'
@@ -73,7 +79,7 @@ export function BottomNav() {
                   />
                 )}
                 <span className="relative flex items-center justify-center">
-                  <Icon name={item.iconName} className="h-6 w-6" />
+                  <Icon name={item.iconName} className="h-5 w-5 sm:h-6 sm:w-6" />
                   {item.badge !== undefined && (
                     <span
                       aria-label={`${item.badge} itens`}
@@ -83,7 +89,7 @@ export function BottomNav() {
                     </span>
                   )}
                 </span>
-                <span className="text-base leading-tight tracking-tight">{item.label}</span>
+                <span className="text-xs sm:text-sm leading-tight tracking-tight">{item.label}</span>
               </Link>
             </li>
           );

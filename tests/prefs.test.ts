@@ -6,6 +6,7 @@ import {
   loadPrefs,
   parsePrefs,
   savePrefs,
+  shouldApplyDarkTheme,
   shouldReduceMotion,
 } from '@/lib/prefs';
 
@@ -36,6 +37,7 @@ describe('Preferências de acessibilidade (src/lib/prefs.ts)', () => {
       fontScale: 'xlarge' as const,
       highContrast: true,
       reduceMotion: true,
+      theme: 'dark' as const,
     };
 
     savePrefs(custom, storage);
@@ -45,21 +47,39 @@ describe('Preferências de acessibilidade (src/lib/prefs.ts)', () => {
     expect(loaded).toEqual(custom);
   });
 
-  it('respeita tanto prefers-reduced-motion do sistema quanto o controle próprio do app', () => {
+  it('determina tema escuro respeitando preferência explícita ou do sistema', () => {
     expect(
-      shouldReduceMotion({ fontScale: 'normal', highContrast: false, reduceMotion: false }, false),
+      shouldApplyDarkTheme({ fontScale: 'normal', highContrast: false, reduceMotion: false, theme: 'dark' }, false),
+    ).toBe(true);
+
+    expect(
+      shouldApplyDarkTheme({ fontScale: 'normal', highContrast: false, reduceMotion: false, theme: 'light' }, true),
     ).toBe(false);
 
     expect(
-      shouldReduceMotion({ fontScale: 'normal', highContrast: false, reduceMotion: true }, false),
+      shouldApplyDarkTheme({ fontScale: 'normal', highContrast: false, reduceMotion: false, theme: 'system' }, true),
     ).toBe(true);
 
     expect(
-      shouldReduceMotion({ fontScale: 'normal', highContrast: false, reduceMotion: false }, true),
+      shouldApplyDarkTheme({ fontScale: 'normal', highContrast: false, reduceMotion: false, theme: 'system' }, false),
+    ).toBe(false);
+  });
+
+  it('respeita tanto prefers-reduced-motion do sistema quanto o controle próprio do app', () => {
+    expect(
+      shouldReduceMotion({ fontScale: 'normal', highContrast: false, reduceMotion: false, theme: 'system' }, false),
+    ).toBe(false);
+
+    expect(
+      shouldReduceMotion({ fontScale: 'normal', highContrast: false, reduceMotion: true, theme: 'system' }, false),
+    ).toBe(true);
+
+    expect(
+      shouldReduceMotion({ fontScale: 'normal', highContrast: false, reduceMotion: false, theme: 'system' }, true),
     ).toBe(true);
   });
 
-  it('aplica data-font-scale, data-contrast e data-reduce-motion no elemento raiz', () => {
+  it('aplica data-font-scale, data-contrast, data-reduce-motion e data-theme no elemento raiz', () => {
     const attrs = new Map<string, string>();
     const fakeRoot = {
       setAttribute: (name: string, value: string) => {
@@ -69,12 +89,14 @@ describe('Preferências de acessibilidade (src/lib/prefs.ts)', () => {
 
     applyPrefsToRootElement(
       fakeRoot,
-      { fontScale: 'large', highContrast: true, reduceMotion: false },
+      { fontScale: 'large', highContrast: true, reduceMotion: false, theme: 'dark' },
       true,
+      false,
     );
 
     expect(attrs.get('data-font-scale')).toBe('large');
     expect(attrs.get('data-contrast')).toBe('high');
     expect(attrs.get('data-reduce-motion')).toBe('true');
+    expect(attrs.get('data-theme')).toBe('dark');
   });
 });

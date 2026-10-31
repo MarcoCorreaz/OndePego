@@ -5,21 +5,26 @@ import {
   type AccessibilityPrefs,
   DEFAULT_PREFS,
   type FontScale,
+  type ThemeMode,
   applyPrefsToRootElement,
   loadPrefs,
   savePrefs,
+  shouldApplyDarkTheme,
   shouldReduceMotion,
 } from '@/lib/prefs';
 
 export interface AccessibilityContextValue {
   prefs: AccessibilityPrefs;
   effectiveReduceMotion: boolean;
+  isDark: boolean;
   isPanelOpen: boolean;
   openPanel: () => void;
   closePanel: () => void;
   setFontScale: (fontScale: FontScale) => void;
   setHighContrast: (highContrast: boolean) => void;
   setReduceMotion: (reduceMotion: boolean) => void;
+  setTheme: (theme: ThemeMode) => void;
+  toggleTheme: () => void;
   resetPrefs: () => void;
 }
 
@@ -29,6 +34,7 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
   // Inicia com DEFAULT_PREFS para evitar mismatch de hidratação no export estático
   const [prefs, setPrefs] = useState<AccessibilityPrefs>(DEFAULT_PREFS);
   const [systemReducedMotion, setSystemReducedMotion] = useState<boolean>(false);
+  const [systemPrefersDark, setSystemPrefersDark] = useState<boolean>(false);
   const [isHydrated, setIsHydrated] = useState<boolean>(false);
   const [isPanelOpen, setIsPanelOpen] = useState<boolean>(false);
 
@@ -36,27 +42,39 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
     const stored = loadPrefs();
     setPrefs(stored);
 
-    const mql =
+    const motionMql =
       typeof window.matchMedia === 'function'
         ? window.matchMedia('(prefers-reduced-motion: reduce)')
         : null;
 
-    const sysReduced = Boolean(mql?.matches);
+    const darkMql =
+      typeof window.matchMedia === 'function'
+        ? window.matchMedia('(prefers-color-scheme: dark)')
+        : null;
+
+    const sysReduced = Boolean(motionMql?.matches);
+    const sysDark = Boolean(darkMql?.matches);
+
     setSystemReducedMotion(sysReduced);
-    applyPrefsToRootElement(document.documentElement, stored, sysReduced);
+    setSystemPrefersDark(sysDark);
+
+    applyPrefsToRootElement(document.documentElement, stored, sysReduced, sysDark);
     setIsHydrated(true);
 
-    if (!mql) {
-      return;
-    }
-
-    const handleChange = (event: MediaQueryListEvent) => {
+    const handleMotionChange = (event: MediaQueryListEvent) => {
       setSystemReducedMotion(event.matches);
     };
 
-    mql.addEventListener('change', handleChange);
+    const handleDarkChange = (event: MediaQueryListEvent) => {
+      setSystemPrefersDark(event.matches);
+    };
+
+    motionMql?.addEventListener('change', handleMotionChange);
+    darkMql?.addEventListener('change', handleDarkChange);
+
     return () => {
-      mql.removeEventListener('change', handleChange);
+      motionMql?.removeEventListener('change', handleMotionChange);
+      darkMql?.removeEventListener('change', handleDarkChange);
     };
   }, []);
 
@@ -65,8 +83,8 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
       return;
     }
     savePrefs(prefs);
-    applyPrefsToRootElement(document.documentElement, prefs, systemReducedMotion);
-  }, [prefs, systemReducedMotion, isHydrated]);
+    applyPrefsToRootElement(document.documentElement, prefs, systemReducedMotion, systemPrefersDark);
+  }, [prefs, systemReducedMotion, systemPrefersDark, isHydrated]);
 
   const setFontScale = useCallback((fontScale: FontScale) => {
     setPrefs((prev) => ({ ...prev, fontScale }));
@@ -79,6 +97,22 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
   const setReduceMotion = useCallback((reduceMotion: boolean) => {
     setPrefs((prev) => ({ ...prev, reduceMotion }));
   }, []);
+
+  const setTheme = useCallback((theme: ThemeMode) => {
+    setPrefs((prev) => ({ ...prev, theme }));
+  }, []);
+
+  const isDark = shouldApplyDarkTheme(prefs, systemPrefersDark);
+
+  const toggleTheme = useCallback(() => {
+    setPrefs((prev) => {
+      const currentlyDark = shouldApplyDarkTheme(prev, systemPrefersDark);
+      return {
+        ...prev,
+        theme: currentlyDark ? 'light' : 'dark',
+      };
+    });
+  }, [systemPrefersDark]);
 
   const resetPrefs = useCallback(() => {
     setPrefs(DEFAULT_PREFS);
@@ -98,23 +132,29 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
     () => ({
       prefs,
       effectiveReduceMotion,
+      isDark,
       isPanelOpen,
       openPanel,
       closePanel,
       setFontScale,
       setHighContrast,
       setReduceMotion,
+      setTheme,
+      toggleTheme,
       resetPrefs,
     }),
     [
       prefs,
       effectiveReduceMotion,
+      isDark,
       isPanelOpen,
       openPanel,
       closePanel,
       setFontScale,
       setHighContrast,
       setReduceMotion,
+      setTheme,
+      toggleTheme,
       resetPrefs,
     ],
   );
@@ -125,12 +165,15 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
 const FALLBACK_ACCESSIBILITY_CONTEXT: AccessibilityContextValue = {
   prefs: DEFAULT_PREFS,
   effectiveReduceMotion: false,
+  isDark: false,
   isPanelOpen: false,
   openPanel: () => {},
   closePanel: () => {},
   setFontScale: () => {},
   setHighContrast: () => {},
   setReduceMotion: () => {},
+  setTheme: () => {},
+  toggleTheme: () => {},
   resetPrefs: () => {},
 };
 

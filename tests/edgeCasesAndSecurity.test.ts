@@ -79,6 +79,7 @@ describe('Estágio 1 — Blindagem de Casos Extremos e Segurança de Armazenamen
         fontScale: 'normal',
         highContrast: false,
         reduceMotion: false,
+        theme: 'system',
       });
 
       // JSON corrompido
@@ -86,12 +87,14 @@ describe('Estágio 1 — Blindagem de Casos Extremos e Segurança de Armazenamen
         fontScale: 'normal',
         highContrast: false,
         reduceMotion: false,
+        theme: 'system',
       });
 
       expect(parsePrefs(null)).toEqual({
         fontScale: 'normal',
         highContrast: false,
         reduceMotion: false,
+        theme: 'system',
       });
     });
 
@@ -103,7 +106,7 @@ describe('Estágio 1 — Blindagem de Casos Extremos e Segurança de Armazenamen
       } as unknown as Storage;
 
       expect(() => {
-        savePrefs({ fontScale: 'xlarge', highContrast: true, reduceMotion: true }, quotaStorage);
+        savePrefs({ fontScale: 'xlarge', highContrast: true, reduceMotion: true, theme: 'dark' }, quotaStorage);
       }).not.toThrow();
     });
 

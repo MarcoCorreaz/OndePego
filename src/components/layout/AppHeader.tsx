@@ -8,12 +8,12 @@ import { BrandMark } from '@/components/ui/BrandMark';
 import { Icon } from '@/components/ui/Icon';
 
 export function AppHeader() {
-  const { openPanel, isPanelOpen } = useAccessibility();
+  const { openPanel, isPanelOpen, isDark, toggleTheme } = useAccessibility();
   const { items } = usePrescription();
   const itemCount = items.length;
 
   return (
-    <header className="sticky top-0 z-30 h-16 border-b border-[var(--c-border)] bg-[var(--c-surface)] text-[var(--c-text)] shadow-xs">
+    <header className="sticky top-0 z-30 h-16 border-b border-[var(--c-border)] bg-[var(--c-surface)]/90 backdrop-blur-md text-[var(--c-text)] shadow-xs">
       <div className="mx-auto flex h-full max-w-4xl items-center justify-between px-3 sm:px-4">
         {/* BrandMark à esquerda */}
         <Link
@@ -36,12 +36,23 @@ export function AppHeader() {
               <span>Receita</span>
               <span
                 aria-label={`${itemCount} ${itemCount === 1 ? 'remédio salvo' : 'remédios salvos'}`}
-                className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[var(--c-brand)] px-1 text-xs font-black text-white group-hover:bg-white group-hover:text-[var(--c-brand)]"
+                className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[var(--c-brand)] px-1 text-xs font-black text-white"
               >
                 {itemCount}
               </span>
             </Link>
           )}
+
+          {/* Botão rápido de alternar Tema Claro / Escuro (48x48px) */}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={isDark ? 'Ativar tema claro' : 'Ativar tema escuro'}
+            title={isDark ? 'Ativar tema claro' : 'Ativar tema escuro'}
+            className="ui-pressable inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[var(--c-border-strong)] bg-[var(--c-bg)] text-[var(--c-text)] shadow-2xs transition-colors hover:border-[var(--c-brand)] hover:bg-[var(--c-brand-tint)] hover:text-[var(--c-brand)] active:scale-[0.98]"
+          >
+            <Icon name={isDark ? 'sun' : 'moon'} className="h-5 w-5 text-[var(--c-brand)]" />
+          </button>
 
           {/* Botão circular de 48px com ícone a11y */}
           <button

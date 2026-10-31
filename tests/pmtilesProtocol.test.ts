@@ -27,6 +27,19 @@ describe('pmtilesProtocol — estilo vetorial local e registro PMTiles', () => {
     expect(serialized).not.toContain('sprite');
   });
 
+  it('suporta tema escuro com paleta noturna (earth #0F172A, water #1E3A5F)', () => {
+    const darkStyle = buildLocalMapStyle(DEFAULT_PMTILES_ARCHIVE_PATH, 'dark');
+    expect(darkStyle.name).toContain('dark');
+    const earthLayer = darkStyle.layers.find((l) => l.id === 'earth');
+    expect((earthLayer?.paint as Record<string, string>)?.['fill-color']).toBe('#0F172A');
+
+    const waterLayer = darkStyle.layers.find((l) => l.id === 'water');
+    expect((waterLayer?.paint as Record<string, string>)?.['fill-color']).toBe('#1E3A5F');
+
+    const roadMajor = darkStyle.layers.find((l) => l.id === 'roads-major');
+    expect((roadMajor?.paint as Record<string, string>)?.['line-color']).toBe('#64748B');
+  });
+
   it('aceita caminho customizado com ou sem prefixo pmtiles://', () => {
     const s1 = buildLocalMapStyle('/tiles/custom.pmtiles');
     expect(s1.sources.protomaps.url).toBe('pmtiles:///tiles/custom.pmtiles');

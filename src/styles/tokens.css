@@ -16,6 +16,7 @@
   --c-brand-tint: #e8eef8;
   --c-primary: #0b3d91;
   --c-primary-fg: #ffffff;
+  --c-hero-gradient: linear-gradient(180deg, #0b3d91 0%, #082d6b 100%);
 
   --c-free: #0e7c3a;
   --c-free-tint: #e6f4ea;
@@ -69,6 +70,52 @@ html[data-font-scale="xlarge"] {
   --fs-base: 24px;
 }
 
+/* Tema Escuro Nativo (Dark Mode) — Alta elegância, contraste AAA e conforto visual noturno */
+html[data-theme="dark"]:not([data-contrast="high"]) {
+  color-scheme: dark;
+
+  /* Superfícies noturnas profundas */
+  --c-bg: #0b111e;
+  --c-bg-soft: #151f32;
+  --c-surface: #111827;
+  --c-surface-2: #162033;
+
+  /* Tipografia branca suave de alto contraste */
+  --c-text: #f8fafc;
+  --c-text-2: #94a3b8;
+
+  /* Cores institucionais e de destaque adaptadas para o modo escuro */
+  --c-brand: #3b82f6;
+  --c-brand-tint: rgba(59, 130, 246, 0.16);
+  --c-primary: #3b82f6;
+  --c-primary-fg: #ffffff;
+  --c-hero-gradient: linear-gradient(180deg, #0F2952 0%, #091936 100%);
+
+  --c-free: #22c55e;
+  --c-free-tint: rgba(34, 197, 94, 0.15);
+  --c-free-ink: #4ade80;
+
+  --c-attn: #fbbf24;
+  --c-attn-tint: rgba(251, 191, 36, 0.14);
+  --c-attn-border: #f59e0b;
+  --c-attn-ink: #fde68a;
+
+  --c-alert: #ef4444;
+  --c-alert-tint: rgba(239, 68, 68, 0.16);
+
+  /* Bordas luminosas sutis */
+  --c-border: rgba(255, 255, 255, 0.12);
+  --c-border-subtle: rgba(255, 255, 255, 0.08);
+  --c-border-strong: rgba(255, 255, 255, 0.22);
+
+  /* Sombras noturnas densas */
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.4), 0 4px 14px rgba(0, 0, 0, 0.3);
+  --shadow-elevated: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --shadow-float: 0 12px 36px rgba(0, 0, 0, 0.6);
+  --shadow-search-focus: 0 0 0 4px rgba(59, 130, 246, 0.25), 0 14px 32px rgba(0, 0, 0, 0.5);
+  --shadow-dock: 0 -4px 24px rgba(0, 0, 0, 0.6);
+}
+
 /* Alto contraste máximo — razões >= 7:1, bordas sólidas pretas e sem sombras */
 html[data-contrast="high"] {
   --c-bg: #ffffff;
@@ -81,6 +128,7 @@ html[data-contrast="high"] {
   --c-brand-tint: #ffffff;
   --c-primary: #002060;
   --c-primary-fg: #ffffff;
+  --c-hero-gradient: #002060;
   --c-free: #00441b;
   --c-free-tint: #ffffff;
   --c-attn: #ffcf00;

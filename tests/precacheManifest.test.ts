@@ -11,10 +11,10 @@ import { MedicamentosFile } from '@/types/schema';
 import { generatePrecacheManifestFile } from '../scripts/generate-precache';
 import rawMedicamentos from '../data/medicamentos.json';
 
-describe('precacheManifest — geração determinística de N + 5 rotas com barra final', () => {
+describe('precacheManifest — geração determinística de rotas com barra final', () => {
   const medicamentos = MedicamentosFile.parse(rawMedicamentos);
 
-  it('produz exatamente N + 5 rotas com barra final (/) e hash SHA-256 de 8 caracteres', () => {
+  it('produz rotas com barra final (/) incluindo /mapa/ e hash SHA-256 de 8 caracteres', () => {
     const manifest = buildPrecacheManifest({
       medicamentos,
       rawDataContents: ['{"v":1}', JSON.stringify(rawMedicamentos), '[]'],

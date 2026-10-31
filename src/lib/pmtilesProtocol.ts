@@ -67,13 +67,15 @@ export function getPmtilesFullUrl(
  */
 export function buildLocalMapStyle(
   pmtilesArchivePath: string = DEFAULT_PMTILES_ARCHIVE_PATH,
+  theme: 'light' | 'dark' = 'light',
 ): LocalVectorMapStyle {
   const fullUrl = getPmtilesFullUrl(pmtilesArchivePath);
   const pmtilesUrl = `pmtiles://${fullUrl}`;
+  const isDark = theme === 'dark';
 
   return {
     version: 8,
-    name: 'Onde Pego — Cuiabá e Várzea Grande (Local PMTiles)',
+    name: `Onde Pego — Cuiabá e Várzea Grande (Local PMTiles ${theme})`,
     sources: {
       protomaps: {
         type: 'vector',
@@ -86,7 +88,7 @@ export function buildLocalMapStyle(
         id: 'background',
         type: 'background',
         paint: {
-          'background-color': '#F3F6F9',
+          'background-color': isDark ? '#0B111E' : '#F3F6F9',
         },
       },
       {
@@ -95,7 +97,7 @@ export function buildLocalMapStyle(
         source: 'protomaps',
         'source-layer': 'earth',
         paint: {
-          'fill-color': '#F8FAFC',
+          'fill-color': isDark ? '#0F172A' : '#F8FAFC',
         },
       },
       {
@@ -118,8 +120,8 @@ export function buildLocalMapStyle(
           'pitch',
         ],
         paint: {
-          'fill-color': '#D6E8D5',
-          'fill-opacity': 0.75,
+          'fill-color': isDark ? '#062E22' : '#D6E8D5',
+          'fill-opacity': isDark ? 0.8 : 0.75,
         },
       },
       {
@@ -128,7 +130,7 @@ export function buildLocalMapStyle(
         source: 'protomaps',
         'source-layer': 'water',
         paint: {
-          'fill-color': '#93C5FD',
+          'fill-color': isDark ? '#1E3A5F' : '#93C5FD',
           'fill-opacity': 0.95,
         },
       },
@@ -138,7 +140,7 @@ export function buildLocalMapStyle(
         source: 'protomaps',
         'source-layer': 'water',
         paint: {
-          'line-color': '#60A5FA',
+          'line-color': isDark ? '#2563EB' : '#60A5FA',
           'line-width': 1.5,
         },
       },
@@ -149,7 +151,7 @@ export function buildLocalMapStyle(
         'source-layer': 'buildings',
         minzoom: 13,
         paint: {
-          'fill-color': '#E2E8F0',
+          'fill-color': isDark ? '#1E293B' : '#E2E8F0',
           'fill-opacity': 0.75,
         },
       },
@@ -159,7 +161,7 @@ export function buildLocalMapStyle(
         source: 'protomaps',
         'source-layer': 'boundaries',
         paint: {
-          'line-color': '#CBD5E1',
+          'line-color': isDark ? '#334155' : '#CBD5E1',
           'line-width': 1,
           'line-dasharray': [3, 2],
         },
@@ -171,7 +173,7 @@ export function buildLocalMapStyle(
         'source-layer': 'roads',
         filter: ['in', 'kind', 'highway', 'major_road'],
         paint: {
-          'line-color': '#CBD5E1',
+          'line-color': isDark ? '#1E293B' : '#CBD5E1',
           'line-width': 4.5,
         },
       },
@@ -182,7 +184,7 @@ export function buildLocalMapStyle(
         'source-layer': 'roads',
         filter: ['in', 'kind', 'minor_road', 'other', 'service', 'path'],
         paint: {
-          'line-color': '#FFFFFF',
+          'line-color': isDark ? '#334155' : '#FFFFFF',
           'line-width': 1.5,
         },
       },
@@ -193,7 +195,7 @@ export function buildLocalMapStyle(
         'source-layer': 'roads',
         filter: ['in', 'kind', 'medium_road'],
         paint: {
-          'line-color': '#FFFFFF',
+          'line-color': isDark ? '#475569' : '#FFFFFF',
           'line-width': 2.5,
         },
       },
@@ -204,7 +206,7 @@ export function buildLocalMapStyle(
         'source-layer': 'roads',
         filter: ['in', 'kind', 'major_road', 'highway'],
         paint: {
-          'line-color': '#FEEBC8',
+          'line-color': isDark ? '#64748B' : '#FEEBC8',
           'line-width': 3.5,
         },
       },

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useId, useMemo, useRef, useState } from 'react';
+import Link from 'next/link';
 import { useAccessibility } from '@/components/layout/AccessibilityProvider';
 import { LazyEstablishmentMap } from '@/components/map/LazyEstablishmentMap';
 import { OfflineMapDownload } from '@/components/map/OfflineMapDownload';
@@ -162,35 +163,35 @@ export function UnidadesExplorer({ estabelecimentos, meta }: UnidadesExplorerPro
 
   return (
     <div className="space-y-4 text-[var(--c-text)]">
-      {/* 1. MAPA COMO HERÓI NO TOPO */}
+      {/* 1. ACTION CARD DO MAPA INTERATIVO (SEM SCROLL-TRAP) */}
       <section
         id="secao-mapa-unidades"
-        aria-label="Mapa das unidades e farmácias credenciadas"
-        className="overflow-hidden rounded-[var(--r-card)] border border-[var(--c-border)] bg-[var(--c-surface)] shadow-2xs"
+        aria-label="Acesso ao mapa interativo"
+        className="relative overflow-hidden rounded-2xl border border-[var(--c-border)] bg-gradient-to-r from-[var(--c-brand-tint)] via-[var(--c-surface)] to-[var(--c-surface)] p-4 shadow-sm sm:p-5"
       >
-        <div className="w-full">
-          <LazyEstablishmentMap
-            estabelecimentos={listaOrdenada
-              .map((item) => item.estabelecimento)
-              .filter((e) => hasValidMapCoordinates(e))}
-            userCoords={userCoords}
-            defaultOpen={true}
-            toggleButtonLabelOpen="Abrir mapa"
-            toggleButtonLabelClose="Ocultar mapa"
-          />
-        </div>
-
-        {/* 5. "Usar sem internet": linha recolhível com <details> no rodapé do mapa */}
-        <details className="group border-t border-[var(--c-border-subtle)] bg-[var(--c-bg-soft)]/60 px-4 py-2.5">
-          <summary className="inline-flex min-h-[44px] cursor-pointer items-center gap-2 font-display text-base font-bold text-[var(--c-brand)] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-brand)]">
-            <Icon name="download" className="h-4 w-4" />
-            <span>Usar sem internet (baixar mapa offline)</span>
-            <Icon name="chev" className="h-4 w-4 transition-transform group-open:rotate-90" />
-          </summary>
-          <div className="pb-3 pt-2">
-            <OfflineMapDownload />
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-start gap-3">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[var(--c-brand)] text-white shadow-xs">
+              <Icon name="map" className="h-6 w-6" />
+            </div>
+            <div>
+              <h2 className="font-display text-lg font-black text-[var(--c-text)] sm:text-xl">
+                Mapa Interativo de Cuiabá e VG
+              </h2>
+              <p className="text-xs text-[var(--c-text-2)] sm:text-sm">
+                Explore todas as 48 unidades de saúde e farmácias credenciadas em tela cheia na aba dedicada de Mapa.
+              </p>
+            </div>
           </div>
-        </details>
+
+          <Link
+            href="/mapa/"
+            className="ui-pressable inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-xl bg-[var(--c-brand)] px-5 py-2.5 font-display text-sm font-bold text-white shadow-xs hover:opacity-95 active:scale-[0.98]"
+          >
+            <Icon name="map" className="h-4 w-4" />
+            <span>Abrir no Mapa</span>
+          </Link>
+        </div>
       </section>
 
       {/* 2. CONTROLE SEGMENTADO MAPA | LISTA (WAI-ARIA COMPLETO) + BOTÃO FILTROS */}
@@ -516,18 +517,10 @@ export function UnidadesExplorer({ estabelecimentos, meta }: UnidadesExplorerPro
                       <button
                         type="button"
                         onClick={() => {
-                          setViewMode('mapa');
-                          const mapSec = document.getElementById('secao-mapa-unidades');
-                          mapSec?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                          window.dispatchEvent(
-                            new CustomEvent('ondepego:focar-estabelecimento', {
-                              detail: {
-                                id: est.id,
-                                lat: est.coordenadas.lat,
-                                lng: est.coordenadas.lng,
-                              },
-                            }),
-                          );
+                          if (typeof window !== 'undefined') {
+                            sessionStorage.setItem('ondepego_mapa_foco_id', est.id);
+                            window.location.href = '/mapa/';
+                          }
                         }}
                         className="ui-pressable inline-flex min-h-[48px] shrink-0 items-center justify-center gap-1.5 rounded-[var(--r-button)] border border-[var(--c-brand)]/30 bg-[var(--c-brand-tint)] px-3.5 py-2 font-display text-base font-bold text-[var(--c-brand)] hover:bg-[var(--c-brand)] hover:text-white active:scale-[0.98]"
                       >

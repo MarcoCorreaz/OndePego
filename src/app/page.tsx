@@ -19,7 +19,8 @@ export default function HomePage() {
         {/* Hero Oficial v2 (Fase 10B) */}
         <section
           aria-label="Consulta de medicamentos"
-          className="relative overflow-hidden rounded-b-[28px] bg-[var(--c-brand)] px-4 pb-8 pt-6 text-white shadow-md sm:px-8 sm:pb-10 sm:pt-8"
+          style={{ background: 'var(--c-hero-gradient, var(--c-brand))' }}
+          className="relative overflow-hidden rounded-b-[28px] px-4 pb-8 pt-6 text-white shadow-md sm:px-8 sm:pb-10 sm:pt-8"
         >
           {/* Ilustração decorativa do poste no canto superior direito */}
           <div className="absolute right-2 top-2 sm:right-6 sm:top-4">

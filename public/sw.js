@@ -23,7 +23,7 @@ const DEFAULT_SHELL_CACHE_NAME = `${SHELL_CACHE_PREFIX}v1`;
 const STATIC_CACHE_NAME = 'onde-pego-static-v1';
 const TILES_CACHE_NAME = 'onde-pego-tiles-v1';
 
-const FALLBACK_FIXED_ROUTES = ['/', '/buscar/', '/minha-receita/', '/unidades/', '/plantao/', '/sobre/'];
+const FALLBACK_FIXED_ROUTES = ['/', '/buscar/', '/mapa/', '/minha-receita/', '/unidades/', '/plantao/', '/sobre/'];
 const SHELL_STATIC_ASSETS = [
   '/manifest.webmanifest',
   '/icon.svg',

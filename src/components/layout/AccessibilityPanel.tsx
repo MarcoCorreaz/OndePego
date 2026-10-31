@@ -3,12 +3,18 @@
 import React, { useEffect, useRef } from 'react';
 import { useAccessibility } from '@/components/layout/AccessibilityProvider';
 import { CheckCircleIcon, CloseIcon, RadioDotIcon } from '@/components/ui/Icons';
-import type { FontScale } from '@/lib/prefs';
+import type { FontScale, ThemeMode } from '@/lib/prefs';
 
 const FONT_SCALE_OPTIONS: Array<{ value: FontScale; label: string; description: string }> = [
   { value: 'normal', label: 'Padrão (18px)', description: 'Tamanho grande padrão' },
   { value: 'large', label: 'Grande (21px)', description: 'Letra ampliada' },
   { value: 'xlarge', label: 'Extra grande (24px)', description: 'Máxima leitura' },
+];
+
+const THEME_OPTIONS: Array<{ value: ThemeMode; label: string; description: string }> = [
+  { value: 'light', label: 'Tema Claro', description: 'Papel claro e iluminado' },
+  { value: 'dark', label: 'Tema Escuro', description: 'Conforto visual noturno' },
+  { value: 'system', label: 'Automático', description: 'Segue o sistema' },
 ];
 
 export function AccessibilityPanel() {
@@ -19,6 +25,7 @@ export function AccessibilityPanel() {
     setFontScale,
     setHighContrast,
     setReduceMotion,
+    setTheme,
     resetPrefs,
   } = useAccessibility();
 
@@ -130,6 +137,38 @@ export function AccessibilityPanel() {
                     type="button"
                     aria-pressed={selected}
                     onClick={() => setFontScale(option.value)}
+                    className={`flex min-h-[60px] flex-col items-start justify-center rounded-[var(--r-button)] border px-3.5 py-2.5 text-left transition-colors ${
+                      selected
+                        ? 'border-[var(--c-brand)] bg-[var(--c-brand-tint)] font-bold text-[var(--c-brand)] shadow-2xs'
+                        : 'border-[var(--c-border)] bg-[var(--c-bg)] text-[var(--c-text)] hover:bg-[var(--c-bg-soft)]'
+                    }`}
+                  >
+                    <span className="inline-flex items-center gap-1.5 text-base font-bold">
+                      <RadioDotIcon checked={selected} className="h-4 w-4" />
+                      <span>{option.label}</span>
+                    </span>
+                    <span className="mt-0.5 text-sm text-[var(--c-text-2)]">
+                      {option.description}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </fieldset>
+
+          <fieldset className="border-t border-[var(--c-border-subtle)] pt-4">
+            <legend className="font-display text-xl font-bold text-[var(--c-text)]">
+              Tema visual (modo de cor)
+            </legend>
+            <div className="mt-2.5 grid grid-cols-1 gap-2.5 sm:grid-cols-3">
+              {THEME_OPTIONS.map((option) => {
+                const selected = prefs.theme === option.value;
+                return (
+                  <button
+                    key={option.value}
+                    type="button"
+                    aria-pressed={selected}
+                    onClick={() => setTheme(option.value)}
                     className={`flex min-h-[60px] flex-col items-start justify-center rounded-[var(--r-button)] border px-3.5 py-2.5 text-left transition-colors ${
                       selected
                         ? 'border-[var(--c-brand)] bg-[var(--c-brand-tint)] font-bold text-[var(--c-brand)] shadow-2xs'

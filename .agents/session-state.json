@@ -73,6 +73,9 @@
     "Mapa touch 1 dedo habilitado (cooperativeGestures: false, touch-action: none) com tela cheia flutuante (fixed inset-0 z-50).",
     "gerarUrlRotaGoogleMaps enriquecido com nome do estabelecimento + endereço predial exato + bairro + Cuiabá - MT.",
     "24 farmácias do Farmácia Popular auditadas com números prediais e CEPs oficiais da Receita Federal e coordenadas OSM precisas.",
-    "Testado no Chrome headless mobile (390x844) com WebGL ativo e todas as 25 suítes de testes aprovadas."
+    "Nova aba e rota dedicada /mapa/ criada (DedicatedMapView), eliminando o scroll-trap mobile em /unidades/ e /medicamento/[slug]/.",
+    "Tema escuro nativo (Dark Mode) implementado com persistência, toggle rápido no header, seletor de acessibilidade e estilo noturno no PMTiles (#0F172A / #1E3A5F).",
+    "BottomNav de 5 abas balanceado para mobile (Buscar, Mapa, Unidades, Receita, Plantão) com backdrop blur.",
+    "Testado no Chrome headless mobile (390x844) com WebGL ativo e todas as 25 suítes de testes aprovadas (126 testes verdes)."
   ]
 }

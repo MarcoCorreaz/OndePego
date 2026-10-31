@@ -1,12 +1,14 @@
 'use client';
 
 import React, { useId, useMemo, useRef, useState } from 'react';
+import Link from 'next/link';
 import { LazyMotion, MotionConfig, domAnimation } from 'motion/react';
 import * as m from 'motion/react-m';
 import { useAccessibility } from '@/components/layout/AccessibilityProvider';
 import { LazyEstablishmentMap } from '@/components/map/LazyEstablishmentMap';
 import { OfflineMapDownload } from '@/components/map/OfflineMapDownload';
 import { EstablishmentContactActions } from '@/components/ui/EstablishmentContactActions';
+import { Icon } from '@/components/ui/Icon';
 import {
   AlertTriangleIcon,
   BuildingSusIcon,
@@ -341,23 +343,31 @@ export function CredenciadasSection({
             </div>
           )}
 
-          {/* Mapa Dividido sob demanda (apenas estabelecimentos com coordenada válida aparecem como pino) */}
+          {/* Acesso ao Mapa: Action Card para /mapa/ (sem scroll-trap) ou slot customizado */}
           <div id="secao-mapa-credenciadas" data-testid="map-slot" className="space-y-3">
-            <OfflineMapDownload />
             {mapSlot ?? (
-              <LazyEstablishmentMap
-                estabelecimentos={listaExibida
-                  .map((item) => item.estabelecimento)
-                  .filter((e) => hasValidMapCoordinates(e))}
-                userCoords={userCoords}
-                defaultOpen={false}
-                toggleButtonLabelOpen={
-                  activeTab === 'FARMACIA_POPULAR'
-                    ? 'Ver farmácias credenciadas no mapa'
-                    : 'Ver unidades públicas no mapa'
-                }
-                toggleButtonLabelClose="Ocultar mapa"
-              />
+              <div className="flex flex-col gap-3 rounded-2xl border border-[var(--c-border)] bg-gradient-to-r from-[var(--c-brand-tint)] via-[var(--c-surface)] to-[var(--c-surface)] p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between sm:p-5">
+                <div className="flex items-start gap-3">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[var(--c-brand)] text-white shadow-xs">
+                    <Icon name="map" className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-display text-base font-black text-[var(--c-text)] sm:text-lg">
+                      Ver no Mapa Interativo
+                    </h3>
+                    <p className="text-xs text-[var(--c-text-2)] sm:text-sm">
+                      Navegue por todas as farmácias e unidades em tela cheia na aba dedicada de Mapa.
+                    </p>
+                  </div>
+                </div>
+                <Link
+                  href="/mapa/"
+                  className="ui-pressable inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-xl bg-[var(--c-brand)] px-5 py-2.5 font-display text-sm font-bold text-white shadow-xs hover:opacity-95 active:scale-[0.98]"
+                >
+                  <Icon name="map" className="h-4 w-4" />
+                  <span>Abrir no Mapa</span>
+                </Link>
+              </div>
             )}
           </div>
 
@@ -462,17 +472,10 @@ export function CredenciadasSection({
                               <button
                                 type="button"
                                 onClick={() => {
-                                  const mapSec = document.getElementById('secao-mapa-credenciadas');
-                                  mapSec?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                  window.dispatchEvent(
-                                    new CustomEvent('ondepego:focar-estabelecimento', {
-                                      detail: {
-                                        id: estabelecimento.id,
-                                        lat: estabelecimento.coordenadas.lat,
-                                        lng: estabelecimento.coordenadas.lng,
-                                      },
-                                    }),
-                                  );
+                                  if (typeof window !== 'undefined') {
+                                    sessionStorage.setItem('ondepego_mapa_foco_id', estabelecimento.id);
+                                    window.location.href = '/mapa/';
+                                  }
                                 }}
                                 className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-[var(--r-button)] border border-[var(--c-brand)]/30 bg-[var(--c-brand-tint)] px-4 py-2 font-display text-base font-bold text-[var(--c-brand)] transition-colors hover:bg-[var(--c-brand)] hover:text-white sm:w-auto"
                               >
