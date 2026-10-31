@@ -1,9 +1,10 @@
 {
   "versao_protocolo": 1,
-  "ultima_atualizacao": "2026-10-30T21:30:00Z",
+  "ultima_atualizacao": "2026-10-31T02:32:00Z",
   "versao_app": "1.0.0",
   "artefatos_prontos": {
     "tiles_pmtiles": true,
+    "maplibre_worker": true,
     "fontes_elenco": true,
     "fontes_remume": true,
     "fontes_unidades": true,
@@ -18,6 +19,10 @@
       "status": "PRONTO",
       "tamanho_bytes": 5205429,
       "tamanho_mb": 4.96
+    },
+    "public/maplibre-gl-worker.mjs": {
+      "status": "PRONTO",
+      "descricao": "Worker oficial local para MapLibre GL no Next.js static export"
     },
     "fontes/elenco.csv": {
       "status": "PRONTO",
@@ -43,21 +48,31 @@
       "fixtures": 0
     },
     "data/estabelecimentos.json": {
-      "status": "PRODUCAO_PRONTO",
+      "status": "PRODUCAO_PRONTO_AUDITADO",
       "total_estabelecimentos": 48,
+      "farmacias_populares_auditadas_100_porcento": 24,
+      "postos_municipais_auditados": 24,
       "pendentes_auditoria": 0,
       "fixtures": 0
     },
     "data/meta.json": {
-      "versao": "1.0.0",
-      "fixtures": 0
+      "status": "PRODUCAO_PRONTO",
+      "versao": "1.0.0"
     }
   },
-  "validacoes": {
-    "typecheck": "PASS",
-    "testes": "PASS (123/123)",
-    "validate_prod": "PASS (exit code 0)",
-    "build_prod": "PASS (73 static routes prerendered in out/)"
+  "lock": {
+    "ativo": false,
+    "agente": null,
+    "tarefa": null,
+    "iniciado_em": null
   },
-  "lock_em_progresso": null
+  "notas_coordenacao": [
+    "cuiaba-vg.pmtiles extraído e validado (5.2 MB) para zoom 0 a 14.",
+    "public/maplibre-gl-worker.mjs autohospedado e configurado via setWorkerUrl para resolver o worker no Next.js static export.",
+    "public/sw.js atualizado para bypass de Range requests e suporte transparente a HTTP 206 da CDN Vercel.",
+    "Mapa touch 1 dedo habilitado (cooperativeGestures: false, touch-action: none) com tela cheia flutuante (fixed inset-0 z-50).",
+    "gerarUrlRotaGoogleMaps enriquecido com nome do estabelecimento + endereço predial exato + bairro + Cuiabá - MT.",
+    "24 farmácias do Farmácia Popular auditadas com números prediais e CEPs oficiais da Receita Federal e coordenadas OSM precisas.",
+    "Testado no Chrome headless mobile (390x844) com WebGL ativo e todas as 25 suítes de testes aprovadas."
+  ]
 }

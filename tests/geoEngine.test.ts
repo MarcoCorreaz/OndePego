@@ -104,4 +104,20 @@ describe('Motor geográfico local (src/lib/geoEngine.ts)', () => {
     expect(url.includes('key=')).toBe(false);
     expect(gerarUrlTransportePublicoOpcional()).toBe('https://pontoos.com.br');
   });
+
+  it('gera URL universal de rota do Google Maps com destino comercial nomeado e modos de transporte', () => {
+    const urlNomeada = gerarUrlRotaGoogleMaps(
+      { lat: -15.5866, lng: -56.0782 },
+      'transit',
+      {
+        nomeFantasia: 'Drogasil',
+        enderecoCompleto: 'Av. Aclimação, 245',
+        bairro: 'Bosque da Saúde',
+      },
+    );
+    expect(urlNomeada).toContain('https://www.google.com/maps/dir/?api=1&destination=');
+    expect(urlNomeada).toContain('Drogasil');
+    expect(urlNomeada).toContain('Bosque');
+    expect(urlNomeada).toContain('travelmode=transit');
+  });
 });

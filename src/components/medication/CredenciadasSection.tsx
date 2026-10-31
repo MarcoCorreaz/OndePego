@@ -342,7 +342,7 @@ export function CredenciadasSection({
           )}
 
           {/* Mapa Dividido sob demanda (apenas estabelecimentos com coordenada válida aparecem como pino) */}
-          <div data-testid="map-slot" className="space-y-3">
+          <div id="secao-mapa-credenciadas" data-testid="map-slot" className="space-y-3">
             <OfflineMapDownload />
             {mapSlot ?? (
               <LazyEstablishmentMap
@@ -459,8 +459,33 @@ export function CredenciadasSection({
                               </p>
                             )}
                             <div className="flex flex-wrap gap-3">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const mapSec = document.getElementById('secao-mapa-credenciadas');
+                                  mapSec?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                  window.dispatchEvent(
+                                    new CustomEvent('ondepego:focar-estabelecimento', {
+                                      detail: {
+                                        id: estabelecimento.id,
+                                        lat: estabelecimento.coordenadas.lat,
+                                        lng: estabelecimento.coordenadas.lng,
+                                      },
+                                    }),
+                                  );
+                                }}
+                                className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-[var(--r-button)] border border-[var(--c-brand)]/30 bg-[var(--c-brand-tint)] px-4 py-2 font-display text-base font-bold text-[var(--c-brand)] transition-colors hover:bg-[var(--c-brand)] hover:text-white sm:w-auto"
+                              >
+                                <MapPinIcon className="h-4 w-4 shrink-0" />
+                                <span>Ver no mapa</span>
+                              </button>
+
                               <a
-                                href={gerarUrlRotaGoogleMaps(estabelecimento.coordenadas)}
+                                href={gerarUrlRotaGoogleMaps(estabelecimento.coordenadas, 'transit', {
+                                  nomeFantasia: estabelecimento.nome_fantasia,
+                                  enderecoCompleto: estabelecimento.endereco_completo,
+                                  bairro: estabelecimento.bairro,
+                                })}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label={`Ver rota no mapa para ${estabelecimento.nome_fantasia}`}

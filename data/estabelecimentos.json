@@ -457,10 +457,10 @@
   },
   {
     "id": "pfpb-19244497000111",
-    "nome_fantasia": "DIOGO GERALDINO - ME",
+    "nome_fantasia": "Farmácia Biofarma (Rede Farmácia do Trabalhador)",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "CHACARA DOS PINHEIROS",
-    "endereco_completo": "FERNANDO CORREA DA COSTA",
+    "bairro": "Chácara dos Pinheiros",
+    "endereco_completo": "Av. Fernando Corrêa da Costa, 4329 - Chácara dos Pinheiros, Cuiabá - MT",
     "coordenadas": {
       "lat": -15.6328,
       "lng": -56.0592,
@@ -474,13 +474,13 @@
   },
   {
     "id": "pfpb-03021424000120",
-    "nome_fantasia": "DROGARIA FARMINAS LTDA-ME",
+    "nome_fantasia": "Drogaria Farminas",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "JARDIM INDUSTRIARIO",
-    "endereco_completo": "TRINTA",
+    "bairro": "Jardim Industriário",
+    "endereco_completo": "Rua Trinta, 16, Quadra 41 - Jardim Industriário, Cuiabá - MT",
     "coordenadas": {
-      "lat": -15.6985,
-      "lng": -56.021,
+      "lat": -15.6561,
+      "lng": -55.9767,
       "auditado_manualmente": true,
       "sem_localizacao": false
     },
@@ -491,13 +491,13 @@
   },
   {
     "id": "pfpb-00447821005210",
-    "nome_fantasia": "DROGARIA ROSARIO S/A",
+    "nome_fantasia": "Drogaria Rosário",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "BOSQUE DA SAUDE",
-    "endereco_completo": "ACLIMACAO",
+    "bairro": "Bosque da Saúde",
+    "endereco_completo": "Av. Aclimação, s/nº, Qd 10, Lt 4 a 6 - Bosque da Saúde, Cuiabá - MT",
     "coordenadas": {
-      "lat": -15.5865,
-      "lng": -56.0712,
+      "lat": -15.5866,
+      "lng": -56.0782,
       "auditado_manualmente": true,
       "sem_localizacao": false
     },
@@ -508,10 +508,10 @@
   },
   {
     "id": "pfpb-00447821011024",
-    "nome_fantasia": "DROGARIA ROSARIO S/A",
+    "nome_fantasia": "Drogaria Rosário",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "CENTRO-SUL",
-    "endereco_completo": "BARAO DE MELGACO",
+    "bairro": "Centro-Sul",
+    "endereco_completo": "Rua Barão de Melgaço, 2000 - Centro-Sul, Cuiabá - MT",
     "coordenadas": {
       "lat": -15.6021,
       "lng": -56.0968,
@@ -525,10 +525,10 @@
   },
   {
     "id": "pfpb-00447821011881",
-    "nome_fantasia": "DROGARIA ROSARIO S/A",
+    "nome_fantasia": "Drogaria Rosário",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "JARDIM DAS AMERICAS",
-    "endereco_completo": "BRASILIA",
+    "bairro": "Jardim das Américas",
+    "endereco_completo": "Av. Brasília, 369 - Jardim das Américas, Cuiabá - MT",
     "coordenadas": {
       "lat": -15.6148,
       "lng": -56.0694,
@@ -542,10 +542,10 @@
   },
   {
     "id": "pfpb-00447821011539",
-    "nome_fantasia": "DROGARIA ROSARIO S/A",
+    "nome_fantasia": "Drogaria Rosário",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "JARDIM IMPERIAL",
-    "endereco_completo": "DAS PALMEIRAS",
+    "bairro": "Jardim Imperial",
+    "endereco_completo": "Av. das Palmeiras, s/nº, Qd 6, Lt 1 e 2 - Jardim Imperial, Cuiabá - MT",
     "coordenadas": {
       "lat": -15.6178,
       "lng": -56.0354,
@@ -559,10 +559,10 @@
   },
   {
     "id": "pfpb-00447821013400",
-    "nome_fantasia": "DROGARIA ROSARIO S/A",
+    "nome_fantasia": "Drogaria Rosário",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "DUQUE DE CAXIAS",
-    "endereco_completo": "JOSE MONTEIRO DE FIGUEIREDO",
+    "bairro": "Duque de Caxias",
+    "endereco_completo": "Av. José Monteiro de Figueiredo (Lava Pés), 8 - Duque de Caxias, Cuiabá - MT",
     "coordenadas": {
       "lat": -15.5925,
       "lng": -56.1098,
@@ -576,10 +576,10 @@
   },
   {
     "id": "pfpb-00447821004834",
-    "nome_fantasia": "DROGARIA ROSARIO S/A",
+    "nome_fantasia": "Drogaria Rosário",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "SANTA ROSA",
-    "endereco_completo": "MIGUEL SUTIL",
+    "bairro": "Santa Rosa",
+    "endereco_completo": "Av. Miguel Sutil, 10630 - Santa Rosa, Cuiabá - MT",
     "coordenadas": {
       "lat": -15.5842,
       "lng": -56.1158,
@@ -593,10 +593,10 @@
   },
   {
     "id": "pfpb-00447821012004",
-    "nome_fantasia": "DROGARIA ROSARIO S/A",
+    "nome_fantasia": "Drogaria Rosário",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "MORADA DA SERRA",
-    "endereco_completo": "SOROCABA",
+    "bairro": "Morada da Serra",
+    "endereco_completo": "Rua Sorocaba, 22, Qd 3, Lt 22 - Morada da Serra (CPA I), Cuiabá - MT",
     "coordenadas": {
       "lat": -15.5712,
       "lng": -56.0498,
@@ -610,10 +610,10 @@
   },
   {
     "id": "pfpb-00447821005482",
-    "nome_fantasia": "DROGARIA ROSARIO S/A",
+    "nome_fantasia": "Drogaria Rosário",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "BOA ESPERANCA",
-    "endereco_completo": "VINTE",
+    "bairro": "Boa Esperança",
+    "endereco_completo": "Rua Vinte, 33, Qd 19 - Boa Esperança, Cuiabá - MT",
     "coordenadas": {
       "lat": -15.6125,
       "lng": -56.0645,
@@ -627,10 +627,10 @@
   },
   {
     "id": "pfpb-61412110044950",
-    "nome_fantasia": "DROGARIA SAO PAULO S.A.",
+    "nome_fantasia": "Drogaria São Paulo",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "JARDIM DAS AMERICAS",
-    "endereco_completo": "BRASILIA",
+    "bairro": "Jardim das Américas",
+    "endereco_completo": "Av. Brasília, 603, Qd 12, Lt 22 - Jardim das Américas, Cuiabá - MT",
     "coordenadas": {
       "lat": -15.6152,
       "lng": -56.0688,
@@ -644,13 +644,13 @@
   },
   {
     "id": "pfpb-06626253030220",
-    "nome_fantasia": "EMPREENDIMENTOS PAGUE MENOS",
+    "nome_fantasia": "Farmácias Pague Menos",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "BAU",
-    "endereco_completo": "HISTORIADOR RUBENS DE MENDONCA",
+    "bairro": "Baú",
+    "endereco_completo": "Av. Historiador Rubens de Mendonça, 881 - Baú, Cuiabá - MT",
     "coordenadas": {
-      "lat": -15.5928,
-      "lng": -56.0842,
+      "lat": -15.5894,
+      "lng": -56.0857,
       "auditado_manualmente": true,
       "sem_localizacao": false
     },
@@ -661,10 +661,10 @@
   },
   {
     "id": "pfpb-06626253049401",
-    "nome_fantasia": "EMPREENDIMENTOS PAGUE MENOS S/A",
+    "nome_fantasia": "Farmácias Pague Menos",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "CENTRO-NORTE",
-    "endereco_completo": "ENGENHEIRO RICARDO FRANCO",
+    "bairro": "Centro-Sul",
+    "endereco_completo": "Av. Isaac Póvoas, 807 - Centro-Sul, Cuiabá - MT",
     "coordenadas": {
       "lat": -15.5968,
       "lng": -56.0954,
@@ -678,13 +678,13 @@
   },
   {
     "id": "pfpb-12212829000137",
-    "nome_fantasia": "FARMACIA REDE DO POVO LTDA",
+    "nome_fantasia": "Farmácia Rede do Povo",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "CENTRO SUL",
-    "endereco_completo": "TENENTE CEL. THOGO DA SILVA PEREIRA",
+    "bairro": "Centro-Sul",
+    "endereco_completo": "Rua Tenente Coronel Thogo da Silva Pereira, 1360 - Centro-Sul, Cuiabá - MT",
     "coordenadas": {
-      "lat": -15.6038,
-      "lng": -56.0982,
+      "lat": -15.5981,
+      "lng": -56.1093,
       "auditado_manualmente": true,
       "sem_localizacao": false
     },
@@ -695,10 +695,10 @@
   },
   {
     "id": "pfpb-00201828000108",
-    "nome_fantasia": "H D TEIXEIRA & CIA LTDA",
+    "nome_fantasia": "Drogaria Drogavida (H D Teixeira)",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "CIDADE ALTA",
-    "endereco_completo": "JORNALISTA ALVES DE OLIVEIRA",
+    "bairro": "Cidade Alta",
+    "endereco_completo": "Av. Jornalista Alves de Oliveira, 82 - Cidade Alta, Cuiabá - MT",
     "coordenadas": {
       "lat": -15.6042,
       "lng": -56.1128,
@@ -712,13 +712,13 @@
   },
   {
     "id": "pfpb-17858710000150",
-    "nome_fantasia": "J. L. DELGADO & CIA LTDA - ME",
+    "nome_fantasia": "Drogaria Novapharma (J. L. Delgado)",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "JARDIM SANTA ISABEL",
-    "endereco_completo": "NOVA DENISE",
+    "bairro": "Jardim Santa Isabel",
+    "endereco_completo": "Rua Nova Denise, 92, Qd 2, Lt 10 - Jardim Santa Isabel, Cuiabá - MT",
     "coordenadas": {
-      "lat": -15.5898,
-      "lng": -56.1264,
+      "lat": -15.5703,
+      "lng": -56.028,
       "auditado_manualmente": true,
       "sem_localizacao": false
     },
@@ -729,10 +729,10 @@
   },
   {
     "id": "pfpb-04336468000102",
-    "nome_fantasia": "LEITE BARBOSA & SILVA LTDA ME",
+    "nome_fantasia": "Drogaria Ultra Econômica (Leite Barbosa)",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "TERCEIRO",
-    "endereco_completo": "CARMINDO DE CAMPOS",
+    "bairro": "Dom Aquino",
+    "endereco_completo": "Av. Carmindo de Campos, 3036, Sala 4 - Dom Aquino, Cuiabá - MT",
     "coordenadas": {
       "lat": -15.6185,
       "lng": -56.0792,
@@ -746,10 +746,10 @@
   },
   {
     "id": "pfpb-01649072000127",
-    "nome_fantasia": "LENILSON ELZON ROSA ME",
+    "nome_fantasia": "Drogaria Droga Mais (Lenilson Elzon Rosa)",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "PEDRA 90",
-    "endereco_completo": "NEWTON RABELLO DE CASTRO",
+    "bairro": "Pedra 90",
+    "endereco_completo": "Av. Newton Rabelo de Castro, s/nº, Qd 33 - Pedra 90, Cuiabá - MT",
     "coordenadas": {
       "lat": -15.7028,
       "lng": -56.0092,
@@ -763,13 +763,13 @@
   },
   {
     "id": "pfpb-61585865113436",
-    "nome_fantasia": "RAIA DROGASIL S/A",
+    "nome_fantasia": "Drogasil",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "BOSQUE DA SAUDE",
-    "endereco_completo": "ACLIMACAO",
+    "bairro": "Bosque da Saúde",
+    "endereco_completo": "Av. Aclimação, 245 - Bosque da Saúde, Cuiabá - MT",
     "coordenadas": {
-      "lat": -15.5858,
-      "lng": -56.0725,
+      "lat": -15.5866,
+      "lng": -56.0782,
       "auditado_manualmente": true,
       "sem_localizacao": false
     },
@@ -780,13 +780,13 @@
   },
   {
     "id": "pfpb-61585865049835",
-    "nome_fantasia": "RAIA DROGASIL S/A",
+    "nome_fantasia": "Drogasil",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "CIDADE ALTA",
-    "endereco_completo": "AGRICOLA PAES DE BARROS",
+    "bairro": "Cidade Alta",
+    "endereco_completo": "Av. Agrícola Paes de Barros, 834 - Cidade Alta, Cuiabá - MT",
     "coordenadas": {
-      "lat": -15.6012,
-      "lng": -56.1185,
+      "lat": -15.6042,
+      "lng": -56.1341,
       "auditado_manualmente": true,
       "sem_localizacao": false
     },
@@ -797,10 +797,10 @@
   },
   {
     "id": "pfpb-61585865050175",
-    "nome_fantasia": "RAIA DROGASIL S/A",
+    "nome_fantasia": "Drogasil",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "ALVORADA",
-    "endereco_completo": "HISTORIADOR RUBENS DE MENDONCA",
+    "bairro": "Alvorada",
+    "endereco_completo": "Av. Historiador Rubens de Mendonça, 1509 - Alvorada, Cuiabá - MT",
     "coordenadas": {
       "lat": -15.5725,
       "lng": -56.0718,
@@ -814,10 +814,10 @@
   },
   {
     "id": "pfpb-61585865115307",
-    "nome_fantasia": "RAIA DROGASIL S/A",
+    "nome_fantasia": "Drogasil",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "BAU",
-    "endereco_completo": "HISTORIADOR RUBENS DE MENDONCA",
+    "bairro": "Baú",
+    "endereco_completo": "Av. Historiador Rubens de Mendonça, 400 - Baú, Cuiabá - MT",
     "coordenadas": {
       "lat": -15.5915,
       "lng": -56.0832,
@@ -831,10 +831,10 @@
   },
   {
     "id": "pfpb-61585865049916",
-    "nome_fantasia": "RAIA DROGASIL S/A",
+    "nome_fantasia": "Drogasil",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "DUQUE DE CAXIAS",
-    "endereco_completo": "TENENTE ALCIDES DUARTE DE SOUZA",
+    "bairro": "Duque de Caxias",
+    "endereco_completo": "Av. José Monteiro de Figueiredo, 461 - Duque de Caxias, Cuiabá - MT",
     "coordenadas": {
       "lat": -15.5945,
       "lng": -56.1075,
@@ -848,13 +848,13 @@
   },
   {
     "id": "pfpb-06298922000103",
-    "nome_fantasia": "WS HIPER POPULAR LTDA",
+    "nome_fantasia": "Drogaria Hiper Popular",
     "tipo": "FARMACIA_POPULAR",
-    "bairro": "TIJUCAL",
-    "endereco_completo": "RADIALISTA EDSON LUIS DA SILVA",
+    "bairro": "Tijucal",
+    "endereco_completo": "Av. Radialista Edson Luís da Silva, 300, Qd 88, Lt 01B - Tijucal, Cuiabá - MT",
     "coordenadas": {
-      "lat": -15.6685,
-      "lng": -56.0425,
+      "lat": -15.6314,
+      "lng": -56.0089,
       "auditado_manualmente": true,
       "sem_localizacao": false
     },

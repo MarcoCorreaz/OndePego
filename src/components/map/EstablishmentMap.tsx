@@ -6,10 +6,12 @@ import {
   Marker,
   NavigationControl,
   addProtocol,
+  setWorkerUrl,
   type StyleSpecification,
 } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { Protocol } from 'pmtiles';
+import { Protocol, PMTiles } from 'pmtiles';
+import { Icon } from '@/components/ui/Icon';
 import { MapPinIcon, NavigationIcon, PhoneIcon } from '@/components/ui/Icons';
 import { getEstablishmentTypeBadge } from '@/lib/establishmentsFilter';
 import {
@@ -26,6 +28,7 @@ import {
   DEFAULT_PMTILES_ARCHIVE_PATH,
   buildLocalMapStyle,
   checkWebGLSupport,
+  getPmtilesFullUrl,
   projectCoordToSchematicPercent,
   registerPmtilesProtocol,
 } from '@/lib/pmtilesProtocol';
@@ -49,6 +52,7 @@ export default function EstablishmentMap({
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapInstanceRef = useRef<MapLibreMap | null>(null);
   const markersRef = useRef<Marker[]>([]);
+  const userMarkerRef = useRef<Marker | null>(null);
 
   const estabelecimentosNoMapa = useMemo(
     () => estabelecimentos.filter((e) => hasValidMapCoordinates(e)),
@@ -59,6 +63,7 @@ export default function EstablishmentMap({
   const [selectedId, setSelectedId] = useState<string>(
     initialSelectedId ?? estabelecimentosNoMapa[0]?.id ?? '',
   );
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
     if (estabelecimentosNoMapa.length === 0) {
@@ -78,47 +83,31 @@ export default function EstablishmentMap({
     [estabelecimentosNoMapa, selectedId],
   );
 
+  // Detecção robusta de WebGL (sem chamada HEAD frágil)
   useEffect(() => {
-    let active = true;
-
-    async function detectMapCapability() {
-      if (!checkWebGLSupport()) {
-        if (active) setRenderMode('schematic_fallback');
-        return;
-      }
-
-      try {
-        const res = await fetch(pmtilesArchivePath, {
-          method: 'HEAD',
-          cache: 'no-cache',
-        });
-        if (!active) return;
-
-        const contentType = res.headers.get('content-type') ?? '';
-        if (res.ok && !contentType.includes('text/html')) {
-          setRenderMode('webgl_pmtiles');
-        } else {
-          setRenderMode('schematic_fallback');
-        }
-      } catch {
-        if (active) setRenderMode('schematic_fallback');
-      }
+    if (!checkWebGLSupport()) {
+      setRenderMode('schematic_fallback');
+      return;
     }
+    setRenderMode('webgl_pmtiles');
+  }, []);
 
-    void detectMapCapability();
-
-    return () => {
-      active = false;
-    };
-  }, [pmtilesArchivePath]);
-
+  // Inicialização do MapLibre GL com protocolo PMTiles local
   useEffect(() => {
     if (renderMode !== 'webgl_pmtiles' || !mapContainerRef.current) {
       return;
     }
 
     try {
+      if (typeof window !== 'undefined') {
+        const fullWorkerUrl = new URL('/maplibre-gl-worker.mjs', window.location.origin).href;
+        setWorkerUrl(fullWorkerUrl);
+      }
+
+      const fullArchiveUrl = getPmtilesFullUrl(pmtilesArchivePath);
       const protocol = new Protocol();
+      const pmtilesInstance = new PMTiles(fullArchiveUrl);
+      protocol.add(pmtilesInstance);
       registerPmtilesProtocol({ addProtocol }, protocol);
 
       const styleSpec = buildLocalMapStyle(pmtilesArchivePath) as unknown as StyleSpecification;
@@ -130,10 +119,12 @@ export default function EstablishmentMap({
         zoom: 12,
         maxBounds: CUIABA_VG_BOUNDS,
         attributionControl: false,
-        cooperativeGestures: true,
+        dragPan: true,
+        touchZoomRotate: true,
+        cooperativeGestures: false,
       });
 
-      map.addControl(new NavigationControl({ showCompass: false }), 'top-right');
+      map.addControl(new NavigationControl({ showCompass: false }), 'bottom-right');
 
       map.on('error', () => {
         setRenderMode('schematic_fallback');
@@ -144,15 +135,95 @@ export default function EstablishmentMap({
       return () => {
         markersRef.current.forEach((m) => m.remove());
         markersRef.current = [];
+        if (userMarkerRef.current) {
+          userMarkerRef.current.remove();
+          userMarkerRef.current = null;
+        }
         map.remove();
         mapInstanceRef.current = null;
       };
     } catch {
       setRenderMode('schematic_fallback');
-      return;
     }
   }, [renderMode, pmtilesArchivePath]);
 
+  // Redimensionamento do mapa ao alternar tela cheia
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    if (map) {
+      const timer = setTimeout(() => {
+        map.resize();
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [isFullscreen]);
+
+  // Listener para eventos globais de foco (ex.: clique em "Ver no mapa" na lista)
+  useEffect(() => {
+    const handleFocusEstablishment = (e: Event) => {
+      const customEvent = e as CustomEvent<{ id: string; lat: number; lng: number }>;
+      if (!customEvent.detail?.id) return;
+
+      setSelectedId(customEvent.detail.id);
+
+      const map = mapInstanceRef.current;
+      if (map && customEvent.detail.lat && customEvent.detail.lng) {
+        map.flyTo({
+          center: [customEvent.detail.lng, customEvent.detail.lat],
+          zoom: 16,
+          duration: 500,
+        });
+      }
+    };
+
+    window.addEventListener('ondepego:focar-estabelecimento', handleFocusEstablishment);
+    return () => {
+      window.removeEventListener('ondepego:focar-estabelecimento', handleFocusEstablishment);
+    };
+  }, []);
+
+  // Marcador do usuário (GPS) pulsante
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    if (renderMode !== 'webgl_pmtiles' || !map) {
+      return;
+    }
+
+    if (userMarkerRef.current) {
+      userMarkerRef.current.remove();
+      userMarkerRef.current = null;
+    }
+
+    if (userCoords) {
+      const el = document.createElement('div');
+      el.className = 'relative flex h-6 w-6 items-center justify-center';
+      el.setAttribute('aria-label', 'Sua localização atual');
+      el.innerHTML = `
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+        <span class="relative inline-flex h-4 w-4 rounded-full bg-blue-600 border-2 border-white shadow-md"></span>
+      `;
+
+      userMarkerRef.current = new Marker({ element: el })
+        .setLngLat([userCoords.lng, userCoords.lat])
+        .addTo(map);
+
+      if (selectedEstablishment) {
+        const bounds: [[number, number], [number, number]] = [
+          [
+            Math.min(userCoords.lng, selectedEstablishment.coordenadas.lng) - 0.01,
+            Math.min(userCoords.lat, selectedEstablishment.coordenadas.lat) - 0.01,
+          ],
+          [
+            Math.max(userCoords.lng, selectedEstablishment.coordenadas.lng) + 0.01,
+            Math.max(userCoords.lat, selectedEstablishment.coordenadas.lat) + 0.01,
+          ],
+        ];
+        map.fitBounds(bounds, { padding: 48, maxZoom: 15, duration: 600 });
+      }
+    }
+  }, [renderMode, userCoords, selectedEstablishment]);
+
+  // Atualização dos marcadores de estabelecimentos
   useEffect(() => {
     const map = mapInstanceRef.current;
     if (renderMode !== 'webgl_pmtiles' || !map) {
@@ -173,12 +244,12 @@ export default function EstablishmentMap({
         `${badge.fullLabel}: ${est.nome_fantasia} (${est.bairro})`,
       );
       btn.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
-      btn.className = `inline-flex min-h-[48px] min-w-[48px] items-center justify-center rounded-full border-2 px-2.5 py-1 font-display text-sm font-extrabold shadow-sm ${
+      btn.className = `inline-flex min-h-[48px] min-w-[48px] items-center justify-center rounded-full border-2 px-2.5 py-1 font-display text-sm font-extrabold shadow-sm transition-transform ${
         isSelected
-          ? 'border-black bg-[var(--c-attn)] text-black ring-4 ring-black'
+          ? 'z-20 scale-110 border-black bg-[var(--c-attn)] text-black ring-4 ring-black'
           : badge.isPharmacy
-            ? 'border-white bg-[var(--c-free)] text-white'
-            : 'border-white bg-[var(--c-brand)] text-white'
+            ? 'z-10 border-white bg-[var(--c-free)] text-white hover:scale-105'
+            : 'z-10 border-white bg-[var(--c-brand)] text-white hover:scale-105'
       }`;
       btn.textContent = badge.code;
 
@@ -193,13 +264,13 @@ export default function EstablishmentMap({
       markersRef.current.push(marker);
     }
 
-    if (selectedEstablishment) {
+    if (selectedEstablishment && !userCoords) {
       map.panTo(
         [selectedEstablishment.coordenadas.lng, selectedEstablishment.coordenadas.lat],
-        { duration: 220 },
+        { duration: 300 },
       );
     }
-  }, [renderMode, estabelecimentosNoMapa, selectedEstablishment]);
+  }, [renderMode, estabelecimentosNoMapa, selectedEstablishment, userCoords]);
 
   const distanciaSelecionado = useMemo(() => {
     if (!userCoords || !selectedEstablishment) {
@@ -209,19 +280,52 @@ export default function EstablishmentMap({
   }, [userCoords, selectedEstablishment]);
 
   return (
-    <div className="space-y-4">
+    <div
+      className={
+        isFullscreen
+          ? 'fixed inset-0 z-50 flex flex-col bg-[var(--c-bg)] p-3 overflow-y-auto'
+          : 'space-y-4'
+      }
+    >
       {/* Quadro visual do mapa (WebGL PMTiles ou Mapa Esquemático Local) */}
-      <div className="ui-card overflow-hidden">
-        {/* Legenda clara com forma + sigla + cor (nunca só cor) */}
+      <div className={`ui-card overflow-hidden flex flex-col ${isFullscreen ? 'flex-1' : ''}`}>
+        {/* Legenda e barra de controle com botão de tela cheia */}
         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--c-border-subtle)] bg-[var(--c-surface)] px-4 py-2.5 text-sm font-bold text-[var(--c-text)]">
-          <span>Toque em um pino para ver o endereço e traçar a rota:</span>
+          <div className="flex items-center gap-2">
+            <span>Toque em um pino para ver o endereço e traçar a rota:</span>
+          </div>
+
           <div className="flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center gap-1 rounded-[var(--r-chip)] bg-[var(--c-free)] px-2.5 py-0.5 text-white">
               [FP] Farmácia Popular
             </span>
             <span className="inline-flex items-center gap-1 rounded-[var(--r-chip)] bg-[var(--c-brand)] px-2.5 py-0.5 text-white">
-              [UBS / POL / UPA] Rede Municipal
+              [UBS / POL / UPA] SUS
             </span>
+
+            {/* Botão de Tela Cheia com SVG limpo */}
+            <button
+              type="button"
+              onClick={() => setIsFullscreen((prev) => !prev)}
+              aria-label={isFullscreen ? 'Fechar tela cheia do mapa' : 'Expandir mapa em tela cheia'}
+              className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-button)] border border-[var(--c-border)] bg-[var(--c-bg)] px-3 py-1 font-display text-xs font-bold text-[var(--c-text)] hover:bg-[var(--c-bg-soft)] transition-colors focus-visible:outline-2 focus-visible:outline-[var(--c-brand)]"
+            >
+              {isFullscreen ? (
+                <>
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                  <span>Fechar tela cheia</span>
+                </>
+              ) : (
+                <>
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                  </svg>
+                  <span>Expandir tela cheia</span>
+                </>
+              )}
+            </button>
           </div>
         </div>
 
@@ -230,13 +334,16 @@ export default function EstablishmentMap({
             ref={mapContainerRef}
             role="region"
             aria-label="Mapa de unidades de saúde e farmácias credenciadas em Cuiabá e Várzea Grande"
-            className="h-[340px] w-full sm:h-[400px]"
+            style={{ touchAction: 'none' }}
+            className={`w-full ${isFullscreen ? 'flex-1 min-h-[420px]' : 'h-[400px] sm:h-[460px]'}`}
           />
         ) : (
           <div
             role="region"
             aria-label="Mapa esquemático local de Cuiabá e Várzea Grande com pinos selecionáveis"
-            className="relative h-[340px] w-full select-none overflow-hidden bg-[#E8EEF8] sm:h-[380px]"
+            className={`relative w-full select-none overflow-hidden bg-[#E8EEF8] ${
+              isFullscreen ? 'flex-1 min-h-[420px]' : 'h-[360px] sm:h-[400px]'
+            }`}
           >
             {/* Grade esquemática de referência visual */}
             <div
@@ -356,7 +463,11 @@ export default function EstablishmentMap({
             )}
             <div className="flex flex-wrap gap-3">
               <a
-                href={gerarUrlRotaGoogleMaps(selectedEstablishment.coordenadas, 'transit')}
+                href={gerarUrlRotaGoogleMaps(selectedEstablishment.coordenadas, 'transit', {
+                  nomeFantasia: selectedEstablishment.nome_fantasia,
+                  enderecoCompleto: selectedEstablishment.endereco_completo,
+                  bairro: selectedEstablishment.bairro,
+                })}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] bg-[var(--c-brand)] px-4 py-2 font-display text-lg font-bold text-white shadow-xs transition-opacity hover:opacity-95"
@@ -366,7 +477,11 @@ export default function EstablishmentMap({
               </a>
 
               <a
-                href={gerarUrlRotaGoogleMaps(selectedEstablishment.coordenadas, 'walking')}
+                href={gerarUrlRotaGoogleMaps(selectedEstablishment.coordenadas, 'walking', {
+                  nomeFantasia: selectedEstablishment.nome_fantasia,
+                  enderecoCompleto: selectedEstablishment.endereco_completo,
+                  bairro: selectedEstablishment.bairro,
+                })}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] border border-[var(--c-border)] bg-[var(--c-bg)] px-4 py-2 font-display text-lg font-bold text-[var(--c-text)] hover:bg-[var(--c-bg-soft)]"

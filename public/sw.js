@@ -30,6 +30,7 @@ const SHELL_STATIC_ASSETS = [
   '/icon-192.png',
   '/icon-512.png',
   '/sw-range-helper.js',
+  '/maplibre-gl-worker.mjs',
 ];
 
 let currentShellCacheName = null;
@@ -298,16 +299,39 @@ async function cleanupOldPmtilesEntries(cache, keepUrl) {
   );
 }
 
+let isPmtilesCachedLocally = false;
+
+async function refreshPmtilesCacheStatus() {
+  try {
+    const cache = await caches.open(TILES_CACHE_NAME);
+    const keys = await cache.keys();
+    isPmtilesCachedLocally = keys.some((k) => {
+      try {
+        const u = new URL(k.url, self.location.origin);
+        return u.pathname.endsWith('.pmtiles') || u.pathname.startsWith('/tiles/');
+      } catch {
+        return false;
+      }
+    });
+  } catch {
+    isPmtilesCachedLocally = false;
+  }
+}
+
+void refreshPmtilesCacheStatus();
+
 self.addEventListener('message', (event) => {
   const data = event.data;
   if (!data || typeof data.type !== 'string') return;
 
   if (data.type === 'PMTILES_CACHE_REMOVED') {
+    isPmtilesCachedLocally = false;
     clearPmtilesMemoryCache();
     return;
   }
 
   if (data.type === 'PMTILES_CACHE_UPDATED') {
+    isPmtilesCachedLocally = true;
     clearPmtilesMemoryCache();
     if (typeof data.url === 'string' && data.url.length > 0) {
       event.waitUntil(
@@ -346,15 +370,9 @@ async function handleRangeOrPmtilesRequest(request) {
     });
   }
 
+  // Fallback seguro se chamado antes de atualizar status local: tenta rede nativa
   try {
-    const networkResponse = await fetch(request);
-    // NUNCA chamar cache.put() se status !== 200 ou se havia cabeçalho Range (ex.: 206 Partial Content)
-    if (canCacheResponse(networkResponse.status, Boolean(rangeHeader))) {
-      await cache.put(cleanUrl, networkResponse.clone());
-      clearPmtilesMemoryCache();
-      await cleanupOldPmtilesEntries(cache, cleanUrl);
-    }
-    return networkResponse;
+    return await fetch(request);
   } catch {
     return new Response(null, { status: 504, statusText: 'Offline tile unavailable' });
   }
@@ -420,7 +438,11 @@ self.addEventListener('fetch', (event) => {
   const isPmtiles = url.pathname.endsWith('.pmtiles') || url.pathname.startsWith('/tiles/');
 
   if (hasRangeHeader || isPmtiles) {
-    event.respondWith(handleRangeOrPmtilesRequest(request));
+    if (isPmtilesCachedLocally) {
+      event.respondWith(handleRangeOrPmtilesRequest(request));
+    }
+    // Quando NÃO está no cache offline, NÃO chamamos event.respondWith:
+    // o navegador faz nativamente a requisição HTTP Range com status 206 direto na CDN da Vercel.
     return;
   }
 
@@ -431,7 +453,8 @@ self.addEventListener('fetch', (event) => {
     url.pathname.endsWith('.png') ||
     url.pathname.endsWith('.svg') ||
     url.pathname === '/manifest.webmanifest' ||
-    url.pathname === '/sw-range-helper.js'
+    url.pathname === '/sw-range-helper.js' ||
+    url.pathname === '/maplibre-gl-worker.mjs'
   ) {
     event.respondWith(
       caches.open(STATIC_CACHE_NAME).then(async (cache) => {

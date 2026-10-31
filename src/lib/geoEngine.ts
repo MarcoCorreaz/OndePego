@@ -149,16 +149,47 @@ export function listarBairrosUnicos(estabelecimentos: readonly Estabelecimento[]
 
 export type GoogleMapsTravelMode = 'transit' | 'walking' | 'driving';
 
+export interface EstabelecimentoDestinoInfo {
+  nomeFantasia?: string;
+  enderecoCompleto?: string;
+  bairro?: string;
+  municipio?: string;
+}
+
 /**
  * Gera link universal de rota no Google Maps (sem necessidade de chave de API).
+ * Se fornecidas informações de nome e endereço, direciona o Google Maps para o ponto comercial exato,
+ * evitando marcações no centro de avenidas extensas.
  */
 export function gerarUrlRotaGoogleMaps(
   destino: LatLng,
   modo?: GoogleMapsTravelMode,
+  estabelecimento?: EstabelecimentoDestinoInfo,
 ): string {
   const lat = Number(destino.lat);
   const lng = Number(destino.lng);
-  const base = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${lat},${lng}`)}`;
+
+  let destinationQuery = `${lat},${lng}`;
+  if (estabelecimento?.nomeFantasia || estabelecimento?.enderecoCompleto) {
+    const parts: string[] = [];
+    if (estabelecimento.nomeFantasia) {
+      parts.push(estabelecimento.nomeFantasia);
+    }
+    if (estabelecimento.enderecoCompleto) {
+      parts.push(estabelecimento.enderecoCompleto);
+    }
+    if (
+      estabelecimento.bairro &&
+      (!estabelecimento.enderecoCompleto ||
+        !estabelecimento.enderecoCompleto.includes(estabelecimento.bairro))
+    ) {
+      parts.push(estabelecimento.bairro);
+    }
+    parts.push(`${estabelecimento.municipio || 'Cuiabá'} - MT`);
+    destinationQuery = parts.join(', ');
+  }
+
+  const base = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destinationQuery)}`;
   if (!modo) {
     return base;
   }

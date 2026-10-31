@@ -35,6 +35,30 @@ export interface LocalVectorMapStyle {
 }
 
 /**
+ * Resolve o caminho relativo do arquivo `.pmtiles` para uma URL absoluta quando executado no navegador,
+ * garantindo compatibilidade uniforme com o parser do protocolo PMTiles e workers.
+ */
+export function getPmtilesFullUrl(
+  archivePath: string = DEFAULT_PMTILES_ARCHIVE_PATH,
+): string {
+  const cleanPath = archivePath.trim() || DEFAULT_PMTILES_ARCHIVE_PATH;
+  if (cleanPath.startsWith('http://') || cleanPath.startsWith('https://')) {
+    return cleanPath;
+  }
+  if (cleanPath.startsWith('pmtiles://')) {
+    return cleanPath.replace(/^pmtiles:\/\//, '');
+  }
+  if (typeof window !== 'undefined' && window.location?.origin) {
+    try {
+      return new URL(cleanPath, window.location.origin).href;
+    } catch {
+      return cleanPath;
+    }
+  }
+  return cleanPath;
+}
+
+/**
  * Constrói um objeto de estilo MapLibre GL (v8) 100% local a partir de um arquivo PMTiles.
  * Cumpre estritamente os ADRs 06 e 09:
  * - ZERO chamadas a `tile.openstreetmap.org`, `protomaps.github.io` ou CDNs externas.
@@ -44,10 +68,8 @@ export interface LocalVectorMapStyle {
 export function buildLocalMapStyle(
   pmtilesArchivePath: string = DEFAULT_PMTILES_ARCHIVE_PATH,
 ): LocalVectorMapStyle {
-  const cleanPath = pmtilesArchivePath.trim() || DEFAULT_PMTILES_ARCHIVE_PATH;
-  const pmtilesUrl = cleanPath.startsWith('pmtiles://')
-    ? cleanPath
-    : `pmtiles://${cleanPath}`;
+  const fullUrl = getPmtilesFullUrl(pmtilesArchivePath);
+  const pmtilesUrl = `pmtiles://${fullUrl}`;
 
   return {
     version: 8,
@@ -73,7 +95,7 @@ export function buildLocalMapStyle(
         source: 'protomaps',
         'source-layer': 'earth',
         paint: {
-          'fill-color': '#F3F6F9',
+          'fill-color': '#F8FAFC',
         },
       },
       {
@@ -81,9 +103,23 @@ export function buildLocalMapStyle(
         type: 'fill',
         source: 'protomaps',
         'source-layer': 'landuse',
+        filter: [
+          'in',
+          'kind',
+          'park',
+          'forest',
+          'grass',
+          'wood',
+          'scrub',
+          'garden',
+          'recreation_ground',
+          'wetland',
+          'meadow',
+          'pitch',
+        ],
         paint: {
-          'fill-color': '#E6F4EA',
-          'fill-opacity': 0.7,
+          'fill-color': '#D6E8D5',
+          'fill-opacity': 0.75,
         },
       },
       {
@@ -92,7 +128,18 @@ export function buildLocalMapStyle(
         source: 'protomaps',
         'source-layer': 'water',
         paint: {
-          'fill-color': '#C5DDF0',
+          'fill-color': '#93C5FD',
+          'fill-opacity': 0.95,
+        },
+      },
+      {
+        id: 'water-line',
+        type: 'line',
+        source: 'protomaps',
+        'source-layer': 'water',
+        paint: {
+          'line-color': '#60A5FA',
+          'line-width': 1.5,
         },
       },
       {
@@ -100,9 +147,32 @@ export function buildLocalMapStyle(
         type: 'fill',
         source: 'protomaps',
         'source-layer': 'buildings',
+        minzoom: 13,
         paint: {
           'fill-color': '#E2E8F0',
-          'fill-opacity': 0.8,
+          'fill-opacity': 0.75,
+        },
+      },
+      {
+        id: 'boundaries',
+        type: 'line',
+        source: 'protomaps',
+        'source-layer': 'boundaries',
+        paint: {
+          'line-color': '#CBD5E1',
+          'line-width': 1,
+          'line-dasharray': [3, 2],
+        },
+      },
+      {
+        id: 'roads-casing',
+        type: 'line',
+        source: 'protomaps',
+        'source-layer': 'roads',
+        filter: ['in', 'kind', 'highway', 'major_road'],
+        paint: {
+          'line-color': '#CBD5E1',
+          'line-width': 4.5,
         },
       },
       {
@@ -110,9 +180,21 @@ export function buildLocalMapStyle(
         type: 'line',
         source: 'protomaps',
         'source-layer': 'roads',
+        filter: ['in', 'kind', 'minor_road', 'other', 'service', 'path'],
         paint: {
-          'line-color': '#CBD5E1',
+          'line-color': '#FFFFFF',
           'line-width': 1.5,
+        },
+      },
+      {
+        id: 'roads-medium',
+        type: 'line',
+        source: 'protomaps',
+        'source-layer': 'roads',
+        filter: ['in', 'kind', 'medium_road'],
+        paint: {
+          'line-color': '#FFFFFF',
+          'line-width': 2.5,
         },
       },
       {
@@ -120,9 +202,10 @@ export function buildLocalMapStyle(
         type: 'line',
         source: 'protomaps',
         'source-layer': 'roads',
+        filter: ['in', 'kind', 'major_road', 'highway'],
         paint: {
-          'line-color': '#FFFFFF',
-          'line-width': 3,
+          'line-color': '#FEEBC8',
+          'line-width': 3.5,
         },
       },
     ],

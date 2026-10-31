@@ -112,7 +112,11 @@ export default function PlantaoPage() {
 
                     {temCoordenadaValida && (
                       <a
-                        href={gerarUrlRotaGoogleMaps(unidade.coordenadas)}
+                        href={gerarUrlRotaGoogleMaps(unidade.coordenadas, 'transit', {
+                          nomeFantasia: unidade.nome_fantasia,
+                          enderecoCompleto: unidade.endereco_completo,
+                          bairro: unidade.bairro,
+                        })}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="ui-pressable inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2 rounded-[var(--r-button)] bg-[var(--c-brand)] px-4 py-2 font-display text-base font-bold text-white shadow-xs hover:opacity-95 active:scale-[0.98]"
@@ -190,7 +194,11 @@ export default function PlantaoPage() {
 
                     {temCoordenada && (
                       <a
-                        href={gerarUrlRotaGoogleMaps(unidade.coordenadas)}
+                        href={gerarUrlRotaGoogleMaps(unidade.coordenadas, 'transit', {
+                          nomeFantasia: unidade.nome_fantasia,
+                          enderecoCompleto: unidade.endereco_completo,
+                          bairro: unidade.bairro,
+                        })}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="ui-pressable inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2 rounded-[var(--r-button)] border border-[var(--c-border)] bg-[var(--c-bg)] px-3.5 py-2 font-display text-base font-bold text-[var(--c-text)] hover:bg-[var(--c-bg-soft)] active:scale-[0.98]"
@@ -255,7 +263,11 @@ export default function PlantaoPage() {
 
                     {temCoordenada && (
                       <a
-                        href={gerarUrlRotaGoogleMaps(unidade.coordenadas)}
+                        href={gerarUrlRotaGoogleMaps(unidade.coordenadas, 'transit', {
+                          nomeFantasia: unidade.nome_fantasia,
+                          enderecoCompleto: unidade.endereco_completo,
+                          bairro: unidade.bairro,
+                        })}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="ui-pressable inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2 rounded-[var(--r-button)] border border-[var(--c-border)] bg-[var(--c-bg)] px-3.5 py-2 font-display text-base font-bold text-[var(--c-text)] hover:bg-[var(--c-bg-soft)] active:scale-[0.98]"

@@ -162,12 +162,13 @@ export function UnidadesExplorer({ estabelecimentos, meta }: UnidadesExplorerPro
 
   return (
     <div className="space-y-4 text-[var(--c-text)]">
-      {/* 1. MAPA COMO HERÓI NO TOPO (≈ 260px) */}
+      {/* 1. MAPA COMO HERÓI NO TOPO */}
       <section
+        id="secao-mapa-unidades"
         aria-label="Mapa das unidades e farmácias credenciadas"
         className="overflow-hidden rounded-[var(--r-card)] border border-[var(--c-border)] bg-[var(--c-surface)] shadow-2xs"
       >
-        <div className="h-[260px] w-full">
+        <div className="w-full">
           <LazyEstablishmentMap
             estabelecimentos={listaOrdenada
               .map((item) => item.estabelecimento)
@@ -511,15 +512,43 @@ export function UnidadesExplorer({ estabelecimentos, meta }: UnidadesExplorerPro
                   </div>
 
                   {temCoordenadas && (
-                    <a
-                      href={gerarUrlRotaGoogleMaps(est.coordenadas)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="ui-pressable inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2 rounded-[var(--r-button)] bg-[var(--c-brand)] px-4 py-2 font-display text-base font-bold text-white shadow-xs hover:opacity-95 active:scale-[0.98]"
-                    >
-                      <Icon name="pin" className="h-4 w-4" />
-                      <span>Ver rota</span>
-                    </a>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setViewMode('mapa');
+                          const mapSec = document.getElementById('secao-mapa-unidades');
+                          mapSec?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                          window.dispatchEvent(
+                            new CustomEvent('ondepego:focar-estabelecimento', {
+                              detail: {
+                                id: est.id,
+                                lat: est.coordenadas.lat,
+                                lng: est.coordenadas.lng,
+                              },
+                            }),
+                          );
+                        }}
+                        className="ui-pressable inline-flex min-h-[48px] shrink-0 items-center justify-center gap-1.5 rounded-[var(--r-button)] border border-[var(--c-brand)]/30 bg-[var(--c-brand-tint)] px-3.5 py-2 font-display text-base font-bold text-[var(--c-brand)] hover:bg-[var(--c-brand)] hover:text-white active:scale-[0.98]"
+                      >
+                        <Icon name="pin" className="h-4 w-4" />
+                        <span>Ver no mapa</span>
+                      </button>
+
+                      <a
+                        href={gerarUrlRotaGoogleMaps(est.coordenadas, 'transit', {
+                          nomeFantasia: est.nome_fantasia,
+                          enderecoCompleto: est.endereco_completo,
+                          bairro: est.bairro,
+                        })}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ui-pressable inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2 rounded-[var(--r-button)] bg-[var(--c-brand)] px-4 py-2 font-display text-base font-bold text-white shadow-xs hover:opacity-95 active:scale-[0.98]"
+                      >
+                        <Icon name="pin" className="h-4 w-4" />
+                        <span>Ver rota</span>
+                      </a>
+                    </div>
                   )}
                 </div>
 
@@ -593,15 +622,43 @@ export function UnidadesExplorer({ estabelecimentos, meta }: UnidadesExplorerPro
                     </div>
 
                     {temCoordenadas && (
-                      <a
-                        href={gerarUrlRotaGoogleMaps(est.coordenadas)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="ui-pressable inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2 rounded-[var(--r-button)] bg-[var(--c-brand)] px-4 py-2 font-display text-base font-bold text-white shadow-xs hover:opacity-95 active:scale-[0.98]"
-                      >
-                        <Icon name="pin" className="h-4 w-4" />
-                        <span>Ver rota</span>
-                      </a>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setViewMode('mapa');
+                            const mapSec = document.getElementById('secao-mapa-unidades');
+                            mapSec?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            window.dispatchEvent(
+                              new CustomEvent('ondepego:focar-estabelecimento', {
+                                detail: {
+                                  id: est.id,
+                                  lat: est.coordenadas.lat,
+                                  lng: est.coordenadas.lng,
+                                },
+                              }),
+                            );
+                          }}
+                          className="ui-pressable inline-flex min-h-[48px] shrink-0 items-center justify-center gap-1.5 rounded-[var(--r-button)] border border-[var(--c-brand)]/30 bg-[var(--c-brand-tint)] px-3.5 py-2 font-display text-base font-bold text-[var(--c-brand)] hover:bg-[var(--c-brand)] hover:text-white active:scale-[0.98]"
+                        >
+                          <Icon name="pin" className="h-4 w-4" />
+                          <span>Ver no mapa</span>
+                        </button>
+
+                        <a
+                          href={gerarUrlRotaGoogleMaps(est.coordenadas, 'transit', {
+                            nomeFantasia: est.nome_fantasia,
+                            enderecoCompleto: est.endereco_completo,
+                            bairro: est.bairro,
+                          })}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="ui-pressable inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2 rounded-[var(--r-button)] bg-[var(--c-brand)] px-4 py-2 font-display text-base font-bold text-white shadow-xs hover:opacity-95 active:scale-[0.98]"
+                        >
+                          <Icon name="pin" className="h-4 w-4" />
+                          <span>Ver rota</span>
+                        </a>
+                      </div>
                     )}
                   </div>
 
