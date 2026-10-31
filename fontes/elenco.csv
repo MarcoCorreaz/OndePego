@@ -1,0 +1,42 @@
+principio_ativo;descricao_dosagem;farmacia_popular_gratuito;requisito_farmacia_popular
+Acetato de medroxiprogesterona;150 mg/ml suspensão injetável;true;PADRAO_RECEITA_DOCUMENTO
+Alendronato de sódio;70 mg comprimido;true;PADRAO_RECEITA_DOCUMENTO
+Atenolol;25 mg comprimido;true;PADRAO_RECEITA_DOCUMENTO
+Besilato de anlodipino;5 mg comprimido;true;PADRAO_RECEITA_DOCUMENTO
+Brometo de ipratrópio;0,02 mg/dose (20 mcg/dose) aerossol;true;PADRAO_RECEITA_DOCUMENTO
+Brometo de ipratrópio;0,25 mg/ml solução para inalação;true;PADRAO_RECEITA_DOCUMENTO
+Budesonida;32 mcg/dose spray nasal;true;PADRAO_RECEITA_DOCUMENTO
+Budesonida;50 mcg/dose spray nasal;true;PADRAO_RECEITA_DOCUMENTO
+Captopril;25 mg comprimido;true;PADRAO_RECEITA_DOCUMENTO
+Carbidopa + Levodopa;25 mg + 250 mg comprimido;true;PADRAO_RECEITA_DOCUMENTO
+Cloridrato de benserazida + Levodopa;25 mg + 100 mg comprimido;true;PADRAO_RECEITA_DOCUMENTO
+Cloridrato de metformina;500 mg comprimido;true;PADRAO_RECEITA_DOCUMENTO
+Cloridrato de metformina;500 mg comprimido de ação prolongada;true;PADRAO_RECEITA_DOCUMENTO
+Cloridrato de metformina;850 mg comprimido;true;PADRAO_RECEITA_DOCUMENTO
+Cloridrato de propranolol;40 mg comprimido;true;PADRAO_RECEITA_DOCUMENTO
+Dapagliflozina;10 mg comprimido;true;PADRAO_RECEITA_DOCUMENTO
+Dipropionato de beclometasona;50 mcg/dose spray nasal;true;PADRAO_RECEITA_DOCUMENTO
+Dipropionato de beclometasona;50 mcg/dose aerossol oral;true;PADRAO_RECEITA_DOCUMENTO
+Dipropionato de beclometasona;200 mcg/dose pó/cápsula inalatória;true;PADRAO_RECEITA_DOCUMENTO
+Dipropionato de beclometasona;250 mcg/dose aerossol oral;true;PADRAO_RECEITA_DOCUMENTO
+Espironolactona;25 mg comprimido;true;PADRAO_RECEITA_DOCUMENTO
+Etinilestradiol + Levonorgestrel;0,03 mg + 0,15 mg comprimido;true;PADRAO_RECEITA_DOCUMENTO
+Furosemida;40 mg comprimido;true;PADRAO_RECEITA_DOCUMENTO
+Glibenclamida;5 mg comprimido;true;PADRAO_RECEITA_DOCUMENTO
+Hidroclorotiazida;25 mg comprimido;true;PADRAO_RECEITA_DOCUMENTO
+Insulina humana NPH;100 UI/ml suspensão injetável;true;PADRAO_RECEITA_DOCUMENTO
+Insulina humana regular;100 UI/ml solução injetável;true;PADRAO_RECEITA_DOCUMENTO
+Losartana potássica;50 mg comprimido;true;PADRAO_RECEITA_DOCUMENTO
+Maleato de enalapril;10 mg comprimido;true;PADRAO_RECEITA_DOCUMENTO
+Maleato de timolol;2,5 mg/ml (0,25%) solução oftálmica;true;PADRAO_RECEITA_DOCUMENTO
+Maleato de timolol;5,0 mg/ml (0,5%) solução oftálmica;true;PADRAO_RECEITA_DOCUMENTO
+Noretisterona;0,35 mg comprimido;true;PADRAO_RECEITA_DOCUMENTO
+Sinvastatina;10 mg comprimido;true;PADRAO_RECEITA_DOCUMENTO
+Sinvastatina;20 mg comprimido;true;PADRAO_RECEITA_DOCUMENTO
+Sinvastatina;40 mg comprimido;true;PADRAO_RECEITA_DOCUMENTO
+Succinato de metoprolol;25 mg comprimido;true;PADRAO_RECEITA_DOCUMENTO
+Sulfato de salbutamol;100 mcg/dose aerossol;true;PADRAO_RECEITA_DOCUMENTO
+Sulfato de salbutamol;5 mg/ml solução para nebulização;true;PADRAO_RECEITA_DOCUMENTO
+Valerato de estradiol + Enantato de noretisterona;5 mg + 50 mg/ml solução injetável;true;PADRAO_RECEITA_DOCUMENTO
+Fralda geriátrica;Tamanhos P, M, G, GG;true;FRALDA_GERIATRICA
+Absorvente higiênico;Pacote com abas para fluxo menstrual;true;DIGNIDADE_MENSTRUAL

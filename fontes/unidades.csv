@@ -1,0 +1,25 @@
+id;nome_fantasia;tipo;bairro;endereco_completo;telefone;dispensa_psicotropicos_sus;polo_vacinacao_municipal;status_funcionamento;lat;lng
+upa-verdao;UPA 24h Verdão;UPA;Verdão;Av. Agrícola Paes de Barros, s/nº - Verdão, Cuiabá - MT;(65) 3617-7500;true;true;NORMAL;-15.6025;-56.1215
+upa-morada-do-ouro;UPA 24h Morada do Ouro;UPA;Morada do Ouro;Av. Tancredo Neves, s/nº - Morada do Ouro II, Cuiabá - MT;(65) 3617-7600;true;true;NORMAL;-15.5642;-56.0683
+upa-pascoal-ramos;UPA 24h Pascoal Ramos;UPA;Pascoal Ramos;Rua Raimundo Pinheiro, 77 - Pascoal Ramos, Cuiabá - MT;(65) 3617-7700;true;true;NORMAL;-15.6881;-56.0372
+upa-leblon;UPA 24h Jardim Leblon;UPA;Jardim Leblon;Rua Militar, s/nº - Jardim Leblon, Cuiabá - MT;(65) 3617-7800;true;true;NORMAL;-15.6068;-56.0594
+policlinica-pedra-90;Policlínica do Pedra 90 (Anízio Sabo Mendes);POLICLINICA;Pedra 90;Avenida Nilton Rabelo de Castro, s/nº - Pedra 90, Cuiabá - MT;(65) 3617-1900;true;true;NORMAL;-15.7032;-56.0078
+policlinica-coxipo;Policlínica do Coxipó (Dr. José Eduardo Vaz Curvo);POLICLINICA;Vista Alegre;Rua 24 de Agosto, s/nº - Vista Alegre, Cuiabá - MT;(65) 3617-1400;true;true;NORMAL;-15.6455;-56.0668
+policlinica-planalto;Policlínica do Planalto (Dr. Clóvis Pitalunga de Moura);POLICLINICA;Planalto;Avenida dos Trabalhadores, s/nº - Planalto, Cuiabá - MT;(65) 3617-1800;true;true;NORMAL;-15.5802;-56.0321
+cem-centro;Centro de Especialidades Médicas (CEM Centro);POLICLINICA;Bandeirantes;Rua Baltazar Navarros, 405 - Bandeirantes, Cuiabá - MT;(65) 3617-1312;true;false;NORMAL;-15.5995;-56.0892
+cem-coxipo;Centro de Especialidades Médicas (CEM Coxipó);POLICLINICA;Coxipó;Rua 24 de Agosto, s/nº - Coxipó, Cuiabá - MT;(65) 3617-1444;true;false;NORMAL;-15.6460;-56.0660
+cs-cpa-3;Centro de Saúde CPA III;UBS;CPA III;Rua 39, Quadra 02, s/nº - CPA III, Cuiabá - MT;(65) 3318-6089;false;true;NORMAL;-15.5684;-56.0456
+cs-cpa-4;Centro de Saúde CPA IV;UBS;CPA IV;Avenida Curió, s/nº, 3ª Etapa - CPA IV, Cuiabá - MT;(65) 3318-6071;false;true;NORMAL;-15.5582;-56.0398
+cs-tijucal;Centro de Saúde Tijucal;UBS;Tijucal;Avenida Espigão, s/nº, Setor 4 - Tijucal, Cuiabá - MT;(65) 3318-6278;false;true;NORMAL;-15.6705;-56.0402
+cs-parque-cuiaba;Centro de Saúde Parque Cuiabá;UBS;Parque Cuiabá;Rua D 4, Quadra 140, s/nº - Parque Cuiabá, Cuiabá - MT;(65) 3318-6256;false;true;NORMAL;-15.6755;-56.0754
+cs-paiaguas;Centro de Saúde Paiaguás;UBS;Paiaguás;Avenida A, Esquina com Av. C, s/nº - Paiaguás, Cuiabá - MT;(65) 3318-6093;false;true;NORMAL;-15.5485;-56.0621
+cs-cohab-sao-goncalo;Centro de Saúde Cohab São Gonçalo;UBS;São Gonçalo;Avenida B, s/nº - Cohab São Gonçalo, Cuiabá - MT;(65) 3318-6255;false;true;NORMAL;-15.6612;-56.0789
+usf-dom-aquino;USF Dom Aquino;UBS;Dom Aquino;Rua Irmã Elvira Paris, 1 - Dom Aquino, Cuiabá - MT;(65) 3318-6578;false;true;NORMAL;-15.6174;-56.0882
+usf-areao;USF Areão;UBS;Areão;Av. Desembargador Antonio Quirino de Araújo, s/nº - Areão, Cuiabá - MT;(65) 3318-6574;false;true;NORMAL;-15.6132;-56.0745
+usf-jardim-imperial;USF Jardim Imperial;UBS;Jardim Imperial;Rua Goiaba, s/nº - Jardim Imperial, Cuiabá - MT;(65) 3318-6595;false;true;NORMAL;-15.6162;-56.0381
+usf-pico-do-amor;USF Pico do Amor;UBS;Pico do Amor;Rua Capitão Iporá, s/nº - Pico do Amor, Cuiabá - MT;(65) 3318-6247;false;true;NORMAL;-15.6115;-56.0815
+usf-tres-barras;USF Três Barras / Jardim Umuarama;UBS;Três Barras;Rua 29, s/nº (Área Verde) - Três Barras, Cuiabá - MT;(65) 3318-6094;false;true;NORMAL;-15.5532;-56.0315
+usf-terra-nova;USF Terra Nova / Canjica;UBS;Canjica;Avenida Senegal, s/nº - Canjica, Cuiabá - MT;(65) 3318-6586;false;true;NORMAL;-15.5891;-56.0654
+usf-bela-vista;USF Bela Vista / Carumbé;UBS;Bela Vista;Avenida Átomo Canavarros, s/nº - Bela Vista, Cuiabá - MT;(65) 3318-6588;false;true;NORMAL;-15.5824;-56.0587
+usf-joao-bosco;USF João Bosco Pinheiro / 1º de Março;UBS;1º de Março;Avenida Principal, s/nº - 1º de Março, Cuiabá - MT;(65) 3318-6095;false;true;NORMAL;-15.5512;-56.0423
+psf-residencial-coxipo;PSF Residencial Coxipó I e II;UBS;Residencial Coxipó;Avenida D, s/nº - Residencial Coxipó, Cuiabá - MT;(65) 3318-6254;false;true;NORMAL;-15.6698;-56.0612

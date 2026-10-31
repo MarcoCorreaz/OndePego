@@ -75,6 +75,7 @@ Público: muitos idosos e pessoas com baixa visão, em celulares simples e 4G in
 | `engenharia-software-senior` | Criar ou refatorar código, manter higiene de repositório, prevenir código morto e proteger performance |
 | `ui-ux-produto-premium` | Aplicar direção de arte e UI/UX Sênior (nível Apple Health / Linear), hierarquia visual e 5 estados de UI |
 | `qa-usuario-real` | Executar testes e auditorias simulando as 5 Personas Reais de usuários finais de Cuiabá |
+| `sincronizacao-multi-agente` | Coordenação e sincronização de estado (`.agents/session-state.json`) entre múltiplas abas concorrentes do Antigravity |
 
 ## 9. Definição de pronto
 

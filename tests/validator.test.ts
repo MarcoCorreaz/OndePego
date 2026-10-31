@@ -17,6 +17,57 @@ describe('Validador de contratos e regras de negócio', () => {
   const medicamentos = MedicamentosFile.parse(medicamentosJson);
   const estabelecimentos = EstabelecimentosFile.parse(estabelecimentosJson);
 
+  const FIXTURE_META = Meta.parse({
+    versao: '0.0.0-fixture',
+    data_remume: '2026-08-17',
+    data_elenco_pfpb: '2026-08-31',
+    data_infoms: '2026-10-30',
+    ultima_verificacao_ci: '2026-10-30',
+    limite_dias_desatualizado: 45,
+    flags: { estoque_oficial: false },
+    __fixture: true,
+  });
+
+  const FIXTURE_MEDICAMENTOS = MedicamentosFile.parse([
+    {
+      slug: 'medicamento-teste-a',
+      principio_ativo: 'MEDICAMENTO_TESTE_A',
+      nomes_comerciais: ['TESTE_COMERCIAL_A'],
+      termos_populares: ['termo_teste_a'],
+      apresentacoes: [
+        {
+          id_apresentacao: 'apres-teste-a1',
+          descricao_dosagem: '50mg comprimido',
+          status_remume_cuiaba: 'PADRONIZADO_REMUME',
+          local_dispensacao_sus: 'UBS',
+          farmacia_popular_gratuito: true,
+          requisito_farmacia_popular: 'PADRAO_RECEITA_DOCUMENTO',
+        },
+      ],
+      __fixture: true,
+    },
+  ]);
+
+  const FIXTURE_ESTABELECIMENTOS = EstabelecimentosFile.parse([
+    {
+      id: 'estab-farmacia-teste-a',
+      nome_fantasia: 'FARMACIA_TESTE_A',
+      tipo: 'FARMACIA_POPULAR',
+      bairro: 'BAIRRO_TESTE_1',
+      endereco_completo: 'ENDERECO_FICTICIO_TESTE_A, 000',
+      coordenadas: {
+        lat: -15.6,
+        lng: -56.1,
+        auditado_manualmente: false,
+      },
+      atributos_operacionais: {
+        credenciamento_pfpb_ativo: true,
+        status_funcionamento: 'NORMAL',
+      },
+      __fixture: true,
+    },
+  ]);
+
   it('detecta modo produção tanto por --prod em argv quanto por NODE_ENV=production', () => {
     expect(isProductionValidationMode(['node', 'script.ts', '--prod'], 'development')).toBe(true);
     expect(isProductionValidationMode(['node', 'script.ts'], 'production')).toBe(true);
@@ -25,9 +76,9 @@ describe('Validador de contratos e regras de negócio', () => {
 
   it('aprova as fixtures fora de produção e emite aviso de farmácia não auditada', () => {
     const report = validateBusinessRules({
-      meta,
-      medicamentos,
-      estabelecimentos,
+      meta: FIXTURE_META,
+      medicamentos: FIXTURE_MEDICAMENTOS,
+      estabelecimentos: FIXTURE_ESTABELECIMENTOS,
       isProduction: false,
     });
 
@@ -37,13 +88,28 @@ describe('Validador de contratos e regras de negócio', () => {
   });
 
   it('rejeita fixtures no modo --prod / NODE_ENV=production', () => {
-    const res = validateDataFiles({ argv: ['node', 'validate-schemas.ts', '--prod'] });
-    expect(res.ok).toBe(false);
-    expect(res.errors.length).toBeGreaterThanOrEqual(4);
-    expect(res.errors.some((e) => e.includes('termina com "-fixture"'))).toBe(true);
-    expect(res.errors.some((e) => e.includes('meta.json (__fixture: true)'))).toBe(true);
-    expect(res.errors.some((e) => e.includes('medicamentos.json'))).toBe(true);
-    expect(res.errors.some((e) => e.includes('estabelecimentos.json'))).toBe(true);
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'onde-pego-fixture-test-'));
+    try {
+      fs.writeFileSync(path.join(tmpDir, 'meta.json'), JSON.stringify(FIXTURE_META));
+      fs.writeFileSync(path.join(tmpDir, 'medicamentos.json'), JSON.stringify(FIXTURE_MEDICAMENTOS));
+      fs.writeFileSync(
+        path.join(tmpDir, 'estabelecimentos.json'),
+        JSON.stringify(FIXTURE_ESTABELECIMENTOS),
+      );
+
+      const res = validateDataFiles({
+        dataDir: tmpDir,
+        argv: ['node', 'validate-schemas.ts', '--prod'],
+      });
+      expect(res.ok).toBe(false);
+      expect(res.errors.length).toBeGreaterThanOrEqual(4);
+      expect(res.errors.some((e) => e.includes('termina com "-fixture"'))).toBe(true);
+      expect(res.errors.some((e) => e.includes('meta.json (__fixture: true)'))).toBe(true);
+      expect(res.errors.some((e) => e.includes('medicamentos.json'))).toBe(true);
+      expect(res.errors.some((e) => e.includes('estabelecimentos.json'))).toBe(true);
+    } finally {
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    }
   });
 
   it('rejeita meta.versao terminando em "-fixture" (case-insensitive) no modo --prod mesmo sem flags __fixture', () => {

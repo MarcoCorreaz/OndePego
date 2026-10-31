@@ -1,38 +1,1869 @@
 [
   {
-    "slug": "medicamento-teste-a",
-    "principio_ativo": "MEDICAMENTO_TESTE_A",
-    "nomes_comerciais": ["COMERCIAL_TESTE_A1", "COMERCIAL_TESTE_A2"],
-    "termos_populares": ["TERMO_POPULAR_TESTE_A", "pressão", "diabetes"],
+    "slug": "acetato-de-medroxiprogesterona",
+    "principio_ativo": "Acetato de medroxiprogesterona",
+    "nomes_comerciais": [
+      "Depo-Provera",
+      "Contracep"
+    ],
+    "termos_populares": [
+      "anticoncepcional injetavel",
+      "injecao trimestral",
+      "remedio para nao engravidar"
+    ],
     "apresentacoes": [
       {
-        "id_apresentacao": "ap-teste-a-1",
-        "descricao_dosagem": "DOSAGEM_TESTE_1 (50 mg comprimido)",
+        "id_apresentacao": "ap-acetato-de-medroxiprogesterona-150-mg-ml-suspensao-injetavel",
+        "descricao_dosagem": "150 mg/ml suspensão injetável",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Anticonceptivo injetável trimestral",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       }
-    ],
-    "__fixture": true
+    ]
   },
   {
-    "slug": "medicamento-teste-b",
-    "id_dcb": "DCB_TESTE_000",
-    "codigo_atc": "ATC_TESTE_00",
-    "principio_ativo": "MEDICAMENTO_TESTE_B",
-    "nomes_comerciais": [],
-    "termos_populares": ["asma", "colesterol"],
+    "slug": "acetilcisteina",
+    "principio_ativo": "Acetilcisteína",
+    "nomes_comerciais": [
+      "Fluimucil",
+      "Cisteil",
+      "Aires"
+    ],
+    "termos_populares": [
+      "expectorante",
+      "catarro",
+      "tosse carregada",
+      "limpar pulmao"
+    ],
     "apresentacoes": [
       {
-        "id_apresentacao": "ap-teste-b-1",
-        "descricao_dosagem": "DOSAGEM_TESTE_2 (20 mg comprimido)",
-        "status_remume_cuiaba": "NAO_CONSTA_REMUME",
-        "local_dispensacao_sus": "NAO_APLICAVEL",
+        "id_apresentacao": "ap-acetilcisteina-100-mg-granulado-xarope",
+        "descricao_dosagem": "100 mg granulado/xarope",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Expectorante mucolítico",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      },
+      {
+        "id_apresentacao": "ap-acetilcisteina-600-mg-granulado",
+        "descricao_dosagem": "600 mg granulado",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Uso adulto",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
+    ]
+  },
+  {
+    "slug": "acido-acetilsalicilico",
+    "principio_ativo": "Ácido acetilsalicílico",
+    "nomes_comerciais": [
+      "Aspirina",
+      "AAS",
+      "Somalgin"
     ],
-    "__fixture": true
+    "termos_populares": [
+      "afinamento do sangue",
+      "coracao",
+      "dor de cabeca",
+      "febre"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-acido-acetilsalicilico-100-mg-comprimido",
+        "descricao_dosagem": "100 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Antiagregante plaquetário (AAS infantil/adulto)",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "acido-folico",
+    "principio_ativo": "Ácido fólico",
+    "nomes_comerciais": [
+      "Folivita",
+      "Endofolin",
+      "Afopic"
+    ],
+    "termos_populares": [
+      "vitamina gravidez",
+      "pre-natal",
+      "anemia",
+      "suplemento gestante"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-acido-folico-5-mg-comprimido",
+        "descricao_dosagem": "5 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Suplementação pré-natal e anemia",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "albendazol",
+    "principio_ativo": "Albendazol",
+    "nomes_comerciais": [
+      "Zentel",
+      "Parazol",
+      "Albentel"
+    ],
+    "termos_populares": [
+      "verme",
+      "vermifugo",
+      "lombriga",
+      "parasita"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-albendazol-400-mg-comprimido-mastigavel",
+        "descricao_dosagem": "400 mg comprimido mastigável",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Antiparasitário / vermífugo",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "amoxicilina",
+    "principio_ativo": "Amoxicilina",
+    "nomes_comerciais": [
+      "Amoxil",
+      "Velamox",
+      "Novocilin"
+    ],
+    "termos_populares": [
+      "antibiotico",
+      "dor de garganta",
+      "infeccao",
+      "amigdalite"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-amoxicilina-500-mg-capsula",
+        "descricao_dosagem": "500 mg cápsula",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Antibiótico de primeira escolha na atenção básica",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      },
+      {
+        "id_apresentacao": "ap-amoxicilina-250-mg-5ml-suspensao-oral",
+        "descricao_dosagem": "250 mg/5ml suspensão oral",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Uso pediátrico",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "atenolol",
+    "principio_ativo": "Atenolol",
+    "nomes_comerciais": [
+      "Atenol",
+      "Angipress",
+      "Plenacor"
+    ],
+    "termos_populares": [
+      "pressao alta",
+      "coracao",
+      "palpitacao",
+      "arritmia"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-atenolol-25-mg-comprimido",
+        "descricao_dosagem": "25 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Anti-hipertensivo betabloqueador",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      },
+      {
+        "id_apresentacao": "ap-atenolol-50-mg-comprimido",
+        "descricao_dosagem": "50 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Anti-hipertensivo",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "azitromicina",
+    "principio_ativo": "Azitromicina",
+    "nomes_comerciais": [
+      "Astro",
+      "Zitromax",
+      "Clindal AZ"
+    ],
+    "termos_populares": [
+      "antibiotico",
+      "infeccao respiratoria",
+      "garganta",
+      "sinusite"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-azitromicina-500-mg-comprimido",
+        "descricao_dosagem": "500 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Antibiótico macrolídeo",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      },
+      {
+        "id_apresentacao": "ap-azitromicina-200-mg-5ml-suspensao-oral",
+        "descricao_dosagem": "200 mg/5ml suspensão oral",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Uso pediátrico",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "besilato-de-anlodipino",
+    "principio_ativo": "Besilato de anlodipino",
+    "nomes_comerciais": [
+      "Norvasc",
+      "Cordarex",
+      "Nicord"
+    ],
+    "termos_populares": [
+      "pressao alta",
+      "hipertensao",
+      "circulacao"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-besilato-de-anlodipino-5-mg-comprimido",
+        "descricao_dosagem": "5 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Anti-hipertensivo bloqueador dos canais de cálcio",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "brometo-de-ipratropio",
+    "principio_ativo": "Brometo de ipratrópio",
+    "nomes_comerciais": [
+      "Atrovent",
+      "Ipratropil"
+    ],
+    "termos_populares": [
+      "falta de ar",
+      "nebulizacao",
+      "bombinha",
+      "inalacao",
+      "asma"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-brometo-de-ipratropio-0-25-mg-ml-solucao-para-inalacao",
+        "descricao_dosagem": "0,25 mg/ml solução para inalação",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Broncodilatador para nebulização",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      },
+      {
+        "id_apresentacao": "ap-brometo-de-ipratropio-0-02-mg-dose-20-mcg-dose-aerossol",
+        "descricao_dosagem": "0,02 mg/dose (20 mcg/dose) aerossol",
+        "status_remume_cuiaba": "NAO_CONSTA_REMUME",
+        "local_dispensacao_sus": "NAO_APLICAVEL",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "budesonida",
+    "principio_ativo": "Budesonida",
+    "nomes_comerciais": [
+      "Busonid",
+      "Pulmicort",
+      "Noex"
+    ],
+    "termos_populares": [
+      "spray nasal",
+      "rinite",
+      "nariz entupido",
+      "asma"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-budesonida-32-mcg-dose-spray-nasal",
+        "descricao_dosagem": "32 mcg/dose spray nasal",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Rinite alérgica crônica",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      },
+      {
+        "id_apresentacao": "ap-budesonida-50-mcg-dose-spray-nasal",
+        "descricao_dosagem": "50 mcg/dose spray nasal",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Rinite alérgica",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "captopril",
+    "principio_ativo": "Captopril",
+    "nomes_comerciais": [
+      "Capoten",
+      "Catoprol",
+      "Capotrat"
+    ],
+    "termos_populares": [
+      "pressao alta",
+      "pressao no teto",
+      "hipertensao"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-captopril-25-mg-comprimido",
+        "descricao_dosagem": "25 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Anti-hipertensivo IECA",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "carbamazepina",
+    "principio_ativo": "Carbamazepina",
+    "nomes_comerciais": [
+      "Tegretol"
+    ],
+    "termos_populares": [
+      "convulsao",
+      "epilepsia",
+      "anticonvulsivante"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-carbamazepina-200-mg-comprimido",
+        "descricao_dosagem": "200 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "POLICLINICA_PORTARIA344",
+        "nota_especifica_cuiaba": "Anticonvulsivante sujeito a controle especial (Portaria 344)",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "carbonato-de-calcio-colecalciferol",
+    "principio_ativo": "Carbonato de cálcio + Colecalciferol",
+    "nomes_comerciais": [
+      "Caltrate com D",
+      "Os-Cal D"
+    ],
+    "termos_populares": [
+      "calcio",
+      "vitamina d",
+      "ossos",
+      "osteoporose"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-carbonato-de-calcio-colecalciferol-500-mg-400-ui-comprimido",
+        "descricao_dosagem": "500 mg + 400 UI comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Suplementação osteoporose",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "cefalexina",
+    "principio_ativo": "Cefalexina",
+    "nomes_comerciais": [
+      "Keflex",
+      "Cefagel"
+    ],
+    "termos_populares": [
+      "antibiotico",
+      "infeccao urinaria",
+      "infeccao de pele"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-cefalexina-500-mg-comprimido-capsula",
+        "descricao_dosagem": "500 mg comprimido/cápsula",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Antibiótico cefalosporina",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      },
+      {
+        "id_apresentacao": "ap-cefalexina-250-mg-5ml-suspensao-oral",
+        "descricao_dosagem": "250 mg/5ml suspensão oral",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Uso pediátrico",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "ciclobenzaprina",
+    "principio_ativo": "Ciclobenzaprina",
+    "nomes_comerciais": [
+      "Miosan",
+      "Musculare"
+    ],
+    "termos_populares": [
+      "relaxante muscular",
+      "dor nas costas",
+      "torcicolo",
+      "tensao muscular"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-ciclobenzaprina-5-mg-comprimido",
+        "descricao_dosagem": "5 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Relaxante muscular",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      },
+      {
+        "id_apresentacao": "ap-ciclobenzaprina-10-mg-comprimido",
+        "descricao_dosagem": "10 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Relaxante muscular",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "ciprofloxacino",
+    "principio_ativo": "Ciprofloxacino",
+    "nomes_comerciais": [
+      "Cipro",
+      "Ciprocilin"
+    ],
+    "termos_populares": [
+      "antibiotico",
+      "infeccao urinaria forte",
+      "cistite"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-ciprofloxacino-500-mg-comprimido",
+        "descricao_dosagem": "500 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Antibiótico quinolona",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "clonazepam",
+    "principio_ativo": "Clonazepam",
+    "nomes_comerciais": [
+      "Rivotril",
+      "Clonavita"
+    ],
+    "termos_populares": [
+      "calmante",
+      "ansiedade",
+      "panico",
+      "insonia",
+      "tarja preta"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-clonazepam-2-mg-comprimido",
+        "descricao_dosagem": "2 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "POLICLINICA_PORTARIA344",
+        "nota_especifica_cuiaba": "Ansiolítico sujeito a controle especial (Portaria 344)",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      },
+      {
+        "id_apresentacao": "ap-clonazepam-2-5-mg-ml-gotas",
+        "descricao_dosagem": "2,5 mg/ml gotas",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "POLICLINICA_PORTARIA344",
+        "nota_especifica_cuiaba": "Uso controlado pediátrico/adulto (Portaria 344)",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "cloridrato-de-amitriptilina",
+    "principio_ativo": "Cloridrato de amitriptilina",
+    "nomes_comerciais": [
+      "Tryptanol",
+      "Amytril"
+    ],
+    "termos_populares": [
+      "antidepressivo",
+      "dor cronica",
+      "fibromialgia",
+      "sono"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-cloridrato-de-amitriptilina-25-mg-comprimido",
+        "descricao_dosagem": "25 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "POLICLINICA_PORTARIA344",
+        "nota_especifica_cuiaba": "Antidepressivo tricíclico (Portaria 344)",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "cloridrato-de-fluoxetina",
+    "principio_ativo": "Cloridrato de fluoxetina",
+    "nomes_comerciais": [
+      "Prozac",
+      "Daforin",
+      "Fluxene"
+    ],
+    "termos_populares": [
+      "antidepressivo",
+      "ansiedade",
+      "depressao",
+      "humor"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-cloridrato-de-fluoxetina-20-mg-capsula",
+        "descricao_dosagem": "20 mg cápsula",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "POLICLINICA_PORTARIA344",
+        "nota_especifica_cuiaba": "Antidepressivo ISRS (Portaria 344)",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "cloridrato-de-metformina",
+    "principio_ativo": "Cloridrato de metformina",
+    "nomes_comerciais": [
+      "Glifage",
+      "Glucoformin",
+      "Dimefor"
+    ],
+    "termos_populares": [
+      "diabetes",
+      "acucar no sangue",
+      "glicemia alta"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-cloridrato-de-metformina-500-mg-comprimido",
+        "descricao_dosagem": "500 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Antidiabético oral biguanida",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      },
+      {
+        "id_apresentacao": "ap-cloridrato-de-metformina-850-mg-comprimido",
+        "descricao_dosagem": "850 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Antidiabético oral",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      },
+      {
+        "id_apresentacao": "ap-cloridrato-de-metformina-500-mg-comprimido-de-acao-prolongada",
+        "descricao_dosagem": "500 mg comprimido de ação prolongada",
+        "status_remume_cuiaba": "NAO_CONSTA_REMUME",
+        "local_dispensacao_sus": "NAO_APLICAVEL",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "cloridrato-de-propranolol",
+    "principio_ativo": "Cloridrato de propranolol",
+    "nomes_comerciais": [
+      "Inderal",
+      "Propanol"
+    ],
+    "termos_populares": [
+      "pressao",
+      "tremor",
+      "ansiedade",
+      "coracao disparado"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-cloridrato-de-propranolol-40-mg-comprimido",
+        "descricao_dosagem": "40 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Anti-hipertensivo betabloqueador",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "dexametasona",
+    "principio_ativo": "Dexametasona",
+    "nomes_comerciais": [
+      "Decadron",
+      "Maxidex"
+    ],
+    "termos_populares": [
+      "corticoide",
+      "alergia forte",
+      "inflamacao",
+      "pomada antialergica"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-dexametasona-4-mg-comprimido",
+        "descricao_dosagem": "4 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Anti-inflamatório esteroide (corticoide)",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      },
+      {
+        "id_apresentacao": "ap-dexametasona-1-mg-g-creme",
+        "descricao_dosagem": "1 mg/g creme",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Uso dermatológico",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "diazepam",
+    "principio_ativo": "Diazepam",
+    "nomes_comerciais": [
+      "Valium",
+      "Dienpax"
+    ],
+    "termos_populares": [
+      "calmante",
+      "relaxante",
+      "ansiedade",
+      "sono"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-diazepam-10-mg-comprimido",
+        "descricao_dosagem": "10 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "POLICLINICA_PORTARIA344",
+        "nota_especifica_cuiaba": "Sedativo/ansiolítico benzodiazepínico (Portaria 344)",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "dipirona-sodica",
+    "principio_ativo": "Dipirona sódica",
+    "nomes_comerciais": [
+      "Novalgina",
+      "Anador",
+      "Baralgina"
+    ],
+    "termos_populares": [
+      "febre",
+      "dor de cabeca",
+      "dor no corpo",
+      "dor de dente"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-dipirona-sodica-500-mg-comprimido",
+        "descricao_dosagem": "500 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Analgésico e antitérmico",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      },
+      {
+        "id_apresentacao": "ap-dipirona-sodica-500-mg-ml-solucao-oral-gotas",
+        "descricao_dosagem": "500 mg/ml solução oral (gotas)",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Uso infantil e adulto",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "dipropionato-de-beclometasona",
+    "principio_ativo": "Dipropionato de beclometasona",
+    "nomes_comerciais": [
+      "Clenil",
+      "Beclosol"
+    ],
+    "termos_populares": [
+      "bombinha",
+      "asma",
+      "falta de ar",
+      "bronquite"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-dipropionato-de-beclometasona-50-mcg-dose-spray-nasal",
+        "descricao_dosagem": "50 mcg/dose spray nasal",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Rinite",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      },
+      {
+        "id_apresentacao": "ap-dipropionato-de-beclometasona-250-mcg-dose-aerossol-oral",
+        "descricao_dosagem": "250 mcg/dose aerossol oral",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Asma moderada/grave",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      },
+      {
+        "id_apresentacao": "ap-dipropionato-de-beclometasona-50-mcg-dose-aerossol-oral",
+        "descricao_dosagem": "50 mcg/dose aerossol oral",
+        "status_remume_cuiaba": "NAO_CONSTA_REMUME",
+        "local_dispensacao_sus": "NAO_APLICAVEL",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      },
+      {
+        "id_apresentacao": "ap-dipropionato-de-beclometasona-200-mcg-dose-po-capsula-inalatoria",
+        "descricao_dosagem": "200 mcg/dose pó/cápsula inalatória",
+        "status_remume_cuiaba": "NAO_CONSTA_REMUME",
+        "local_dispensacao_sus": "NAO_APLICAVEL",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "espironolactona",
+    "principio_ativo": "Espironolactona",
+    "nomes_comerciais": [
+      "Aldactone",
+      "Spiroctan"
+    ],
+    "termos_populares": [
+      "diuretico",
+      "pressao",
+      "retencao de liquido",
+      "inchaco"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-espironolactona-25-mg-comprimido",
+        "descricao_dosagem": "25 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Diurético poupador de potássio",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "etinilestradiol-levonorgestrel",
+    "principio_ativo": "Etinilestradiol + Levonorgestrel",
+    "nomes_comerciais": [
+      "Ciclo 21",
+      "Microvlar",
+      "Neovlar"
+    ],
+    "termos_populares": [
+      "pilula",
+      "anticoncepcional",
+      "evitar gravidez"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-etinilestradiol-levonorgestrel-0-03-mg-0-15-mg-comprimido",
+        "descricao_dosagem": "0,03 mg + 0,15 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Anticoncepcional oral combinado",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "fenobarbital",
+    "principio_ativo": "Fenobarbital",
+    "nomes_comerciais": [
+      "Gardenal"
+    ],
+    "termos_populares": [
+      "convulsao",
+      "epilepsia",
+      "sedativo"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-fenobarbital-100-mg-comprimido",
+        "descricao_dosagem": "100 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "POLICLINICA_PORTARIA344",
+        "nota_especifica_cuiaba": "Anticonvulsivante (Portaria 344)",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "furosemida",
+    "principio_ativo": "Furosemida",
+    "nomes_comerciais": [
+      "Lasix",
+      "Neodite"
+    ],
+    "termos_populares": [
+      "diuretico",
+      "urinar",
+      "inchaco nas pernas",
+      "pressao"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-furosemida-40-mg-comprimido",
+        "descricao_dosagem": "40 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Diurético de alça",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "glibenclamida",
+    "principio_ativo": "Glibenclamida",
+    "nomes_comerciais": [
+      "Daonil",
+      "Gliben"
+    ],
+    "termos_populares": [
+      "diabetes",
+      "baixar acucar",
+      "glicose"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-glibenclamida-5-mg-comprimido",
+        "descricao_dosagem": "5 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Antidiabético oral sulfonilureia",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "haloperidol",
+    "principio_ativo": "Haloperidol",
+    "nomes_comerciais": [
+      "Haldol"
+    ],
+    "termos_populares": [
+      "antipsicotico",
+      "agitacao",
+      "esquizofrenia",
+      "transtorno mental"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-haloperidol-5-mg-comprimido",
+        "descricao_dosagem": "5 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "POLICLINICA_PORTARIA344",
+        "nota_especifica_cuiaba": "Antipsicótico (Portaria 344)",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "hidralazina",
+    "principio_ativo": "Hidralazina",
+    "nomes_comerciais": [
+      "Apresolina"
+    ],
+    "termos_populares": [
+      "pressao alta",
+      "crise hipertensiva"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-hidralazina-25-mg-comprimido",
+        "descricao_dosagem": "25 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Vasodilatador anti-hipertensivo",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "hidroclorotiazida",
+    "principio_ativo": "Hidroclorotiazida",
+    "nomes_comerciais": [
+      "Clorana",
+      "Drenol"
+    ],
+    "termos_populares": [
+      "diuretico",
+      "pressao alta",
+      "desinchar"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-hidroclorotiazida-25-mg-comprimido",
+        "descricao_dosagem": "25 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Diurético tiazídico",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "ibuprofeno",
+    "principio_ativo": "Ibuprofeno",
+    "nomes_comerciais": [
+      "Advil",
+      "Alivium",
+      "Buscofem"
+    ],
+    "termos_populares": [
+      "antiinflamatorio",
+      "dor",
+      "febre",
+      "dor de garganta"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-ibuprofeno-300-mg-comprimido",
+        "descricao_dosagem": "300 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Anti-inflamatório não esteroide (AINE)",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      },
+      {
+        "id_apresentacao": "ap-ibuprofeno-600-mg-comprimido",
+        "descricao_dosagem": "600 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Anti-inflamatório e analgésico",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      },
+      {
+        "id_apresentacao": "ap-ibuprofeno-50-mg-ml-suspensao-oral-gotas",
+        "descricao_dosagem": "50 mg/ml suspensão oral (gotas)",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Uso pediátrico",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "insulina-humana-nph",
+    "principio_ativo": "Insulina humana NPH",
+    "nomes_comerciais": [
+      "Novolin N",
+      "Humulin N"
+    ],
+    "termos_populares": [
+      "insulina lenta",
+      "diabetes",
+      "aplicar insulina"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-insulina-humana-nph-100-ui-ml-suspensao-injetavel",
+        "descricao_dosagem": "100 UI/ml suspensão injetável",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Insulina basal de ação intermediária",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "insulina-humana-regular",
+    "principio_ativo": "Insulina humana regular",
+    "nomes_comerciais": [
+      "Novolin R",
+      "Humulin R"
+    ],
+    "termos_populares": [
+      "insulina rapida",
+      "diabetes",
+      "glicemia alta"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-insulina-humana-regular-100-ui-ml-solucao-injetavel",
+        "descricao_dosagem": "100 UI/ml solução injetável",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Insulina de ação rápida",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "ivermectina",
+    "principio_ativo": "Ivermectina",
+    "nomes_comerciais": [
+      "Revectina"
+    ],
+    "termos_populares": [
+      "verme",
+      "piolho",
+      "sarna",
+      "escabiose"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-ivermectina-6-mg-comprimido",
+        "descricao_dosagem": "6 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Antiparasitário",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "levotiroxina-sodica",
+    "principio_ativo": "Levotiroxina sódica",
+    "nomes_comerciais": [
+      "Puran T4",
+      "Synthroid",
+      "Euthyrox"
+    ],
+    "termos_populares": [
+      "tireoide",
+      "hipotireoidismo",
+      "tsh"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-levotiroxina-sodica-25-mcg-comprimido",
+        "descricao_dosagem": "25 mcg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Hipotireoidismo",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      },
+      {
+        "id_apresentacao": "ap-levotiroxina-sodica-50-mcg-comprimido",
+        "descricao_dosagem": "50 mcg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Hipotireoidismo",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      },
+      {
+        "id_apresentacao": "ap-levotiroxina-sodica-100-mcg-comprimido",
+        "descricao_dosagem": "100 mcg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Hipotireoidismo",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "loratadina",
+    "principio_ativo": "Loratadina",
+    "nomes_comerciais": [
+      "Claritin",
+      "Desalex",
+      "Loritil"
+    ],
+    "termos_populares": [
+      "antialergico",
+      "rinite",
+      "alergia de pele",
+      "coceira"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-loratadina-10-mg-comprimido",
+        "descricao_dosagem": "10 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Anti-histamínico antialérgico",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      },
+      {
+        "id_apresentacao": "ap-loratadina-1-mg-ml-xarope",
+        "descricao_dosagem": "1 mg/ml xarope",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Uso pediátrico",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "losartana-potassica",
+    "principio_ativo": "Losartana potássica",
+    "nomes_comerciais": [
+      "Cozaar",
+      "Aradois",
+      "Corus",
+      "Torlós"
+    ],
+    "termos_populares": [
+      "pressao alta",
+      "hipertensao",
+      "remedio de pressao"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-losartana-potassica-50-mg-comprimido",
+        "descricao_dosagem": "50 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Anti-hipertensivo bloqueador dos receptores de angiotensina II",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "maleato-de-enalapril",
+    "principio_ativo": "Maleato de enalapril",
+    "nomes_comerciais": [
+      "Renitec",
+      "Enalabal",
+      "Vasopril"
+    ],
+    "termos_populares": [
+      "pressao alta",
+      "coracao"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-maleato-de-enalapril-10-mg-comprimido",
+        "descricao_dosagem": "10 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Anti-hipertensivo IECA",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      },
+      {
+        "id_apresentacao": "ap-maleato-de-enalapril-20-mg-comprimido",
+        "descricao_dosagem": "20 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Anti-hipertensivo IECA",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "maleato-de-timolol",
+    "principio_ativo": "Maleato de timolol",
+    "nomes_comerciais": [
+      "Timoptol",
+      "Glaucotrat"
+    ],
+    "termos_populares": [
+      "colirio glaucoma",
+      "pressao alta nos olhos",
+      "vista"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-maleato-de-timolol-5-0-mg-ml-0-5-solucao-oftalmica",
+        "descricao_dosagem": "5,0 mg/ml (0,5%) solução oftálmica",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Glaucoma e hipertensão ocular",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      },
+      {
+        "id_apresentacao": "ap-maleato-de-timolol-2-5-mg-ml-0-25-solucao-oftalmica",
+        "descricao_dosagem": "2,5 mg/ml (0,25%) solução oftálmica",
+        "status_remume_cuiaba": "NAO_CONSTA_REMUME",
+        "local_dispensacao_sus": "NAO_APLICAVEL",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "metronidazol",
+    "principio_ativo": "Metronidazol",
+    "nomes_comerciais": [
+      "Flagyl",
+      "Rozex"
+    ],
+    "termos_populares": [
+      "infeccao",
+      "corrimento",
+      "antibiotico",
+      "parasita"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-metronidazol-250-mg-comprimido",
+        "descricao_dosagem": "250 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Antibacteriano e antiprotozoário",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      },
+      {
+        "id_apresentacao": "ap-metronidazol-100-mg-g-gel-vaginal",
+        "descricao_dosagem": "100 mg/g gel vaginal",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Ginecologia",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "miconazol",
+    "principio_ativo": "Miconazol",
+    "nomes_comerciais": [
+      "Vodol",
+      "Gyno-Daktarin"
+    ],
+    "termos_populares": [
+      "pomada para micose",
+      "corrimento",
+      "fungo",
+      "candidíase"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-miconazol-20-mg-g-creme-vaginal",
+        "descricao_dosagem": "20 mg/g creme vaginal",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Antifúngico ginecológico",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "noretisterona",
+    "principio_ativo": "Noretisterona",
+    "nomes_comerciais": [
+      "Micronor",
+      "Norestin"
+    ],
+    "termos_populares": [
+      "minipilula",
+      "anticoncepcional amamentacao"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-noretisterona-0-35-mg-comprimido",
+        "descricao_dosagem": "0,35 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Anticoncepcional oral para lactantes",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "omeprazol",
+    "principio_ativo": "Omeprazol",
+    "nomes_comerciais": [
+      "Losec",
+      "Peprazol",
+      "Victor"
+    ],
+    "termos_populares": [
+      "estomago",
+      "azia",
+      "gastrite",
+      "refluxo",
+      "queimacao"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-omeprazol-20-mg-capsula",
+        "descricao_dosagem": "20 mg cápsula",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Inibidor da bomba de prótons para gastrite/refluxo",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "ondansetrona",
+    "principio_ativo": "Ondansetrona",
+    "nomes_comerciais": [
+      "Vonau",
+      "Zofran"
+    ],
+    "termos_populares": [
+      "enjoo",
+      "vomito",
+      "nausea"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-ondansetrona-4-mg-comprimido",
+        "descricao_dosagem": "4 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Antiemético",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      },
+      {
+        "id_apresentacao": "ap-ondansetrona-8-mg-comprimido",
+        "descricao_dosagem": "8 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Antiemético",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "paracetamol",
+    "principio_ativo": "Paracetamol",
+    "nomes_comerciais": [
+      "Tylenol",
+      "Parador",
+      "Dôrico"
+    ],
+    "termos_populares": [
+      "febre",
+      "dor de cabeca",
+      "dor no corpo"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-paracetamol-500-mg-comprimido",
+        "descricao_dosagem": "500 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Analgésico e antitérmico",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      },
+      {
+        "id_apresentacao": "ap-paracetamol-750-mg-comprimido",
+        "descricao_dosagem": "750 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Analgésico e antitérmico",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      },
+      {
+        "id_apresentacao": "ap-paracetamol-200-mg-ml-solucao-oral-gotas",
+        "descricao_dosagem": "200 mg/ml solução oral (gotas)",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Uso pediátrico",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "prednisona",
+    "principio_ativo": "Prednisona",
+    "nomes_comerciais": [
+      "Meticorten",
+      "Predsim"
+    ],
+    "termos_populares": [
+      "corticoide",
+      "alergia",
+      "inflamacao forte",
+      "reumatismo"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-prednisona-5-mg-comprimido",
+        "descricao_dosagem": "5 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Glicocorticoide anti-inflamatório",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      },
+      {
+        "id_apresentacao": "ap-prednisona-20-mg-comprimido",
+        "descricao_dosagem": "20 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Glicocorticoide anti-inflamatório",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "sinvastatina",
+    "principio_ativo": "Sinvastatina",
+    "nomes_comerciais": [
+      "Zocor",
+      "Sinvax",
+      "Vaslip"
+    ],
+    "termos_populares": [
+      "colesterol alto",
+      "gordura no sangue",
+      "triglicerideos"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-sinvastatina-20-mg-comprimido",
+        "descricao_dosagem": "20 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Hipolipemiante para colesterol alto",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      },
+      {
+        "id_apresentacao": "ap-sinvastatina-40-mg-comprimido",
+        "descricao_dosagem": "40 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Hipolipemiante para colesterol alto",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      },
+      {
+        "id_apresentacao": "ap-sinvastatina-10-mg-comprimido",
+        "descricao_dosagem": "10 mg comprimido",
+        "status_remume_cuiaba": "NAO_CONSTA_REMUME",
+        "local_dispensacao_sus": "NAO_APLICAVEL",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "sulfadiazina-de-prata",
+    "principio_ativo": "Sulfadiazina de prata",
+    "nomes_comerciais": [
+      "Dermazine"
+    ],
+    "termos_populares": [
+      "queimadura",
+      "ferida",
+      "pomada cicatrizante"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-sulfadiazina-de-prata-10-mg-g-1-creme",
+        "descricao_dosagem": "10 mg/g (1%) creme",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Queimaduras e cicatrização",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "sulfametoxazol-trimetoprima",
+    "principio_ativo": "Sulfametoxazol + Trimetoprima",
+    "nomes_comerciais": [
+      "Bactrim",
+      "Infectrin"
+    ],
+    "termos_populares": [
+      "antibiotico",
+      "infeccao urinaria",
+      "pneumonia"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-sulfametoxazol-trimetoprima-400-mg-80-mg-comprimido",
+        "descricao_dosagem": "400 mg + 80 mg comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Antibiótico para infecção urinária/respiratória",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      },
+      {
+        "id_apresentacao": "ap-sulfametoxazol-trimetoprima-40-mg-8-mg-ml-suspensao-oral",
+        "descricao_dosagem": "40 mg + 8 mg/ml suspensão oral",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Uso pediátrico",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "sulfato-de-salbutamol",
+    "principio_ativo": "Sulfato de salbutamol",
+    "nomes_comerciais": [
+      "Aerolin"
+    ],
+    "termos_populares": [
+      "bombinha de asma",
+      "falta de ar",
+      "bronquios",
+      "chiado no peito"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-sulfato-de-salbutamol-100-mcg-dose-aerossol",
+        "descricao_dosagem": "100 mcg/dose aerossol",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Broncodilatador para asma e falta de ar",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      },
+      {
+        "id_apresentacao": "ap-sulfato-de-salbutamol-5-mg-ml-solucao-para-nebulizacao",
+        "descricao_dosagem": "5 mg/ml solução para nebulização",
+        "status_remume_cuiaba": "NAO_CONSTA_REMUME",
+        "local_dispensacao_sus": "NAO_APLICAVEL",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "sulfato-ferroso",
+    "principio_ativo": "Sulfato ferroso",
+    "nomes_comerciais": [
+      "Noripurum",
+      "Combiron",
+      "Hemoforce"
+    ],
+    "termos_populares": [
+      "ferro",
+      "anemia",
+      "disposicao",
+      "fraqueza"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-sulfato-ferroso-40-mg-ferro-elementar-comprimido",
+        "descricao_dosagem": "40 mg ferro elementar comprimido",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Tratamento e prevenção de anemia ferropriva",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      },
+      {
+        "id_apresentacao": "ap-sulfato-ferroso-25-mg-ml-ferro-elementar-gotas",
+        "descricao_dosagem": "25 mg/ml ferro elementar gotas",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "UBS",
+        "nota_especifica_cuiaba": "Uso pediátrico",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "tramadol",
+    "principio_ativo": "Tramadol",
+    "nomes_comerciais": [
+      "Tramal",
+      "Dorindex"
+    ],
+    "termos_populares": [
+      "dor forte",
+      "analgesico opioide",
+      "pos-operatorio"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-tramadol-50-mg-capsula",
+        "descricao_dosagem": "50 mg cápsula",
+        "status_remume_cuiaba": "PADRONIZADO_REMUME",
+        "local_dispensacao_sus": "POLICLINICA_PORTARIA344",
+        "nota_especifica_cuiaba": "Analgésico opioide sob controle especial (Portaria 344)",
+        "farmacia_popular_gratuito": false,
+        "requisito_farmacia_popular": "NAO_DISPONIVEL"
+      }
+    ]
+  },
+  {
+    "slug": "alendronato-de-sodio",
+    "principio_ativo": "Alendronato de sódio",
+    "nomes_comerciais": [
+      "Fosamax",
+      "Osteoform",
+      "Alendil"
+    ],
+    "termos_populares": [
+      "osteoporose",
+      "ossos fracos",
+      "fortalecer ossos"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-alendronato-de-sodio-70-mg-comprimido",
+        "descricao_dosagem": "70 mg comprimido",
+        "status_remume_cuiaba": "NAO_CONSTA_REMUME",
+        "local_dispensacao_sus": "NAO_APLICAVEL",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "carbidopa-levodopa",
+    "principio_ativo": "Carbidopa + Levodopa",
+    "nomes_comerciais": [
+      "Sinemet",
+      "Cronomet"
+    ],
+    "termos_populares": [
+      "parkinson",
+      "tremor nas maos",
+      "rigidez"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-carbidopa-levodopa-25-mg-250-mg-comprimido",
+        "descricao_dosagem": "25 mg + 250 mg comprimido",
+        "status_remume_cuiaba": "NAO_CONSTA_REMUME",
+        "local_dispensacao_sus": "NAO_APLICAVEL",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "cloridrato-de-benserazida-levodopa",
+    "principio_ativo": "Cloridrato de benserazida + Levodopa",
+    "nomes_comerciais": [
+      "Prolopa"
+    ],
+    "termos_populares": [
+      "parkinson",
+      "tremedeira",
+      "doenca de parkinson"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-cloridrato-de-benserazida-levodopa-25-mg-100-mg-comprimido",
+        "descricao_dosagem": "25 mg + 100 mg comprimido",
+        "status_remume_cuiaba": "NAO_CONSTA_REMUME",
+        "local_dispensacao_sus": "NAO_APLICAVEL",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "dapagliflozina",
+    "principio_ativo": "Dapagliflozina",
+    "nomes_comerciais": [
+      "Forxiga"
+    ],
+    "termos_populares": [
+      "diabetes",
+      "insuficiencia cardiaca",
+      "rim",
+      "acucar na urina"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-dapagliflozina-10-mg-comprimido",
+        "descricao_dosagem": "10 mg comprimido",
+        "status_remume_cuiaba": "NAO_CONSTA_REMUME",
+        "local_dispensacao_sus": "NAO_APLICAVEL",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "succinato-de-metoprolol",
+    "principio_ativo": "Succinato de metoprolol",
+    "nomes_comerciais": [
+      "Seloken",
+      "Selozok"
+    ],
+    "termos_populares": [
+      "pressao",
+      "arritmia",
+      "coracao"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-succinato-de-metoprolol-25-mg-comprimido",
+        "descricao_dosagem": "25 mg comprimido",
+        "status_remume_cuiaba": "NAO_CONSTA_REMUME",
+        "local_dispensacao_sus": "NAO_APLICAVEL",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "valerato-de-estradiol-enantato-de-noretisterona",
+    "principio_ativo": "Valerato de estradiol + Enantato de noretisterona",
+    "nomes_comerciais": [
+      "Mesigyna",
+      "Perlutan"
+    ],
+    "termos_populares": [
+      "injecao mensal",
+      "anticoncepcional"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-valerato-de-estradiol-enantato-de-noretisterona-5-mg-50-mg-ml-solucao-injetavel",
+        "descricao_dosagem": "5 mg + 50 mg/ml solução injetável",
+        "status_remume_cuiaba": "NAO_CONSTA_REMUME",
+        "local_dispensacao_sus": "NAO_APLICAVEL",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
+      }
+    ]
+  },
+  {
+    "slug": "fralda-geriatrica",
+    "principio_ativo": "Fralda geriátrica",
+    "nomes_comerciais": [
+      "Tena",
+      "Bigfral",
+      "Plenitud"
+    ],
+    "termos_populares": [
+      "fralda para idoso",
+      "incontinencia urinaria",
+      "fralda adulto"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-fralda-geriatrica-tamanhos-p-m-g-gg",
+        "descricao_dosagem": "Tamanhos P, M, G, GG",
+        "status_remume_cuiaba": "NAO_CONSTA_REMUME",
+        "local_dispensacao_sus": "NAO_APLICAVEL",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "FRALDA_GERIATRICA"
+      }
+    ]
+  },
+  {
+    "slug": "absorvente-higienico",
+    "principio_ativo": "Absorvente higiênico",
+    "nomes_comerciais": [
+      "Sempre Livre",
+      "Intimus",
+      "Always"
+    ],
+    "termos_populares": [
+      "dignidade menstrual",
+      "absorvente com abas",
+      "menstruacao"
+    ],
+    "apresentacoes": [
+      {
+        "id_apresentacao": "ap-absorvente-higienico-pacote-com-abas-para-fluxo-menstrual",
+        "descricao_dosagem": "Pacote com abas para fluxo menstrual",
+        "status_remume_cuiaba": "NAO_CONSTA_REMUME",
+        "local_dispensacao_sus": "NAO_APLICAVEL",
+        "farmacia_popular_gratuito": true,
+        "requisito_farmacia_popular": "DIGNIDADE_MENSTRUAL"
+      }
+    ]
   }
 ]

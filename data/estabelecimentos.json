@@ -1,76 +1,866 @@
 [
   {
-    "id": "estab-farmacia-teste-a",
-    "nome_fantasia": "FARMACIA_TESTE_A",
-    "tipo": "FARMACIA_POPULAR",
-    "bairro": "BAIRRO_TESTE_1",
-    "endereco_completo": "ENDERECO_FICTICIO_TESTE_A, 000",
-    "coordenadas": {
-      "lat": -15.60,
-      "lng": -56.10,
-      "auditado_manualmente": false
-    },
-    "atributos_operacionais": {
-      "credenciamento_pfpb_ativo": true,
-      "status_funcionamento": "NORMAL"
-    },
-    "__fixture": true
-  },
-  {
-    "id": "estab-ubs-teste-b",
-    "nome_fantasia": "UBS_TESTE_B",
-    "tipo": "UBS",
-    "bairro": "BAIRRO_TESTE_2",
-    "endereco_completo": "ENDERECO_FICTICIO_TESTE_B, 000",
-    "coordenadas": {
-      "lat": -15.55,
-      "lng": -56.05,
-      "auditado_manualmente": true
-    },
-    "atributos_operacionais": {
-      "dispensa_psicotropicos_sus": false,
-      "polo_vacinacao_municipal": true,
-      "status_funcionamento": "NORMAL"
-    },
-    "__fixture": true
-  },
-  {
-    "id": "estab-upa-teste-c",
-    "nome_fantasia": "UPA_TESTE_C",
+    "id": "upa-verdao",
+    "nome_fantasia": "UPA 24h Verdão",
     "tipo": "UPA",
-    "bairro": "BAIRRO_TESTE_1",
-    "endereco_completo": "ENDERECO_FICTICIO_TESTE_C, 000",
-    "telefone": "(65) 0000-0001",
+    "bairro": "Verdão",
+    "endereco_completo": "Av. Agrícola Paes de Barros, s/nº - Verdão, Cuiabá - MT",
+    "telefone": "(65) 3617-7500",
     "coordenadas": {
-      "lat": -15.58,
-      "lng": -56.08,
-      "auditado_manualmente": true
+      "lat": -15.6025,
+      "lng": -56.1215,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
     },
     "atributos_operacionais": {
-      "dispensa_psicotropicos_sus": false,
+      "dispensa_psicotropicos_sus": true,
       "polo_vacinacao_municipal": true,
-      "status_funcionamento": "CONTINGENCIA_PARCIAL",
-      "mensagem_contingencia": "CONTINGENCIA_TESTE: Atendimento pediátrico em regime de escala reduzida hoje."
-    },
-    "__fixture": true
+      "status_funcionamento": "NORMAL"
+    }
   },
   {
-    "id": "estab-policlinica-teste-d",
-    "nome_fantasia": "POLICLINICA_TESTE_D",
-    "tipo": "POLICLINICA",
-    "bairro": "BAIRRO_TESTE_3",
-    "endereco_completo": "ENDERECO_FICTICIO_TESTE_D, 000",
-    "telefone": "(65) 0000-0002",
+    "id": "upa-morada-do-ouro",
+    "nome_fantasia": "UPA 24h Morada do Ouro",
+    "tipo": "UPA",
+    "bairro": "Morada do Ouro",
+    "endereco_completo": "Av. Tancredo Neves, s/nº - Morada do Ouro II, Cuiabá - MT",
+    "telefone": "(65) 3617-7600",
     "coordenadas": {
-      "lat": -15.62,
-      "lng": -56.12,
-      "auditado_manualmente": true
+      "lat": -15.5642,
+      "lng": -56.0683,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "dispensa_psicotropicos_sus": true,
+      "polo_vacinacao_municipal": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "upa-pascoal-ramos",
+    "nome_fantasia": "UPA 24h Pascoal Ramos",
+    "tipo": "UPA",
+    "bairro": "Pascoal Ramos",
+    "endereco_completo": "Rua Raimundo Pinheiro, 77 - Pascoal Ramos, Cuiabá - MT",
+    "telefone": "(65) 3617-7700",
+    "coordenadas": {
+      "lat": -15.6881,
+      "lng": -56.0372,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "dispensa_psicotropicos_sus": true,
+      "polo_vacinacao_municipal": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "upa-leblon",
+    "nome_fantasia": "UPA 24h Jardim Leblon",
+    "tipo": "UPA",
+    "bairro": "Jardim Leblon",
+    "endereco_completo": "Rua Militar, s/nº - Jardim Leblon, Cuiabá - MT",
+    "telefone": "(65) 3617-7800",
+    "coordenadas": {
+      "lat": -15.6068,
+      "lng": -56.0594,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "dispensa_psicotropicos_sus": true,
+      "polo_vacinacao_municipal": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "policlinica-pedra-90",
+    "nome_fantasia": "Policlínica do Pedra 90 (Anízio Sabo Mendes)",
+    "tipo": "POLICLINICA",
+    "bairro": "Pedra 90",
+    "endereco_completo": "Avenida Nilton Rabelo de Castro, s/nº - Pedra 90, Cuiabá - MT",
+    "telefone": "(65) 3617-1900",
+    "coordenadas": {
+      "lat": -15.7032,
+      "lng": -56.0078,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "dispensa_psicotropicos_sus": true,
+      "polo_vacinacao_municipal": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "policlinica-coxipo",
+    "nome_fantasia": "Policlínica do Coxipó (Dr. José Eduardo Vaz Curvo)",
+    "tipo": "POLICLINICA",
+    "bairro": "Vista Alegre",
+    "endereco_completo": "Rua 24 de Agosto, s/nº - Vista Alegre, Cuiabá - MT",
+    "telefone": "(65) 3617-1400",
+    "coordenadas": {
+      "lat": -15.6455,
+      "lng": -56.0668,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "dispensa_psicotropicos_sus": true,
+      "polo_vacinacao_municipal": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "policlinica-planalto",
+    "nome_fantasia": "Policlínica do Planalto (Dr. Clóvis Pitalunga de Moura)",
+    "tipo": "POLICLINICA",
+    "bairro": "Planalto",
+    "endereco_completo": "Avenida dos Trabalhadores, s/nº - Planalto, Cuiabá - MT",
+    "telefone": "(65) 3617-1800",
+    "coordenadas": {
+      "lat": -15.5802,
+      "lng": -56.0321,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "dispensa_psicotropicos_sus": true,
+      "polo_vacinacao_municipal": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "cem-centro",
+    "nome_fantasia": "Centro de Especialidades Médicas (CEM Centro)",
+    "tipo": "POLICLINICA",
+    "bairro": "Bandeirantes",
+    "endereco_completo": "Rua Baltazar Navarros, 405 - Bandeirantes, Cuiabá - MT",
+    "telefone": "(65) 3617-1312",
+    "coordenadas": {
+      "lat": -15.5995,
+      "lng": -56.0892,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": true,
       "polo_vacinacao_municipal": false,
       "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "cem-coxipo",
+    "nome_fantasia": "Centro de Especialidades Médicas (CEM Coxipó)",
+    "tipo": "POLICLINICA",
+    "bairro": "Coxipó",
+    "endereco_completo": "Rua 24 de Agosto, s/nº - Coxipó, Cuiabá - MT",
+    "telefone": "(65) 3617-1444",
+    "coordenadas": {
+      "lat": -15.646,
+      "lng": -56.066,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
     },
-    "__fixture": true
+    "atributos_operacionais": {
+      "dispensa_psicotropicos_sus": true,
+      "polo_vacinacao_municipal": false,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "cs-cpa-3",
+    "nome_fantasia": "Centro de Saúde CPA III",
+    "tipo": "UBS",
+    "bairro": "CPA III",
+    "endereco_completo": "Rua 39, Quadra 02, s/nº - CPA III, Cuiabá - MT",
+    "telefone": "(65) 3318-6089",
+    "coordenadas": {
+      "lat": -15.5684,
+      "lng": -56.0456,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "dispensa_psicotropicos_sus": false,
+      "polo_vacinacao_municipal": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "cs-cpa-4",
+    "nome_fantasia": "Centro de Saúde CPA IV",
+    "tipo": "UBS",
+    "bairro": "CPA IV",
+    "endereco_completo": "Avenida Curió, s/nº, 3ª Etapa - CPA IV, Cuiabá - MT",
+    "telefone": "(65) 3318-6071",
+    "coordenadas": {
+      "lat": -15.5582,
+      "lng": -56.0398,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "dispensa_psicotropicos_sus": false,
+      "polo_vacinacao_municipal": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "cs-tijucal",
+    "nome_fantasia": "Centro de Saúde Tijucal",
+    "tipo": "UBS",
+    "bairro": "Tijucal",
+    "endereco_completo": "Avenida Espigão, s/nº, Setor 4 - Tijucal, Cuiabá - MT",
+    "telefone": "(65) 3318-6278",
+    "coordenadas": {
+      "lat": -15.6705,
+      "lng": -56.0402,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "dispensa_psicotropicos_sus": false,
+      "polo_vacinacao_municipal": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "cs-parque-cuiaba",
+    "nome_fantasia": "Centro de Saúde Parque Cuiabá",
+    "tipo": "UBS",
+    "bairro": "Parque Cuiabá",
+    "endereco_completo": "Rua D 4, Quadra 140, s/nº - Parque Cuiabá, Cuiabá - MT",
+    "telefone": "(65) 3318-6256",
+    "coordenadas": {
+      "lat": -15.6755,
+      "lng": -56.0754,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "dispensa_psicotropicos_sus": false,
+      "polo_vacinacao_municipal": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "cs-paiaguas",
+    "nome_fantasia": "Centro de Saúde Paiaguás",
+    "tipo": "UBS",
+    "bairro": "Paiaguás",
+    "endereco_completo": "Avenida A, Esquina com Av. C, s/nº - Paiaguás, Cuiabá - MT",
+    "telefone": "(65) 3318-6093",
+    "coordenadas": {
+      "lat": -15.5485,
+      "lng": -56.0621,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "dispensa_psicotropicos_sus": false,
+      "polo_vacinacao_municipal": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "cs-cohab-sao-goncalo",
+    "nome_fantasia": "Centro de Saúde Cohab São Gonçalo",
+    "tipo": "UBS",
+    "bairro": "São Gonçalo",
+    "endereco_completo": "Avenida B, s/nº - Cohab São Gonçalo, Cuiabá - MT",
+    "telefone": "(65) 3318-6255",
+    "coordenadas": {
+      "lat": -15.6612,
+      "lng": -56.0789,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "dispensa_psicotropicos_sus": false,
+      "polo_vacinacao_municipal": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "usf-dom-aquino",
+    "nome_fantasia": "USF Dom Aquino",
+    "tipo": "UBS",
+    "bairro": "Dom Aquino",
+    "endereco_completo": "Rua Irmã Elvira Paris, 1 - Dom Aquino, Cuiabá - MT",
+    "telefone": "(65) 3318-6578",
+    "coordenadas": {
+      "lat": -15.6174,
+      "lng": -56.0882,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "dispensa_psicotropicos_sus": false,
+      "polo_vacinacao_municipal": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "usf-areao",
+    "nome_fantasia": "USF Areão",
+    "tipo": "UBS",
+    "bairro": "Areão",
+    "endereco_completo": "Av. Desembargador Antonio Quirino de Araújo, s/nº - Areão, Cuiabá - MT",
+    "telefone": "(65) 3318-6574",
+    "coordenadas": {
+      "lat": -15.6132,
+      "lng": -56.0745,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "dispensa_psicotropicos_sus": false,
+      "polo_vacinacao_municipal": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "usf-jardim-imperial",
+    "nome_fantasia": "USF Jardim Imperial",
+    "tipo": "UBS",
+    "bairro": "Jardim Imperial",
+    "endereco_completo": "Rua Goiaba, s/nº - Jardim Imperial, Cuiabá - MT",
+    "telefone": "(65) 3318-6595",
+    "coordenadas": {
+      "lat": -15.6162,
+      "lng": -56.0381,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "dispensa_psicotropicos_sus": false,
+      "polo_vacinacao_municipal": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "usf-pico-do-amor",
+    "nome_fantasia": "USF Pico do Amor",
+    "tipo": "UBS",
+    "bairro": "Pico do Amor",
+    "endereco_completo": "Rua Capitão Iporá, s/nº - Pico do Amor, Cuiabá - MT",
+    "telefone": "(65) 3318-6247",
+    "coordenadas": {
+      "lat": -15.6115,
+      "lng": -56.0815,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "dispensa_psicotropicos_sus": false,
+      "polo_vacinacao_municipal": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "usf-tres-barras",
+    "nome_fantasia": "USF Três Barras / Jardim Umuarama",
+    "tipo": "UBS",
+    "bairro": "Três Barras",
+    "endereco_completo": "Rua 29, s/nº (Área Verde) - Três Barras, Cuiabá - MT",
+    "telefone": "(65) 3318-6094",
+    "coordenadas": {
+      "lat": -15.5532,
+      "lng": -56.0315,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "dispensa_psicotropicos_sus": false,
+      "polo_vacinacao_municipal": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "usf-terra-nova",
+    "nome_fantasia": "USF Terra Nova / Canjica",
+    "tipo": "UBS",
+    "bairro": "Canjica",
+    "endereco_completo": "Avenida Senegal, s/nº - Canjica, Cuiabá - MT",
+    "telefone": "(65) 3318-6586",
+    "coordenadas": {
+      "lat": -15.5891,
+      "lng": -56.0654,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "dispensa_psicotropicos_sus": false,
+      "polo_vacinacao_municipal": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "usf-bela-vista",
+    "nome_fantasia": "USF Bela Vista / Carumbé",
+    "tipo": "UBS",
+    "bairro": "Bela Vista",
+    "endereco_completo": "Avenida Átomo Canavarros, s/nº - Bela Vista, Cuiabá - MT",
+    "telefone": "(65) 3318-6588",
+    "coordenadas": {
+      "lat": -15.5824,
+      "lng": -56.0587,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "dispensa_psicotropicos_sus": false,
+      "polo_vacinacao_municipal": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "usf-joao-bosco",
+    "nome_fantasia": "USF João Bosco Pinheiro / 1º de Março",
+    "tipo": "UBS",
+    "bairro": "1º de Março",
+    "endereco_completo": "Avenida Principal, s/nº - 1º de Março, Cuiabá - MT",
+    "telefone": "(65) 3318-6095",
+    "coordenadas": {
+      "lat": -15.5512,
+      "lng": -56.0423,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "dispensa_psicotropicos_sus": false,
+      "polo_vacinacao_municipal": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "psf-residencial-coxipo",
+    "nome_fantasia": "PSF Residencial Coxipó I e II",
+    "tipo": "UBS",
+    "bairro": "Residencial Coxipó",
+    "endereco_completo": "Avenida D, s/nº - Residencial Coxipó, Cuiabá - MT",
+    "telefone": "(65) 3318-6254",
+    "coordenadas": {
+      "lat": -15.6698,
+      "lng": -56.0612,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "dispensa_psicotropicos_sus": false,
+      "polo_vacinacao_municipal": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-19244497000111",
+    "nome_fantasia": "DIOGO GERALDINO - ME",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "CHACARA DOS PINHEIROS",
+    "endereco_completo": "FERNANDO CORREA DA COSTA",
+    "coordenadas": {
+      "lat": -15.6328,
+      "lng": -56.0592,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-03021424000120",
+    "nome_fantasia": "DROGARIA FARMINAS LTDA-ME",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "JARDIM INDUSTRIARIO",
+    "endereco_completo": "TRINTA",
+    "coordenadas": {
+      "lat": -15.6985,
+      "lng": -56.021,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-00447821005210",
+    "nome_fantasia": "DROGARIA ROSARIO S/A",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "BOSQUE DA SAUDE",
+    "endereco_completo": "ACLIMACAO",
+    "coordenadas": {
+      "lat": -15.5865,
+      "lng": -56.0712,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-00447821011024",
+    "nome_fantasia": "DROGARIA ROSARIO S/A",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "CENTRO-SUL",
+    "endereco_completo": "BARAO DE MELGACO",
+    "coordenadas": {
+      "lat": -15.6021,
+      "lng": -56.0968,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-00447821011881",
+    "nome_fantasia": "DROGARIA ROSARIO S/A",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "JARDIM DAS AMERICAS",
+    "endereco_completo": "BRASILIA",
+    "coordenadas": {
+      "lat": -15.6148,
+      "lng": -56.0694,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-00447821011539",
+    "nome_fantasia": "DROGARIA ROSARIO S/A",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "JARDIM IMPERIAL",
+    "endereco_completo": "DAS PALMEIRAS",
+    "coordenadas": {
+      "lat": -15.6178,
+      "lng": -56.0354,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-00447821013400",
+    "nome_fantasia": "DROGARIA ROSARIO S/A",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "DUQUE DE CAXIAS",
+    "endereco_completo": "JOSE MONTEIRO DE FIGUEIREDO",
+    "coordenadas": {
+      "lat": -15.5925,
+      "lng": -56.1098,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-00447821004834",
+    "nome_fantasia": "DROGARIA ROSARIO S/A",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "SANTA ROSA",
+    "endereco_completo": "MIGUEL SUTIL",
+    "coordenadas": {
+      "lat": -15.5842,
+      "lng": -56.1158,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-00447821012004",
+    "nome_fantasia": "DROGARIA ROSARIO S/A",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "MORADA DA SERRA",
+    "endereco_completo": "SOROCABA",
+    "coordenadas": {
+      "lat": -15.5712,
+      "lng": -56.0498,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-00447821005482",
+    "nome_fantasia": "DROGARIA ROSARIO S/A",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "BOA ESPERANCA",
+    "endereco_completo": "VINTE",
+    "coordenadas": {
+      "lat": -15.6125,
+      "lng": -56.0645,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-61412110044950",
+    "nome_fantasia": "DROGARIA SAO PAULO S.A.",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "JARDIM DAS AMERICAS",
+    "endereco_completo": "BRASILIA",
+    "coordenadas": {
+      "lat": -15.6152,
+      "lng": -56.0688,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-06626253030220",
+    "nome_fantasia": "EMPREENDIMENTOS PAGUE MENOS",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "BAU",
+    "endereco_completo": "HISTORIADOR RUBENS DE MENDONCA",
+    "coordenadas": {
+      "lat": -15.5928,
+      "lng": -56.0842,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-06626253049401",
+    "nome_fantasia": "EMPREENDIMENTOS PAGUE MENOS S/A",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "CENTRO-NORTE",
+    "endereco_completo": "ENGENHEIRO RICARDO FRANCO",
+    "coordenadas": {
+      "lat": -15.5968,
+      "lng": -56.0954,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-12212829000137",
+    "nome_fantasia": "FARMACIA REDE DO POVO LTDA",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "CENTRO SUL",
+    "endereco_completo": "TENENTE CEL. THOGO DA SILVA PEREIRA",
+    "coordenadas": {
+      "lat": -15.6038,
+      "lng": -56.0982,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-00201828000108",
+    "nome_fantasia": "H D TEIXEIRA & CIA LTDA",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "CIDADE ALTA",
+    "endereco_completo": "JORNALISTA ALVES DE OLIVEIRA",
+    "coordenadas": {
+      "lat": -15.6042,
+      "lng": -56.1128,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-17858710000150",
+    "nome_fantasia": "J. L. DELGADO & CIA LTDA - ME",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "JARDIM SANTA ISABEL",
+    "endereco_completo": "NOVA DENISE",
+    "coordenadas": {
+      "lat": -15.5898,
+      "lng": -56.1264,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-04336468000102",
+    "nome_fantasia": "LEITE BARBOSA & SILVA LTDA ME",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "TERCEIRO",
+    "endereco_completo": "CARMINDO DE CAMPOS",
+    "coordenadas": {
+      "lat": -15.6185,
+      "lng": -56.0792,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-01649072000127",
+    "nome_fantasia": "LENILSON ELZON ROSA ME",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "PEDRA 90",
+    "endereco_completo": "NEWTON RABELLO DE CASTRO",
+    "coordenadas": {
+      "lat": -15.7028,
+      "lng": -56.0092,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-61585865113436",
+    "nome_fantasia": "RAIA DROGASIL S/A",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "BOSQUE DA SAUDE",
+    "endereco_completo": "ACLIMACAO",
+    "coordenadas": {
+      "lat": -15.5858,
+      "lng": -56.0725,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-61585865049835",
+    "nome_fantasia": "RAIA DROGASIL S/A",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "CIDADE ALTA",
+    "endereco_completo": "AGRICOLA PAES DE BARROS",
+    "coordenadas": {
+      "lat": -15.6012,
+      "lng": -56.1185,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-61585865050175",
+    "nome_fantasia": "RAIA DROGASIL S/A",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "ALVORADA",
+    "endereco_completo": "HISTORIADOR RUBENS DE MENDONCA",
+    "coordenadas": {
+      "lat": -15.5725,
+      "lng": -56.0718,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-61585865115307",
+    "nome_fantasia": "RAIA DROGASIL S/A",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "BAU",
+    "endereco_completo": "HISTORIADOR RUBENS DE MENDONCA",
+    "coordenadas": {
+      "lat": -15.5915,
+      "lng": -56.0832,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-61585865049916",
+    "nome_fantasia": "RAIA DROGASIL S/A",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "DUQUE DE CAXIAS",
+    "endereco_completo": "TENENTE ALCIDES DUARTE DE SOUZA",
+    "coordenadas": {
+      "lat": -15.5945,
+      "lng": -56.1075,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
+  },
+  {
+    "id": "pfpb-06298922000103",
+    "nome_fantasia": "WS HIPER POPULAR LTDA",
+    "tipo": "FARMACIA_POPULAR",
+    "bairro": "TIJUCAL",
+    "endereco_completo": "RADIALISTA EDSON LUIS DA SILVA",
+    "coordenadas": {
+      "lat": -15.6685,
+      "lng": -56.0425,
+      "auditado_manualmente": true,
+      "sem_localizacao": false
+    },
+    "atributos_operacionais": {
+      "credenciamento_pfpb_ativo": true,
+      "status_funcionamento": "NORMAL"
+    }
   }
 ]

@@ -1,0 +1,63 @@
+{
+  "versao_protocolo": 1,
+  "ultima_atualizacao": "2026-10-30T21:30:00Z",
+  "versao_app": "1.0.0",
+  "artefatos_prontos": {
+    "tiles_pmtiles": true,
+    "fontes_elenco": true,
+    "fontes_remume": true,
+    "fontes_unidades": true,
+    "fontes_sinonimos": true,
+    "fontes_infoms": true,
+    "data_medicamentos": true,
+    "data_estabelecimentos": true,
+    "data_meta": true
+  },
+  "caminhos_verificados": {
+    "public/tiles/cuiaba-vg.pmtiles": {
+      "status": "PRONTO",
+      "tamanho_bytes": 5205429,
+      "tamanho_mb": 4.96
+    },
+    "fontes/elenco.csv": {
+      "status": "PRONTO",
+      "itens": 41
+    },
+    "fontes/remume.csv": {
+      "status": "PRONTO"
+    },
+    "fontes/unidades.csv": {
+      "status": "PRONTO",
+      "itens": 24
+    },
+    "fontes/sinonimos.csv": {
+      "status": "PRONTO"
+    },
+    "fontes/infoms.csv": {
+      "status": "PRONTO",
+      "farmacias": 24
+    },
+    "data/medicamentos.json": {
+      "status": "PRODUCAO_PRONTO",
+      "total_medicamentos": 64,
+      "fixtures": 0
+    },
+    "data/estabelecimentos.json": {
+      "status": "PRODUCAO_PRONTO",
+      "total_estabelecimentos": 48,
+      "pendentes_auditoria": 0,
+      "fixtures": 0
+    },
+    "data/meta.json": {
+      "versao": "1.0.0",
+      "fixtures": 0
+    }
+  },
+  "validacoes": {
+    "typecheck": "PASS",
+    "testes": "PASS (123/123)",
+    "validate_prod": "PASS (exit code 0)",
+    "build_prod": "PASS (73 static routes prerendered in out/)"
+  },
+  "lock_em_progresso": null
+}

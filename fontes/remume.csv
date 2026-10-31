@@ -1,0 +1,83 @@
+principio_ativo;descricao_dosagem;local_dispensacao_sus;nota_especifica_cuiaba
+Acetato de medroxiprogesterona;150 mg/ml suspensão injetável;UBS;Anticonceptivo injetável trimestral
+Acetilcisteína;100 mg granulado/xarope;UBS;Expectorante mucolítico
+Acetilcisteína;600 mg granulado;UBS;Uso adulto
+Ácido acetilsalicílico;100 mg comprimido;UBS;Antiagregante plaquetário (AAS infantil/adulto)
+Ácido fólico;5 mg comprimido;UBS;Suplementação pré-natal e anemia
+Albendazol;400 mg comprimido mastigável;UBS;Antiparasitário / vermífugo
+Amoxicilina;500 mg cápsula;UBS;Antibiótico de primeira escolha na atenção básica
+Amoxicilina;250 mg/5ml suspensão oral;UBS;Uso pediátrico
+Atenolol;25 mg comprimido;UBS;Anti-hipertensivo betabloqueador
+Atenolol;50 mg comprimido;UBS;Anti-hipertensivo
+Azitromicina;500 mg comprimido;UBS;Antibiótico macrolídeo
+Azitromicina;200 mg/5ml suspensão oral;UBS;Uso pediátrico
+Besilato de anlodipino;5 mg comprimido;UBS;Anti-hipertensivo bloqueador dos canais de cálcio
+Brometo de ipratrópio;0,25 mg/ml solução para inalação;UBS;Broncodilatador para nebulização
+Budesonida;32 mcg/dose spray nasal;UBS;Rinite alérgica crônica
+Budesonida;50 mcg/dose spray nasal;UBS;Rinite alérgica
+Captopril;25 mg comprimido;UBS;Anti-hipertensivo IECA
+Carbamazepina;200 mg comprimido;POLICLINICA_PORTARIA344;Anticonvulsivante sujeito a controle especial (Portaria 344)
+Carbonato de cálcio + Colecalciferol;500 mg + 400 UI comprimido;UBS;Suplementação osteoporose
+Cefalexina;500 mg comprimido/cápsula;UBS;Antibiótico cefalosporina
+Cefalexina;250 mg/5ml suspensão oral;UBS;Uso pediátrico
+Ciclobenzaprina;5 mg comprimido;UBS;Relaxante muscular
+Ciclobenzaprina;10 mg comprimido;UBS;Relaxante muscular
+Ciprofloxacino;500 mg comprimido;UBS;Antibiótico quinolona
+Clonazepam;2 mg comprimido;POLICLINICA_PORTARIA344;Ansiolítico sujeito a controle especial (Portaria 344)
+Clonazepam;2,5 mg/ml gotas;POLICLINICA_PORTARIA344;Uso controlado pediátrico/adulto (Portaria 344)
+Cloridrato de amitriptilina;25 mg comprimido;POLICLINICA_PORTARIA344;Antidepressivo tricíclico (Portaria 344)
+Cloridrato de fluoxetina;20 mg cápsula;POLICLINICA_PORTARIA344;Antidepressivo ISRS (Portaria 344)
+Cloridrato de metformina;500 mg comprimido;UBS;Antidiabético oral biguanida
+Cloridrato de metformina;850 mg comprimido;UBS;Antidiabético oral
+Cloridrato de propranolol;40 mg comprimido;UBS;Anti-hipertensivo betabloqueador
+Dexametasona;4 mg comprimido;UBS;Anti-inflamatório esteroide (corticoide)
+Dexametasona;1 mg/g creme;UBS;Uso dermatológico
+Diazepam;10 mg comprimido;POLICLINICA_PORTARIA344;Sedativo/ansiolítico benzodiazepínico (Portaria 344)
+Dipirona sódica;500 mg comprimido;UBS;Analgésico e antitérmico
+Dipirona sódica;500 mg/ml solução oral (gotas);UBS;Uso infantil e adulto
+Dipropionato de beclometasona;50 mcg/dose spray nasal;UBS;Rinite
+Dipropionato de beclometasona;250 mcg/dose aerossol oral;UBS;Asma moderada/grave
+Espironolactona;25 mg comprimido;UBS;Diurético poupador de potássio
+Etinilestradiol + Levonorgestrel;0,03 mg + 0,15 mg comprimido;UBS;Anticoncepcional oral combinado
+Fenobarbital;100 mg comprimido;POLICLINICA_PORTARIA344;Anticonvulsivante (Portaria 344)
+Furosemida;40 mg comprimido;UBS;Diurético de alça
+Glibenclamida;5 mg comprimido;UBS;Antidiabético oral sulfonilureia
+Haloperidol;5 mg comprimido;POLICLINICA_PORTARIA344;Antipsicótico (Portaria 344)
+Hidralazina;25 mg comprimido;UBS;Vasodilatador anti-hipertensivo
+Hidroclorotiazida;25 mg comprimido;UBS;Diurético tiazídico
+Ibuprofeno;300 mg comprimido;UBS;Anti-inflamatório não esteroide (AINE)
+Ibuprofeno;600 mg comprimido;UBS;Anti-inflamatório e analgésico
+Ibuprofeno;50 mg/ml suspensão oral (gotas);UBS;Uso pediátrico
+Insulina humana NPH;100 UI/ml suspensão injetável;UBS;Insulina basal de ação intermediária
+Insulina humana regular;100 UI/ml solução injetável;UBS;Insulina de ação rápida
+Ivermectina;6 mg comprimido;UBS;Antiparasitário
+Levotiroxina sódica;25 mcg comprimido;UBS;Hipotireoidismo
+Levotiroxina sódica;50 mcg comprimido;UBS;Hipotireoidismo
+Levotiroxina sódica;100 mcg comprimido;UBS;Hipotireoidismo
+Loratadina;10 mg comprimido;UBS;Anti-histamínico antialérgico
+Loratadina;1 mg/ml xarope;UBS;Uso pediátrico
+Losartana potássica;50 mg comprimido;UBS;Anti-hipertensivo bloqueador dos receptores de angiotensina II
+Maleato de enalapril;10 mg comprimido;UBS;Anti-hipertensivo IECA
+Maleato de enalapril;20 mg comprimido;UBS;Anti-hipertensivo IECA
+Maleato de timolol;5,0 mg/ml (0,5%) solução oftálmica;UBS;Glaucoma e hipertensão ocular
+Metronidazol;250 mg comprimido;UBS;Antibacteriano e antiprotozoário
+Metronidazol;100 mg/g gel vaginal;UBS;Ginecologia
+Miconazol;20 mg/g creme vaginal;UBS;Antifúngico ginecológico
+Noretisterona;0,35 mg comprimido;UBS;Anticoncepcional oral para lactantes
+Omeprazol;20 mg cápsula;UBS;Inibidor da bomba de prótons para gastrite/refluxo
+Ondansetrona;4 mg comprimido;UBS;Antiemético
+Ondansetrona;8 mg comprimido;UBS;Antiemético
+Paracetamol;500 mg comprimido;UBS;Analgésico e antitérmico
+Paracetamol;750 mg comprimido;UBS;Analgésico e antitérmico
+Paracetamol;200 mg/ml solução oral (gotas);UBS;Uso pediátrico
+Prednisona;5 mg comprimido;UBS;Glicocorticoide anti-inflamatório
+Prednisona;20 mg comprimido;UBS;Glicocorticoide anti-inflamatório
+Sinvastatina;20 mg comprimido;UBS;Hipolipemiante para colesterol alto
+Sinvastatina;40 mg comprimido;UBS;Hipolipemiante para colesterol alto
+Sulfadiazina de prata;10 mg/g (1%) creme;UBS;Queimaduras e cicatrização
+Sulfametoxazol + Trimetoprima;400 mg + 80 mg comprimido;UBS;Antibiótico para infecção urinária/respiratória
+Sulfametoxazol + Trimetoprima;40 mg + 8 mg/ml suspensão oral;UBS;Uso pediátrico
+Sulfato de salbutamol;100 mcg/dose aerossol;UBS;Broncodilatador para asma e falta de ar
+Sulfato ferroso;40 mg ferro elementar comprimido;UBS;Tratamento e prevenção de anemia ferropriva
+Sulfato ferroso;25 mg/ml ferro elementar gotas;UBS;Uso pediátrico
+Tramadol;50 mg cápsula;POLICLINICA_PORTARIA344;Analgésico opioide sob controle especial (Portaria 344)
