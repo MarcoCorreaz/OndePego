@@ -19,6 +19,8 @@ function BuscarContent() {
   const { query, results, scrollY, clearQuery } = useSearchSession();
   const { effectiveReduceMotion } = useAccessibility();
   const trimmedQuery = query.trim();
+  const isOnlyApproximate =
+    results.length > 0 && results.every((r) => !r.exato && !r.porAssunto);
 
   useEffect(() => {
     if (scrollY > 0 && typeof window !== 'undefined') {
@@ -42,9 +44,11 @@ function BuscarContent() {
         className="ui-card-elevated space-y-5 p-5 sm:p-6"
       >
         <SearchBar navigateOnSubmit={false} />
-        <div className="border-t border-[var(--c-border-subtle)] pt-4">
-          <ShortcutChips navigateOnSelect={false} />
-        </div>
+        {trimmedQuery.replace(/\s+/g, '').length < 2 && (
+          <div className="border-t border-[var(--c-border-subtle)] pt-4">
+            <ShortcutChips navigateOnSelect={false} />
+          </div>
+        )}
       </section>
 
       <section aria-label="Resultados da busca" className="space-y-4">
@@ -59,10 +63,21 @@ function BuscarContent() {
             </p>
           ) : results.length > 0 ? (
             <p className="text-[var(--c-text)]">
-              Encontramos {results.length} resultado(s) para &ldquo;{trimmedQuery}&rdquo;:
+              Encontramos {results.length === 1 ? '1 resultado' : `${results.length} resultados`} para &ldquo;{trimmedQuery}&rdquo;:
             </p>
           ) : null}
         </div>
+
+        {isOnlyApproximate && (
+          <div
+            role="note"
+            className="flex items-start gap-3 rounded-[var(--r-button)] border border-[var(--c-attn-border)] bg-[var(--c-attn)] p-4 text-[var(--c-text)]"
+          >
+            <p className="text-base font-bold leading-snug">
+              Não encontramos &ldquo;{trimmedQuery}&rdquo; com esse nome exato no catálogo. Abaixo estão medicamentos com grafia parecida — confira com atenção o princípio ativo na sua receita e nunca substitua sem orientação médica ou farmacêutica.
+            </p>
+          </div>
+        )}
 
         {trimmedQuery.replace(/\s+/g, '').length >= 2 && results.length === 0 && (
           <EmptySearchState query={trimmedQuery} onClear={clearQuery} />

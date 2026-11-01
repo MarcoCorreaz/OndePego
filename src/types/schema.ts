@@ -93,6 +93,7 @@ export const Meta = z.object({
   data_remume: IsoDate,
   data_elenco_pfpb: IsoDate,
   data_infoms: IsoDate,
+  data_ultima_conferencia: IsoDate.optional(),
   ultima_verificacao_ci: IsoDate,
   limite_dias_desatualizado: z.number().int().positive().default(45),
   flags: z.object({ estoque_oficial: z.boolean().default(false) }),

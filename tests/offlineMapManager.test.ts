@@ -188,4 +188,15 @@ describe('offlineMapManager — formatação, progresso, máquina de estados e C
     expect(removed).toBe(true);
     expect(tilesMap.has(archivePath)).toBe(false);
   });
+
+  it('retorna sem-suporte quando a requisição HEAD falha ou não responde OK', async () => {
+    const { cachesApi } = createMockCacheStorage();
+    const failingFetch: typeof fetch = async () => new Response(null, { status: 404 });
+    const status = await checkOfflineMapStatus('/tiles/cuiaba-vg.pmtiles', {
+      cachesApi,
+      fetchFn: failingFetch,
+    });
+    expect(status.state).toBe('sem-suporte');
+    expect(status.sizeBytes).toBeNull();
+  });
 });

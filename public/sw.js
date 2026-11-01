@@ -20,7 +20,7 @@ const { canCacheResponse, sliceArrayBufferForRange } = self.__ondePegoSwRangeHel
 const NAVIGATION_TIMEOUT_MS = 3000;
 const SHELL_CACHE_PREFIX = 'onde-pego-shell-';
 const DEFAULT_SHELL_CACHE_NAME = `${SHELL_CACHE_PREFIX}v1`;
-const STATIC_CACHE_NAME = 'onde-pego-static-v1';
+const STATIC_CACHE_NAME = 'onde-pego-static-v2';
 const TILES_CACHE_NAME = 'onde-pego-tiles-v1';
 
 const FALLBACK_FIXED_ROUTES = ['/', '/buscar/', '/mapa/', '/minha-receita/', '/unidades/', '/plantao/', '/sobre/'];
@@ -29,6 +29,8 @@ const SHELL_STATIC_ASSETS = [
   '/icon.svg',
   '/icon-192.png',
   '/icon-512.png',
+  '/icon-maskable-192.png',
+  '/icon-maskable-512.png',
   '/apple-touch-icon.png',
   '/sw-range-helper.js',
   '/maplibre-gl-worker.mjs',
@@ -175,7 +177,7 @@ self.addEventListener('install', (event) => {
       await Promise.allSettled(
         urlsToPrecache.map(async (url) => {
           const response = await fetch(url, { cache: 'no-cache' });
-          if (canCacheResponse(response.status, false)) {
+          if (response && response.status < 500 && canCacheResponse(response.status, false)) {
             await cache.put(url, response);
           }
         }),
@@ -187,7 +189,7 @@ self.addEventListener('install', (event) => {
         await Promise.allSettled(
           manifest.staticAssets.map(async (assetUrl) => {
             const response = await fetch(assetUrl, { cache: 'no-cache' });
-            if (canCacheResponse(response.status, false)) {
+            if (response && response.status < 500 && canCacheResponse(response.status, false)) {
               await staticCache.put(assetUrl, response);
             }
           }),
@@ -395,7 +397,7 @@ function handleNavigationRequest(event, request, url) {
 
   // Inicia a requisição de rede e agenda a atualização em segundo plano (stale-while-revalidate)
   const networkPromise = fetch(request).then(async (response) => {
-    if (canCacheResponse(response.status, false)) {
+    if (response && response.status < 500 && canCacheResponse(response.status, false)) {
       const cache = await getActiveShellCache();
       await cache.put(normalizedPath, response.clone());
     }
@@ -463,7 +465,7 @@ self.addEventListener('fetch', (event) => {
         if (cached) return cached;
 
         const response = await fetch(request);
-        if (canCacheResponse(response.status, false)) {
+        if (response && response.status < 500 && canCacheResponse(response.status, false)) {
           await cache.put(request, response.clone());
         }
         return response;

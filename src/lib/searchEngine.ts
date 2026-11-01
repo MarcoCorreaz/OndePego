@@ -21,8 +21,12 @@ interface IndexedMedicationDoc {
   item: Medicamento;
   /** Chaves normalizadas estritamente de `principio_ativo` e `nomes_comerciais` (elegíveis a match exato) */
   exactNameKeysSet: Set<string>;
+  /** Palavras normalizadas extraídas dos nomes oficiais e comerciais (com >= 3 letras) */
+  exactWords: string[];
   /** Chaves normalizadas de `termos_populares` (NUNCA geram `exato: true`; geram `porAssunto: true`) */
   topicKeysSet: Set<string>;
+  /** Palavras normalizadas de `termos_populares` (com >= 3 letras) para verificação estrita de assunto */
+  topicWords: string[];
   /** Lista completa de chaves normalizadas para busca no Fuse.js */
   allSearchKeysList: string[];
   /** Conjunto de tokens numéricos exatos presentes nas apresentações do medicamento */
@@ -33,6 +37,110 @@ interface IndexedMedicationDoc {
 
 export interface MedicationSearchEngine {
   search: (query: string, options?: SearchOptions) => ResultadoBusca[];
+}
+
+/**
+ * Distância de edição Levenshtein clássica entre duas palavras normalizadas.
+ */
+export function levenshteinDistance(a: string, b: string): number {
+  if (a === b) return 0;
+  const m = a.length;
+  const n = b.length;
+  if (m === 0) return n;
+  if (n === 0) return m;
+
+  const dp: number[][] = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
+  for (let i = 0; i <= m; i++) (dp[i] as number[])[0] = i;
+  for (let j = 0; j <= n; j++) (dp[0] as number[])[j] = j;
+
+  for (let i = 1; i <= m; i++) {
+    const rowPrev = dp[i - 1] as number[];
+    const rowCurr = dp[i] as number[];
+    for (let j = 1; j <= n; j++) {
+      if (a[i - 1] === b[j - 1]) {
+        rowCurr[j] = rowPrev[j - 1] as number;
+      } else {
+        rowCurr[j] = 1 + Math.min(rowPrev[j] as number, rowCurr[j - 1] as number, rowPrev[j - 1] as number);
+      }
+    }
+  }
+  return (dp[m] as number[])[n] as number;
+}
+
+function getSharedPrefixLength(a: string, b: string): number {
+  let i = 0;
+  while (i < a.length && i < b.length && a[i] === b[i]) {
+    i++;
+  }
+  return i;
+}
+
+function getSharedSuffixLength(a: string, b: string): number {
+  let i = 0;
+  while (i < a.length && i < b.length && a[a.length - 1 - i] === b[b.length - 1 - i]) {
+    i++;
+  }
+  return i;
+}
+
+/**
+ * Filtro determinístico pós-Fuse:
+ * Para um candidato aproximado ser aceito, pelo menos uma palavra da busca (com >= 3 letras)
+ * deve ser prefixo de uma palavra do candidato OU ter distância de edição Levenshtein:
+ * - <= 2 (para palavras de 4 a 7 letras)
+ * - <= 3 (para palavras de 8 a 11 letras)
+ * - <= 4 (para palavras de >= 12 letras)
+ * Descartando palavras que apenas coincidem no sufixo final (como -ol em omeprazol vs propranolol
+ * ou -ina em atorvastatina vs amoxicilina) se o radical inicial divergir.
+ */
+export function isEligibleApproximateCandidate(
+  doc: IndexedMedicationDoc,
+  queryWords: readonly string[],
+): boolean {
+  if (queryWords.length === 0) return false;
+
+  for (const qWord of queryWords) {
+    if (qWord.length < 3) continue;
+
+    for (const candWord of doc.exactWords) {
+      if (candWord === qWord) {
+        return true;
+      }
+
+      // 1. Prefixo direto (mínimo 3 caracteres)
+      if (candWord.startsWith(qWord) || (qWord.length >= 4 && qWord.startsWith(candWord))) {
+        return true;
+      }
+
+      // 2. Distância de edição Levenshtein
+      let maxDist = -1;
+      if (qWord.length >= 4 && qWord.length <= 7) {
+        maxDist = 2;
+      } else if (qWord.length >= 8 && qWord.length <= 11) {
+        maxDist = 3;
+      } else if (qWord.length >= 12) {
+        maxDist = 4;
+      }
+
+      if (maxDist !== -1) {
+        const dist = levenshteinDistance(qWord, candWord);
+        if (dist <= maxDist) {
+          const sharedPrefix = getSharedPrefixLength(qWord, candWord);
+          const sharedSuffix = getSharedSuffixLength(qWord, candWord);
+
+          // Se coincidir apenas em sufixo curto (<= 3 letras, como -ol ou -ina)
+          // enquanto o radical inicial divergir (sharedPrefix <= 1 em palavras longas >= 7 letras), descarta.
+          if (sharedPrefix <= 1 && sharedSuffix <= 3 && Math.min(qWord.length, candWord.length) >= 7) {
+            continue;
+          }
+
+          return true;
+        }
+      }
+    }
+  }
+
+  return false;
 }
 
 /**
@@ -81,6 +189,24 @@ function buildIndexedDoc(item: Medicamento): IndexedMedicationDoc {
     }
   }
 
+  const exactWords = Array.from(
+    new Set(
+      Array.from(exactNameKeysSet)
+        .flatMap((k) => k.split(/\s+/))
+        .map((w) => w.trim())
+        .filter((w) => w.length >= 3),
+    ),
+  );
+
+  const topicWords = Array.from(
+    new Set(
+      Array.from(topicKeysSet)
+        .flatMap((k) => k.split(/\s+/))
+        .map((w) => w.trim())
+        .filter((w) => w.length >= 3),
+    ),
+  );
+
   const dosageTokensSet = new Set<string>();
   for (const ap of item.apresentacoes) {
     for (const numToken of extractNumericTokens(ap.descricao_dosagem)) {
@@ -100,7 +226,9 @@ function buildIndexedDoc(item: Medicamento): IndexedMedicationDoc {
   return {
     item,
     exactNameKeysSet,
+    exactWords,
     topicKeysSet,
+    topicWords,
     allSearchKeysList,
     dosageTokensSet,
     combinedDosageKeys,
@@ -139,13 +267,17 @@ function isExactMatch(
 
 function isTopicMatch(
   doc: IndexedMedicationDoc,
-  queryKeys: readonly string[],
-  baseNameKeys: readonly string[],
+  queryWords: readonly string[],
 ): boolean {
-  return (
-    queryKeys.some((qKey) => doc.topicKeysSet.has(qKey)) ||
-    (baseNameKeys.length > 0 && baseNameKeys.some((bKey) => doc.topicKeysSet.has(bKey)))
-  );
+  for (const qWord of queryWords) {
+    if (qWord.length < 3) continue;
+    for (const tWord of doc.topicWords) {
+      if (tWord === qWord || tWord.startsWith(qWord) || (qWord.length >= 4 && qWord.startsWith(tWord))) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 /**
@@ -161,16 +293,18 @@ export function createMedicationSearchEngine(
   const fuseByName = new Fuse(docs, {
     keys: ['allSearchKeysList'],
     includeScore: true,
-    threshold: 0.35,
-    ignoreLocation: true,
+    threshold: 0.34,
+    distance: 100,
+    ignoreLocation: false,
     minMatchCharLength: 2,
   });
 
   const fuseWithDosage = new Fuse(docs, {
     keys: ['allSearchKeysList', 'combinedDosageKeys'],
     includeScore: true,
-    threshold: 0.38,
-    ignoreLocation: true,
+    threshold: 0.34,
+    distance: 100,
+    ignoreLocation: false,
     minMatchCharLength: 2,
   });
 
@@ -190,6 +324,15 @@ export function createMedicationSearchEngine(
     const parsed = parseMedicationQuery(sanitizedRaw);
     const limit = options?.limit ?? 20;
 
+    const queryWords = Array.from(
+      new Set(
+        [...queryKeys, ...parsed.baseNameKeys]
+          .flatMap((k) => k.split(/\s+/))
+          .map((w) => w.trim())
+          .filter((w) => w.length >= 3),
+      ),
+    );
+
     const candidateMap = new Map<string, { doc: IndexedMedicationDoc; bestScore: number }>();
 
     const registerCandidate = (doc: IndexedMedicationDoc, score: number): void => {
@@ -205,7 +348,7 @@ export function createMedicationSearchEngine(
         (parsed.baseNameKeys.length > 0 &&
           parsed.baseNameKeys.some((bk) => doc.exactNameKeysSet.has(bk)));
 
-      const matchesTopic = isTopicMatch(doc, queryKeys, parsed.baseNameKeys);
+      const matchesTopic = isTopicMatch(doc, queryWords);
 
       if (matchesExactName) {
         registerCandidate(doc, 0);
@@ -226,14 +369,24 @@ export function createMedicationSearchEngine(
       if (!target || target.replace(/\s+/g, '').length < 2) continue;
       const hits = fuseInstance.search(target);
       for (const hit of hits) {
-        registerCandidate(hit.item, hit.score ?? 1);
+        const doc = hit.item;
+        const matchesExactName =
+          queryKeys.some((qk) => doc.exactNameKeysSet.has(qk)) ||
+          (parsed.baseNameKeys.length > 0 &&
+            parsed.baseNameKeys.some((bk) => doc.exactNameKeysSet.has(bk)));
+        const matchesTopic = isTopicMatch(doc, queryWords);
+
+        // Apenas registra o candidato aproximado se passar no filtro determinístico pós-Fuse
+        if (matchesExactName || matchesTopic || isEligibleApproximateCandidate(doc, queryWords)) {
+          registerCandidate(doc, hit.score ?? 1);
+        }
       }
     }
 
     // 3. Classifica cada candidato com a regra estrita de `exato` vs `porAssunto` vs aproximado
     const evaluated = Array.from(candidateMap.values()).map(({ doc, bestScore }) => {
       const exato = isExactMatch(doc, queryKeys, parsed.baseNameKeys, parsed.dosageNumbers);
-      const porAssunto = !exato && isTopicMatch(doc, queryKeys, parsed.baseNameKeys);
+      const porAssunto = !exato && isTopicMatch(doc, queryWords);
       return {
         item: doc.item,
         exato,
@@ -242,7 +395,15 @@ export function createMedicationSearchEngine(
       };
     });
 
-    evaluated.sort((a, b) => {
+    // Supressão de ruído quando há Match Exato:
+    // Se houver pelo menos 1 resultado com exato === true,
+    // retorna APENAS os resultados exatos (sem misturar aproximados abaixo).
+    let filteredEvaluated = evaluated;
+    if (filteredEvaluated.some((e) => e.exato)) {
+      filteredEvaluated = filteredEvaluated.filter((e) => e.exato);
+    }
+
+    filteredEvaluated.sort((a, b) => {
       if (a.exato !== b.exato) {
         return a.exato ? -1 : 1;
       }
@@ -252,7 +413,7 @@ export function createMedicationSearchEngine(
       return a.bestScore - b.bestScore;
     });
 
-    return evaluated.slice(0, limit).map(({ item, exato, porAssunto }) => ({
+    return filteredEvaluated.slice(0, limit).map(({ item, exato, porAssunto }) => ({
       item,
       exato,
       ...(porAssunto ? { porAssunto: true } : {}),

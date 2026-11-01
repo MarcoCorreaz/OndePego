@@ -91,7 +91,7 @@ export function CredenciadasSection({
       estabelecimentos.filter(
         (e) =>
           e.tipo === 'FARMACIA_POPULAR' &&
-          e.atributos_operacionais.credenciamento_pfpb_ativo !== false,
+          e.atributos_operacionais?.credenciamento_pfpb_ativo !== false,
       ),
     [estabelecimentos],
   );
@@ -104,6 +104,11 @@ export function CredenciadasSection({
       .filter((e) => e.tipo === 'UBS' || e.tipo === 'POLICLINICA' || e.tipo === 'UPA')
       .sort((a, b) => a.nome_fantasia.localeCompare(b.nome_fantasia, 'pt-BR'));
   }, [apresentacaoAtiva, estabelecimentos]);
+
+  const isSusNaoConsta =
+    activeTab === 'UNIDADES_SUS' &&
+    (apresentacaoAtiva?.status_remume_cuiaba === 'NAO_CONSTA_REMUME' ||
+      unidadesPublicasSus.length === 0);
 
   const baseAtiva =
     activeTab === 'FARMACIA_POPULAR' ? farmaciasCredenciadas : unidadesPublicasSus;
@@ -261,7 +266,7 @@ export function CredenciadasSection({
                 <PharmacyCrossIcon className="mt-0.5 h-5 w-5 shrink-0 text-[var(--c-free)]" />
                 <p>{NORMATIVE_TEXTS.via2.PINO_E_CARTAO_FARMACIA}</p>
               </div>
-            ) : (
+            ) : isSusNaoConsta ? null : (
               <div
                 role="note"
                 className="flex items-start gap-2.5 rounded-[var(--r-button)] border border-[var(--c-brand)]/25 bg-[var(--c-brand-tint)] p-3.5 text-base font-bold text-[var(--c-text)]"
@@ -281,105 +286,130 @@ export function CredenciadasSection({
             tabIndex={0}
             className="space-y-5 focus:outline-hidden"
           >
-            {/* Controles: GPS sob demanda + Alternativa obrigatória por Bairro */}
-            <div className="grid grid-cols-1 gap-4 rounded-[var(--r-plate)] border border-[var(--c-border-subtle)] bg-[var(--c-bg)] p-4 sm:grid-cols-2">
-            <div className="flex flex-col justify-end">
-              <button
-                type="button"
-                onClick={handleRequestGps}
-                disabled={gpsStatus === 'loading'}
-                className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-[var(--r-button)] bg-[var(--c-brand)] px-4 py-2.5 font-display text-lg font-bold text-white shadow-xs transition-opacity hover:opacity-95 disabled:opacity-60 active:translate-y-px"
-              >
-                <MapPinIcon className="h-5 w-5" />
-                <span>
-                  {gpsStatus === 'loading'
-                    ? 'Localizando...'
-                    : gpsStatus === 'granted'
-                      ? 'Ordenado perto de mim (atualizar)'
-                      : 'Ordenar perto de mim (usar GPS)'}
-                </span>
-              </button>
-            </div>
-
-            <div>
-              <label
-                htmlFor={selectId}
-                className="block font-display text-lg font-bold text-[var(--c-text)]"
-              >
-                Ou escolha o bairro (sem GPS):
-              </label>
-              <select
-                id={selectId}
-                value={bairroSelecionado}
-                onChange={(e) => setBairroSelecionado(e.target.value)}
-                className="mt-1 min-h-[48px] w-full rounded-[var(--r-button)] border border-[var(--c-border-strong)] bg-[var(--c-surface)] px-3.5 py-2 text-base font-bold text-[var(--c-text)] shadow-2xs"
-              >
-                <option value="">Todos os bairros ({baseAtiva.length})</option>
-                {bairrosDisponiveis.map((bairro) => (
-                  <option key={bairro} value={bairro}>
-                    {bairro}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          {gpsMessage && (
-            <div
-              role="status"
-              aria-live="polite"
-              className={`flex items-center gap-2.5 rounded-[var(--r-button)] border p-3.5 text-base font-bold ${
-                gpsStatus === 'denied_or_error'
-                  ? 'border-[var(--c-attn-border)] bg-[var(--c-attn)] text-[var(--c-text)]'
-                  : 'border-[var(--c-free)]/30 bg-[var(--c-free-tint)] text-[var(--c-free)]'
-              }`}
-            >
-              {gpsStatus === 'denied_or_error' ? (
-                <AlertTriangleIcon className="h-5 w-5 shrink-0" />
-              ) : (
-                <CheckCircleIcon className="h-5 w-5 shrink-0" />
-              )}
-              <span>{gpsMessage}</span>
-            </div>
-          )}
-
-          {/* Acesso ao Mapa: Action Card para /mapa/ (sem scroll-trap) ou slot customizado */}
-          <div id="secao-mapa-credenciadas" data-testid="map-slot" className="space-y-3">
-            {mapSlot ?? (
-              <div className="flex flex-col gap-3 rounded-2xl border border-[var(--c-border)] bg-gradient-to-r from-[var(--c-brand-tint)] via-[var(--c-surface)] to-[var(--c-surface)] p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between sm:p-5">
-                <div className="flex items-start gap-3">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[var(--c-brand)] text-white shadow-xs">
-                    <Icon name="map" className="h-6 w-6" />
+            {isSusNaoConsta ? (
+              <div className="rounded-[var(--r-plate)] border border-[var(--c-border)] bg-[var(--c-bg)] p-6 text-center sm:p-8">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[var(--c-brand-tint)] text-[var(--c-brand)]">
+                  <BuildingSusIcon className="h-6 w-6" />
+                </div>
+                <p className="mt-3 font-display text-lg font-bold text-[var(--c-text)] sm:text-xl">
+                  Esta apresentação não consta na lista básica municipal (REMUME Cuiabá). Verifique a aba de Drogarias Credenciadas (Farmácia Popular) ao lado.
+                </p>
+                <div className="mt-4">
+                  <button
+                    type="button"
+                    onClick={() => handleSelectTab('FARMACIA_POPULAR')}
+                    className="ui-pressable inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] bg-[var(--c-free)] px-5 py-2.5 font-display text-base font-bold text-white shadow-xs hover:opacity-95 active:scale-[0.98]"
+                  >
+                    <PharmacyCrossIcon className="h-4 w-4" />
+                    <span>Ver Drogarias Credenciadas ({farmaciasCredenciadas.length})</span>
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <>
+                {/* Controles: GPS sob demanda + Alternativa obrigatória por Bairro */}
+                <div className="grid grid-cols-1 gap-4 rounded-[var(--r-plate)] border border-[var(--c-border-subtle)] bg-[var(--c-bg)] p-4 sm:grid-cols-2">
+                  <div className="flex flex-col justify-end">
+                    <button
+                      type="button"
+                      onClick={handleRequestGps}
+                      disabled={gpsStatus === 'loading'}
+                      className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-[var(--r-button)] bg-[var(--c-brand)] px-4 py-2.5 font-display text-lg font-bold text-white shadow-xs transition-opacity hover:opacity-95 disabled:opacity-60 active:translate-y-px"
+                    >
+                      <MapPinIcon className="h-5 w-5" />
+                      <span>
+                        {gpsStatus === 'loading'
+                          ? 'Localizando...'
+                          : gpsStatus === 'granted'
+                            ? 'Ordenado perto de mim (atualizar)'
+                            : 'Ordenar perto de mim (usar GPS)'}
+                      </span>
+                    </button>
                   </div>
+
                   <div>
-                    <h3 className="font-display text-base font-black text-[var(--c-text)] sm:text-lg">
-                      Ver no Mapa Interativo
-                    </h3>
-                    <p className="text-xs text-[var(--c-text-2)] sm:text-sm">
-                      Navegue por todas as farmácias e unidades em tela cheia na aba dedicada de Mapa.
-                    </p>
+                    <label
+                      htmlFor={selectId}
+                      className="block font-display text-lg font-bold text-[var(--c-text)]"
+                    >
+                      Ou escolha o bairro (sem GPS):
+                    </label>
+                    <select
+                      id={selectId}
+                      value={bairroSelecionado}
+                      onChange={(e) => setBairroSelecionado(e.target.value)}
+                      className="mt-1 min-h-[48px] w-full rounded-[var(--r-button)] border border-[var(--c-border-strong)] bg-[var(--c-surface)] px-3.5 py-2 text-base font-bold text-[var(--c-text)] shadow-2xs"
+                    >
+                      <option value="">Todos os bairros ({baseAtiva.length})</option>
+                      {bairrosDisponiveis.map((bairro) => (
+                        <option key={bairro} value={bairro}>
+                          {bairro}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
-                <Link
-                  href="/mapa/"
-                  className="ui-pressable inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-xl bg-[var(--c-brand)] px-5 py-2.5 font-display text-sm font-bold text-white shadow-xs hover:opacity-95 active:scale-[0.98]"
-                >
-                  <Icon name="map" className="h-4 w-4" />
-                  <span>Abrir no Mapa</span>
-                </Link>
-              </div>
-            )}
-          </div>
 
-          {/* Lista acessível de estabelecimentos */}
-          <div className="space-y-3.5">
-            <p role="status" aria-live="polite" className="text-base font-bold text-[var(--c-text-2)]">
-              Mostrando {listaExibida.length}{' '}
-              {activeTab === 'FARMACIA_POPULAR'
-                ? 'farmácia(s) credenciada(s)'
-                : 'unidade(s) pública(s) compatível(is)'}
-              {bairroSelecionado ? ` no bairro ${bairroSelecionado}` : ''}:
-            </p>
+                {gpsMessage && (
+                  <div
+                    role="status"
+                    aria-live="polite"
+                    className={`flex items-center gap-2.5 rounded-[var(--r-button)] border p-3.5 text-base font-bold ${
+                      gpsStatus === 'denied_or_error'
+                        ? 'border-[var(--c-attn-border)] bg-[var(--c-attn)] text-[var(--c-text)]'
+                        : 'border-[var(--c-free)]/30 bg-[var(--c-free-tint)] text-[var(--c-free)]'
+                    }`}
+                  >
+                    {gpsStatus === 'denied_or_error' ? (
+                      <AlertTriangleIcon className="h-5 w-5 shrink-0" />
+                    ) : (
+                      <CheckCircleIcon className="h-5 w-5 shrink-0" />
+                    )}
+                    <span>{gpsMessage}</span>
+                  </div>
+                )}
+
+                {/* Acesso ao Mapa: Action Card para /mapa/ (sem scroll-trap) ou slot customizado */}
+                <div id="secao-mapa-credenciadas" data-testid="map-slot" className="space-y-3">
+                  {mapSlot ?? (
+                    <div className="flex flex-col gap-3 rounded-2xl border border-[var(--c-border)] bg-gradient-to-r from-[var(--c-brand-tint)] via-[var(--c-surface)] to-[var(--c-surface)] p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between sm:p-5">
+                      <div className="flex items-start gap-3">
+                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[var(--c-brand)] text-white shadow-xs">
+                          <Icon name="map" className="h-6 w-6" />
+                        </div>
+                        <div>
+                          <h3 className="font-display text-base font-black text-[var(--c-text)] sm:text-lg">
+                            Ver no Mapa Interativo
+                          </h3>
+                          <p className="text-xs text-[var(--c-text-2)] sm:text-sm">
+                            Navegue por todas as farmácias e unidades em tela cheia na aba dedicada de Mapa.
+                          </p>
+                        </div>
+                      </div>
+                      <Link
+                        href="/mapa/"
+                        className="ui-pressable inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-xl bg-[var(--c-brand)] px-5 py-2.5 font-display text-sm font-bold text-white shadow-xs hover:opacity-95 active:scale-[0.98]"
+                      >
+                        <Icon name="map" className="h-4 w-4" />
+                        <span>Abrir no Mapa</span>
+                      </Link>
+                    </div>
+                  )}
+                </div>
+
+                {/* Lista acessível de estabelecimentos */}
+                <div className="space-y-3.5">
+                  <p role="status" aria-live="polite" className="text-base font-bold text-[var(--c-text-2)]">
+                    Mostrando {listaExibida.length}{' '}
+                    {activeTab === 'FARMACIA_POPULAR'
+                      ? listaExibida.length === 1
+                        ? 'drogaria credenciada'
+                        : 'drogarias credenciadas'
+                      : listaExibida.length === 1
+                        ? 'unidade pública compatível'
+                        : 'unidades públicas compatíveis'}
+                    {bairroSelecionado ? ` no bairro ${bairroSelecionado}` : ''}:
+                  </p>
 
             {listaExibida.length === 0 ? (
               <div className="rounded-[var(--r-plate)] border border-[var(--c-border)] bg-[var(--c-bg)] p-5">
@@ -506,7 +536,9 @@ export function CredenciadasSection({
                 })}
               </ul>
             )}
-          </div>
+                </div>
+              </>
+            )}
           </div>
 
           <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-[var(--c-border-subtle)] pt-4 text-base text-[var(--c-text-2)]">

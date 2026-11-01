@@ -8,6 +8,9 @@
     if (requestHasRangeHeader) {
       return false;
     }
+    if (typeof responseStatus !== 'number' || responseStatus >= 500) {
+      return false;
+    }
     return responseStatus === 200;
   }
 

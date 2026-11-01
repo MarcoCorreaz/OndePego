@@ -63,11 +63,14 @@ export function getFreshness(
   }
 
   const nowMs = toUtcMidnightMs(now);
-  const diasDesde = Math.floor((nowMs - oldestMs) / MS_PER_DAY);
+  const dataReferenciaMs = meta.data_ultima_conferencia
+    ? parseIsoDateUTC(meta.data_ultima_conferencia)
+    : oldestMs;
+  const diasDesde = Math.floor((nowMs - dataReferenciaMs) / MS_PER_DAY);
 
   return {
     desatualizado: diasDesde > limiteDias,
-    dataReferencia: oldestDateStr,
+    dataReferencia: meta.data_ultima_conferencia ?? oldestDateStr,
     diasDesde,
     limiteDias,
   };

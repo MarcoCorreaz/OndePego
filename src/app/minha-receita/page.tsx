@@ -37,7 +37,13 @@ export default function MinhaReceitaPage() {
         <header className="space-y-2">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h1 className="font-display text-3xl font-black text-[var(--c-text)] sm:text-4xl">
-              Minha Receita ({isHydrated ? items.length : 0} item/itens)
+              Minha Receita (
+              {isHydrated
+                ? items.length === 1
+                  ? '1 item'
+                  : `${items.length} itens`
+                : '0 itens'}
+              )
             </h1>
             {items.length > 0 && (
               <button

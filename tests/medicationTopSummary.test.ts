@@ -1,10 +1,11 @@
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
+import { CredenciadasSection } from '@/components/medication/CredenciadasSection';
 import { MedicationQuickSummary } from '@/components/medication/MedicationQuickSummary';
 import { findSelectedApresentacao, resolveInitialApresentacaoId } from '@/lib/dosageSelection';
 import { getVia1Copy, getVia2Copy } from '@/lib/healthCopy';
-import type { Apresentacao } from '@/types/schema';
+import type { Apresentacao, Estabelecimento, Meta } from '@/types/schema';
 
 const AP_UBS_PFPB: Apresentacao = {
   id_apresentacao: 'ap-fixture-1',
@@ -72,5 +73,58 @@ describe('Topo da página do remédio: dosagem sem pré-seleção silenciosa e r
     expect(html).toContain('Fora do Farmácia Popular');
     expect(html).not.toContain('href="#via1-secao"');
     expect(html).not.toContain('href="#via2-secao"');
+  });
+
+  it('5. CredenciadasSection exibe (0) na aba SUS quando apresentação é NAO_CONSTA_REMUME e não mostra aviso contraditório', () => {
+    const meta: Meta = {
+      data_remume: '2026-08-17',
+      data_elenco: '2026-01-15',
+      data_ultima_conferencia: '2026-10-30',
+      total_medicamentos: 64,
+      total_estabelecimentos: 48,
+      versao_app: '0.1.0',
+      fonte_remume_url: 'https://exemplo.gov.br',
+      fonte_elenco_url: 'https://exemplo.gov.br',
+    };
+
+    const estabelecimentos: Estabelecimento[] = [
+      {
+        id: 'farmacia-1',
+        tipo: 'FARMACIA_POPULAR',
+        nome_fantasia: 'Drogaria Exemplo',
+        razao_social: 'Drogaria Exemplo Ltda',
+        cnpj: '00.000.000/0001-00',
+        municipio: 'Cuiabá',
+        uf: 'MT',
+        bairro: 'Centro',
+        logradouro: 'Rua das Flores',
+        numero: '100',
+        cep: '78000-000',
+        telefone: '(65) 3000-0000',
+        horario_funcionamento: 'Seg a Sex 08:00 às 18:00',
+        coordenadas: { lat: -15.59, lng: -56.09, tipo_precisao: 'ROOFTOP' },
+        atributos_operacionais: {
+          dispensa_psicotropicos_sus: false,
+          polo_vacinacao_municipal: false,
+          status_funcionamento: 'NORMAL',
+        },
+        ativo: true,
+        fontes_dados: ['INFOMS'],
+        data_atualizacao: '2026-10-30',
+      },
+    ];
+
+    const html = renderToStaticMarkup(
+      React.createElement(CredenciadasSection, {
+        estabelecimentos,
+        meta,
+        apresentacaoAtiva: AP_FORA, // status_remume_cuiaba: 'NAO_CONSTA_REMUME'
+      }),
+    );
+
+    // O rótulo da aba SUS deve indicar (0) unidades
+    expect(html).toContain('Unidades Públicas (SUS Cuiabá — Postos, Policlínicas e UPAs) (0)');
+    // Não deve conter menção a 24 unidades nem texto contraditório
+    expect(html).not.toContain('Unidades Públicas (SUS Cuiabá — Postos, Policlínicas e UPAs) (24)');
   });
 });

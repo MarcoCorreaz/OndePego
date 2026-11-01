@@ -205,10 +205,13 @@ export async function checkOfflineMapStatus(
 
   try {
     const headResponse = await fetchFn(archivePath, { method: 'HEAD' });
-    const sizeBytes = headResponse.ok ? parseContentLength(headResponse.headers) : null;
+    if (!headResponse.ok) {
+      return { state: 'sem-suporte', sizeBytes: null };
+    }
+    const sizeBytes = parseContentLength(headResponse.headers);
     return { state: 'nao-salvo', sizeBytes };
   } catch {
-    return { state: 'nao-salvo', sizeBytes: null };
+    return { state: 'sem-suporte', sizeBytes: null };
   }
 }
 

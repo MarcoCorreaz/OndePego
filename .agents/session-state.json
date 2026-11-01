@@ -1,6 +1,6 @@
 {
   "versao_protocolo": 1,
-  "ultima_atualizacao": "2026-10-31T02:32:00Z",
+  "ultima_atualizacao": "2026-11-01T01:58:00Z",
   "versao_app": "1.0.0",
   "artefatos_prontos": {
     "tiles_pmtiles": true,
@@ -79,6 +79,8 @@
     "Marcadores do mapa redesenhados no formato clássico de gota com pontinha inferior (48x56px, anchor: bottom) apontando para a rua exata com sombra projetada.",
     "Animação elástica ao clicar (@keyframes map-pin-SelectBounce) + anel de pulso (@keyframes map-pin-pulse-ring) e destaque amarelo/dourado (#FFC72C) com respeito a prefers-reduced-motion.",
     "Novo ícone oficial do app 3D integrado a partir da arte oficial do usuário (public/icon.svg, icon-512.png, icon-192.png, apple-touch-icon.png e BrandMark.tsx no cabeçalho), com fundo transparente nos cantos externos e renderização nítida em alta resolução.",
-    "Testado no Chrome headless mobile (390x844) com WebGL ativo e todas as 25 suítes de testes aprovadas (126 testes verdes)."
+    "Sistema definitivo de ícones aplicado: public/icon.svg vetorial puro (661 bytes, redução de 99,85%), separação rigorosa de purpose any e maskable com zona segura de 66% no Android, apple-touch-icon.png 180x180 100% opaco sem borda preta no iOS, BrandMark.tsx vetorial plano inline no header e cache do Service Worker invalidado para onde-pego-static-v2.",
+    "Auditoria de usuário e dados concluída: aviso contraditório da aba SUS e pluralização corrigidos; motor de busca endurecido com Levenshtein/prefixo, supressão de ruído no match exato e nova suíte tests/searchQuality.test.ts (26 suítes e 135 testes verdes); regra da faixa amarela de 1 linha (44px) com data_ultima_conferencia 30/10/2026; catálogo limpo de descrições inventadas e termos populares imprecisos; mapa claro com alto contraste nas ruas/avenidas e enquadramento (-56.088, -15.598, zoom 12.3); proteção contra cache >= 500 no Service Worker; ocultação limpa de download offline sem HEAD; og.png corrigido sem cortes; .env.example e README.md atualizados.",
+    "Validado com npm run typecheck, npm test, npm run validate:prod e npm run build:prod (74 rotas SSG estáticas geradas com sucesso)."
   ]
 }

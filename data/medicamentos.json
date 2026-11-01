@@ -17,7 +17,6 @@
         "descricao_dosagem": "150 mg/ml suspensão injetável",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Anticonceptivo injetável trimestral",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       }
@@ -34,8 +33,7 @@
     "termos_populares": [
       "expectorante",
       "catarro",
-      "tosse carregada",
-      "limpar pulmao"
+      "tosse carregada"
     ],
     "apresentacoes": [
       {
@@ -43,7 +41,6 @@
         "descricao_dosagem": "100 mg granulado/xarope",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Expectorante mucolítico",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       },
@@ -52,7 +49,6 @@
         "descricao_dosagem": "600 mg granulado",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Uso adulto",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -78,7 +74,6 @@
         "descricao_dosagem": "100 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Antiagregante plaquetário (AAS infantil/adulto)",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -104,7 +99,6 @@
         "descricao_dosagem": "5 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Suplementação pré-natal e anemia",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -130,7 +124,6 @@
         "descricao_dosagem": "400 mg comprimido mastigável",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Antiparasitário / vermífugo",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -156,7 +149,6 @@
         "descricao_dosagem": "500 mg cápsula",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Antibiótico de primeira escolha na atenção básica",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       },
@@ -165,7 +157,6 @@
         "descricao_dosagem": "250 mg/5ml suspensão oral",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Uso pediátrico",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -191,7 +182,6 @@
         "descricao_dosagem": "25 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Anti-hipertensivo betabloqueador",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       },
@@ -200,7 +190,6 @@
         "descricao_dosagem": "50 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Anti-hipertensivo",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -226,7 +215,6 @@
         "descricao_dosagem": "500 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Antibiótico macrolídeo",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       },
@@ -235,7 +223,6 @@
         "descricao_dosagem": "200 mg/5ml suspensão oral",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Uso pediátrico",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -260,7 +247,6 @@
         "descricao_dosagem": "5 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Anti-hipertensivo bloqueador dos canais de cálcio",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       }
@@ -286,7 +272,6 @@
         "descricao_dosagem": "0,25 mg/ml solução para inalação",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Broncodilatador para nebulização",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       },
@@ -320,7 +305,6 @@
         "descricao_dosagem": "32 mcg/dose spray nasal",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Rinite alérgica crônica",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       },
@@ -329,7 +313,6 @@
         "descricao_dosagem": "50 mcg/dose spray nasal",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Rinite alérgica",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       }
@@ -354,7 +337,6 @@
         "descricao_dosagem": "25 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Anti-hipertensivo IECA",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       }
@@ -377,7 +359,6 @@
         "descricao_dosagem": "200 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "POLICLINICA_PORTARIA344",
-        "nota_especifica_cuiaba": "Anticonvulsivante sujeito a controle especial (Portaria 344)",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -402,7 +383,6 @@
         "descricao_dosagem": "500 mg + 400 UI comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Suplementação osteoporose",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -426,7 +406,6 @@
         "descricao_dosagem": "500 mg comprimido/cápsula",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Antibiótico cefalosporina",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       },
@@ -435,7 +414,6 @@
         "descricao_dosagem": "250 mg/5ml suspensão oral",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Uso pediátrico",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -460,7 +438,6 @@
         "descricao_dosagem": "5 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Relaxante muscular",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       },
@@ -469,7 +446,6 @@
         "descricao_dosagem": "10 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Relaxante muscular",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -493,7 +469,6 @@
         "descricao_dosagem": "500 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Antibiótico quinolona",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -519,7 +494,6 @@
         "descricao_dosagem": "2 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "POLICLINICA_PORTARIA344",
-        "nota_especifica_cuiaba": "Ansiolítico sujeito a controle especial (Portaria 344)",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       },
@@ -528,7 +502,6 @@
         "descricao_dosagem": "2,5 mg/ml gotas",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "POLICLINICA_PORTARIA344",
-        "nota_especifica_cuiaba": "Uso controlado pediátrico/adulto (Portaria 344)",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -553,7 +526,6 @@
         "descricao_dosagem": "25 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "POLICLINICA_PORTARIA344",
-        "nota_especifica_cuiaba": "Antidepressivo tricíclico (Portaria 344)",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -579,7 +551,6 @@
         "descricao_dosagem": "20 mg cápsula",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "POLICLINICA_PORTARIA344",
-        "nota_especifica_cuiaba": "Antidepressivo ISRS (Portaria 344)",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -604,7 +575,6 @@
         "descricao_dosagem": "500 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Antidiabético oral biguanida",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       },
@@ -613,7 +583,6 @@
         "descricao_dosagem": "850 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Antidiabético oral",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       },
@@ -646,7 +615,6 @@
         "descricao_dosagem": "40 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Anti-hipertensivo betabloqueador",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       }
@@ -671,7 +639,6 @@
         "descricao_dosagem": "4 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Anti-inflamatório esteroide (corticoide)",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       },
@@ -680,7 +647,6 @@
         "descricao_dosagem": "1 mg/g creme",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Uso dermatológico",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -705,7 +671,6 @@
         "descricao_dosagem": "10 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "POLICLINICA_PORTARIA344",
-        "nota_especifica_cuiaba": "Sedativo/ansiolítico benzodiazepínico (Portaria 344)",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -731,7 +696,6 @@
         "descricao_dosagem": "500 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Analgésico e antitérmico",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       },
@@ -740,7 +704,6 @@
         "descricao_dosagem": "500 mg/ml solução oral (gotas)",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Uso infantil e adulto",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -765,7 +728,6 @@
         "descricao_dosagem": "50 mcg/dose spray nasal",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Rinite",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       },
@@ -774,7 +736,6 @@
         "descricao_dosagem": "250 mcg/dose aerossol oral",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Asma moderada/grave",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       },
@@ -815,7 +776,6 @@
         "descricao_dosagem": "25 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Diurético poupador de potássio",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       }
@@ -840,7 +800,6 @@
         "descricao_dosagem": "0,03 mg + 0,15 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Anticoncepcional oral combinado",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       }
@@ -863,7 +822,6 @@
         "descricao_dosagem": "100 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "POLICLINICA_PORTARIA344",
-        "nota_especifica_cuiaba": "Anticonvulsivante (Portaria 344)",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -888,7 +846,6 @@
         "descricao_dosagem": "40 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Diurético de alça",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       }
@@ -912,7 +869,6 @@
         "descricao_dosagem": "5 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Antidiabético oral sulfonilureia",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       }
@@ -936,7 +892,6 @@
         "descricao_dosagem": "5 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "POLICLINICA_PORTARIA344",
-        "nota_especifica_cuiaba": "Antipsicótico (Portaria 344)",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -958,7 +913,6 @@
         "descricao_dosagem": "25 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Vasodilatador anti-hipertensivo",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -982,7 +936,6 @@
         "descricao_dosagem": "25 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Diurético tiazídico",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       }
@@ -1008,7 +961,6 @@
         "descricao_dosagem": "300 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Anti-inflamatório não esteroide (AINE)",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       },
@@ -1017,7 +969,6 @@
         "descricao_dosagem": "600 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Anti-inflamatório e analgésico",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       },
@@ -1026,7 +977,6 @@
         "descricao_dosagem": "50 mg/ml suspensão oral (gotas)",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Uso pediátrico",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -1050,7 +1000,6 @@
         "descricao_dosagem": "100 UI/ml suspensão injetável",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Insulina basal de ação intermediária",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       }
@@ -1074,7 +1023,6 @@
         "descricao_dosagem": "100 UI/ml solução injetável",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Insulina de ação rápida",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       }
@@ -1098,7 +1046,6 @@
         "descricao_dosagem": "6 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Antiparasitário",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -1123,7 +1070,6 @@
         "descricao_dosagem": "25 mcg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Hipotireoidismo",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       },
@@ -1132,7 +1078,6 @@
         "descricao_dosagem": "50 mcg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Hipotireoidismo",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       },
@@ -1141,7 +1086,6 @@
         "descricao_dosagem": "100 mcg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Hipotireoidismo",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -1167,7 +1111,6 @@
         "descricao_dosagem": "10 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Anti-histamínico antialérgico",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       },
@@ -1176,7 +1119,6 @@
         "descricao_dosagem": "1 mg/ml xarope",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Uso pediátrico",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -1202,7 +1144,6 @@
         "descricao_dosagem": "50 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Anti-hipertensivo bloqueador dos receptores de angiotensina II",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       }
@@ -1226,7 +1167,6 @@
         "descricao_dosagem": "10 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Anti-hipertensivo IECA",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       },
@@ -1235,7 +1175,6 @@
         "descricao_dosagem": "20 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Anti-hipertensivo IECA",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -1259,7 +1198,6 @@
         "descricao_dosagem": "5,0 mg/ml (0,5%) solução oftálmica",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Glaucoma e hipertensão ocular",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       },
@@ -1292,7 +1230,6 @@
         "descricao_dosagem": "250 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Antibacteriano e antiprotozoário",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       },
@@ -1301,7 +1238,6 @@
         "descricao_dosagem": "100 mg/g gel vaginal",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Ginecologia",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -1326,7 +1262,6 @@
         "descricao_dosagem": "20 mg/g creme vaginal",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Antifúngico ginecológico",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -1349,7 +1284,6 @@
         "descricao_dosagem": "0,35 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Anticoncepcional oral para lactantes",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       }
@@ -1376,7 +1310,6 @@
         "descricao_dosagem": "20 mg cápsula",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Inibidor da bomba de prótons para gastrite/refluxo",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -1400,7 +1333,6 @@
         "descricao_dosagem": "4 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Antiemético",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       },
@@ -1409,7 +1341,6 @@
         "descricao_dosagem": "8 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Antiemético",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -1434,7 +1365,6 @@
         "descricao_dosagem": "500 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Analgésico e antitérmico",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       },
@@ -1443,7 +1373,6 @@
         "descricao_dosagem": "750 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Analgésico e antitérmico",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       },
@@ -1452,7 +1381,6 @@
         "descricao_dosagem": "200 mg/ml solução oral (gotas)",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Uso pediátrico",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -1477,7 +1405,6 @@
         "descricao_dosagem": "5 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Glicocorticoide anti-inflamatório",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       },
@@ -1486,7 +1413,6 @@
         "descricao_dosagem": "20 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Glicocorticoide anti-inflamatório",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -1511,7 +1437,6 @@
         "descricao_dosagem": "20 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Hipolipemiante para colesterol alto",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       },
@@ -1520,7 +1445,6 @@
         "descricao_dosagem": "40 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Hipolipemiante para colesterol alto",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       },
@@ -1551,7 +1475,6 @@
         "descricao_dosagem": "10 mg/g (1%) creme",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Queimaduras e cicatrização",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -1575,7 +1498,6 @@
         "descricao_dosagem": "400 mg + 80 mg comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Antibiótico para infecção urinária/respiratória",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       },
@@ -1584,7 +1506,6 @@
         "descricao_dosagem": "40 mg + 8 mg/ml suspensão oral",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Uso pediátrico",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -1608,7 +1529,6 @@
         "descricao_dosagem": "100 mcg/dose aerossol",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Broncodilatador para asma e falta de ar",
         "farmacia_popular_gratuito": true,
         "requisito_farmacia_popular": "PADRAO_RECEITA_DOCUMENTO"
       },
@@ -1642,7 +1562,6 @@
         "descricao_dosagem": "40 mg ferro elementar comprimido",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Tratamento e prevenção de anemia ferropriva",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       },
@@ -1651,7 +1570,6 @@
         "descricao_dosagem": "25 mg/ml ferro elementar gotas",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "UBS",
-        "nota_especifica_cuiaba": "Uso pediátrico",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -1675,7 +1593,6 @@
         "descricao_dosagem": "50 mg cápsula",
         "status_remume_cuiaba": "PADRONIZADO_REMUME",
         "local_dispensacao_sus": "POLICLINICA_PORTARIA344",
-        "nota_especifica_cuiaba": "Analgésico opioide sob controle especial (Portaria 344)",
         "farmacia_popular_gratuito": false,
         "requisito_farmacia_popular": "NAO_DISPONIVEL"
       }
@@ -1691,7 +1608,6 @@
     ],
     "termos_populares": [
       "osteoporose",
-      "ossos fracos",
       "fortalecer ossos"
     ],
     "apresentacoes": [

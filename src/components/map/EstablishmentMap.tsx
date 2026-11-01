@@ -116,8 +116,8 @@ export default function EstablishmentMap({
       const map = new MapLibreMap({
         container: mapContainerRef.current,
         style: styleSpec,
-        center: [CUIABA_VG_CENTER.lng, CUIABA_VG_CENTER.lat],
-        zoom: 12,
+        center: [-56.088, -15.598],
+        zoom: 12.3,
         maxBounds: CUIABA_VG_BOUNDS,
         attributionControl: false,
         dragPan: true,

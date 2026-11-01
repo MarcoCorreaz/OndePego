@@ -38,6 +38,10 @@ npm run import:infoms -- --input fontes/infoms.csv --write
 
 ## 3. Diretrizes de Auditoria e Integridade
 
-1. **Nenhum Dado Inventado:** Todo item inserido deve corresponder a princípio ativo padronizado ou estabelecimento real com endereço verificado.
-2. **Coordenadas Geográficas:** Registros sem coordenadas oficiais recebem `sem_localizacao: true` e `auditado_manualmente: false`. Coordenadas auditadas manualmente nunca são sobrescritas automaticamente.
-3. **Contrato de Schemas:** A documentação completa dos campos e regras de validação Zod está registrada em `docs/data-import-report.md`.
+1. **Nenhum Dado Inventado:** Todo item inserido deve corresponder a princípio ativo padronizado ou estabelecimento real com endereço conferido na fonte pública.
+2. **Origem e Transparência do Catálogo:**
+   - Os 41 itens e as 24 drogarias credenciadas vêm do elenco e painel InfoMS do Ministério da Saúde.
+   - A base municipal atual contempla um recorte inicial de medicamentos padronizados da REMUME Cuiabá e 24 unidades de referência (4 UPAs, 5 Policlínicas/CEM e 15 UBS), em processo de revisão farmacêutica e expansão contínua via pedidos da Lei de Acesso à Informação (LAI).
+   - Os nomes comerciais são exemplos de referência registrados na ANVISA, e os termos populares de assunto são resultado de curadoria estrita do projeto para facilitar a localização pelos cidadãos.
+3. **Coordenadas Geográficas:** Registros sem coordenadas oficiais recebem `sem_localizacao: true` e `auditado_manualmente: false`. Coordenadas auditadas manualmente nunca são sobrescritas automaticamente.
+4. **Contrato de Schemas:** A documentação completa dos campos e regras de validação Zod está registrada em `docs/data-import-report.md`.

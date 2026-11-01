@@ -38,7 +38,9 @@ export function FreshnessBanner({ meta, now }: FreshnessBannerProps) {
         <div className="flex min-h-[44px] items-center gap-2">
           <Icon name="clock" className="h-4 w-4 shrink-0 text-[var(--c-attn-ink)]" />
           <span className="font-bold text-[var(--c-text)]">
-            Dados de {formatIsoDatePTBR(meta.data_remume)}
+            {meta.data_ultima_conferencia
+              ? `Fontes conferidas em ${formatIsoDatePTBR(meta.data_ultima_conferencia)}`
+              : `Dados de ${formatIsoDatePTBR(meta.data_remume)}`}
           </span>
         </div>
 

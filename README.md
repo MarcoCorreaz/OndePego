@@ -33,6 +33,18 @@ npm run build:prod
 - **Trava intencional contra dados de teste e coordenadas não auditadas:** enquanto existirem registros marcados com `"__fixture": true` em `data/*.json`, enquanto `meta.versao` terminar com `"-fixture"` ou enquanto houver farmácia credenciada sem coordenada auditada (`auditado_manualmente: false`), o comando `npm run build:prod` **falhará intencionalmente com código de saída 1**.
 - Diretório de saída estática: `out/`.
 
+## Variáveis de Ambiente
+
+Copie o arquivo `.env.example` para `.env.local` ao configurar a URL canônica em produção:
+
+```bash
+cp .env.example .env.local
+```
+
+| Variável | Obrigatória | Descrição |
+|---|---|---|
+| `NEXT_PUBLIC_SITE_URL` | Não (opcional) | URL canônica do app (ex.: `https://seu-dominio.vercel.app`) para metadados Open Graph e `sitemap.xml`. Quando omitida, o app opera de forma segura com caminhos relativos. |
+
 ## Skills do Agente (`.agents/skills/`)
 
 | Skill | Papel |

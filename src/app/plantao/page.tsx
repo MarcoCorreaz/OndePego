@@ -55,7 +55,7 @@ export default function PlantaoPage() {
   const unidadesPlantao = getPlantaoEstablishments(estabelecimentos);
   const unidadesControlados = getControlledDispensationUnits(estabelecimentos);
   const polosVacinacao = getVaccinationUnits(estabelecimentos);
-  const dataVerificada = formatIsoDatePTBR(meta.data_remume);
+  const dataConferencia = formatIsoDatePTBR(meta.data_ultima_conferencia ?? meta.data_remume);
 
   return (
     <>
@@ -293,7 +293,7 @@ export default function PlantaoPage() {
 
         <footer className="border-t border-[var(--c-border)] pt-4 text-sm text-[var(--c-text-2)]">
           <p>
-            Situação das unidades baseada nas listas municipais verificadas em {dataVerificada}.
+            Situação das unidades baseada em dados cadastrados (conferidos na fonte em {dataConferencia}).
             Ligue para confirmar o atendimento antes do deslocamento.
           </p>
         </footer>

@@ -62,12 +62,12 @@ export default function SobrePage() {
               id="sobre-fontes-heading"
               className="font-display text-2xl font-black text-[var(--c-text)]"
             >
-              Fontes oficiais dos dados e datas de verificação
+              Fontes oficiais dos dados e datas de conferência
             </h2>
           </div>
           <p className="mt-2 max-w-[65ch] text-base text-[var(--c-text-2)]">
             Todas as informações exibidas no aplicativo vêm de publicações abertas de órgãos
-            públicos:
+            públicos, tratadas com total transparência e rigor metodológico:
           </p>
 
           <dl className="mt-4 space-y-3 border-t border-[var(--c-border-subtle)] pt-4 text-base">
@@ -76,9 +76,12 @@ export default function SobrePage() {
                 1. Relação Municipal de Medicamentos Essenciais (REMUME — SMS Cuiabá)
               </dt>
               <dd className="mt-1 text-[var(--c-text)]">
-                Lista oficial dos medicamentos padronizados na rede pública municipal de Cuiabá.
+                Lista oficial dos medicamentos padronizados na rede pública municipal. A base municipal
+                contempla um recorte inicial de medicamentos da REMUME Cuiabá e 24 unidades de
+                referência (4 UPAs, 5 Policlínicas/CEM e 15 UBS), em processo contínuo de revisão
+                farmacêutica e expansão via pedidos da Lei de Acesso à Informação (LAI).
                 <br />
-                <strong>Data da publicação verificada:</strong>{' '}
+                <strong>Data da publicação oficial:</strong>{' '}
                 {formatIsoDatePTBR(meta.data_remume)}
               </dd>
             </div>
@@ -88,22 +91,35 @@ export default function SobrePage() {
                 2. Elenco do Programa Farmácia Popular do Brasil (Ministério da Saúde)
               </dt>
               <dd className="mt-1 text-[var(--c-text)]">
-                Lista nacional dos medicamentos e insumos 100% gratuitos nas farmácias credenciadas.
+                Lista nacional dos 41 itens e insumos 100% gratuitos fornecidos nas drogarias credenciadas.
                 <br />
-                <strong>Data da publicação verificada:</strong>{' '}
+                <strong>Data da publicação oficial:</strong>{' '}
                 {formatIsoDatePTBR(meta.data_elenco_pfpb)}
               </dd>
             </div>
 
             <div className="rounded-[var(--r-button)] border border-[var(--c-border-subtle)] bg-[var(--c-bg)] p-4">
               <dt className="font-display text-lg font-bold text-[var(--c-text)]">
-                3. Painel de Endereços de Farmácias Credenciadas (InfoMS / Ministério da Saúde)
+                3. Painel de Drogarias Credenciadas (InfoMS / Ministério da Saúde)
               </dt>
               <dd className="mt-1 text-[var(--c-text)]">
-                Cadastro e endereço oficial de drogarias credenciadas em Cuiabá/MT fornecidos pelo
-                painel do Ministério da Saúde. A posição no mapa passa por auditoria gradual.
+                Cadastro e endereço de 24 drogarias credenciadas em Cuiabá/MT obtidas diretamente no painel
+                público do Ministério da Saúde. Os dados cadastrados são conferidos nas fontes abertas
+                ({formatIsoDatePTBR(meta.data_ultima_conferencia ?? meta.data_infoms)}), sem representar
+                auditoria presencial concluída em balcão.
                 <br />
-                <strong>Data da base verificada:</strong> {formatIsoDatePTBR(meta.data_infoms)}
+                <strong>Data da base no InfoMS:</strong> {formatIsoDatePTBR(meta.data_infoms)}
+              </dd>
+            </div>
+
+            <div className="rounded-[var(--r-button)] border border-[var(--c-border-subtle)] bg-[var(--c-bg)] p-4">
+              <dt className="font-display text-lg font-bold text-[var(--c-brand)]">
+                4. Nomes Comerciais de Referência (ANVISA) e Curadoria de Busca
+              </dt>
+              <dd className="mt-1 text-[var(--c-text)]">
+                Os nomes comerciais são exemplos de marcas de referência registradas na ANVISA (como Glifage,
+                Novalgina, Rivotril). Os termos populares de assunto foram organizados pela curadoria do projeto
+                para facilitar a localização no dia a dia.
               </dd>
             </div>
 
@@ -115,8 +131,9 @@ export default function SobrePage() {
               </summary>
               <div className="pt-2 text-sm text-[var(--c-text)]">
                 <p>
-                  <strong>Última checagem automática de integridade (CI):</strong>{' '}
-                  {formatIsoDatePTBR(meta.ultima_verificacao_ci)} (versão do pacote:{' '}
+                  <strong>Dados cadastrados (conferidos na fonte em {formatIsoDatePTBR(meta.data_ultima_conferencia ?? meta.data_infoms)}).</strong>
+                  <br />
+                  Última validação estrita automatizada (CI): {formatIsoDatePTBR(meta.ultima_verificacao_ci)} (versão:{' '}
                   <code>{meta.versao}</code>)
                 </p>
                 <p className="mt-1 text-xs text-[var(--c-text-2)]">

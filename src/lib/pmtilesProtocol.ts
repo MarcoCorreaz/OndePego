@@ -173,8 +173,19 @@ export function buildLocalMapStyle(
         'source-layer': 'roads',
         filter: ['in', 'kind', 'highway', 'major_road'],
         paint: {
-          'line-color': isDark ? '#1E293B' : '#CBD5E1',
-          'line-width': 4.5,
+          'line-color': isDark ? '#1E293B' : '#D97706',
+          'line-width': 5,
+        },
+      },
+      {
+        id: 'roads-minor-casing',
+        type: 'line',
+        source: 'protomaps',
+        'source-layer': 'roads',
+        filter: ['in', 'kind', 'minor_road', 'other', 'service', 'path'],
+        paint: {
+          'line-color': isDark ? '#1E293B' : '#94A3B8',
+          'line-width': 2.5,
         },
       },
       {
@@ -184,7 +195,7 @@ export function buildLocalMapStyle(
         'source-layer': 'roads',
         filter: ['in', 'kind', 'minor_road', 'other', 'service', 'path'],
         paint: {
-          'line-color': isDark ? '#334155' : '#FFFFFF',
+          'line-color': isDark ? '#334155' : '#CBD5E1',
           'line-width': 1.5,
         },
       },
@@ -195,7 +206,7 @@ export function buildLocalMapStyle(
         'source-layer': 'roads',
         filter: ['in', 'kind', 'medium_road'],
         paint: {
-          'line-color': isDark ? '#475569' : '#FFFFFF',
+          'line-color': isDark ? '#475569' : '#CBD5E1',
           'line-width': 2.5,
         },
       },
@@ -206,7 +217,7 @@ export function buildLocalMapStyle(
         'source-layer': 'roads',
         filter: ['in', 'kind', 'major_road', 'highway'],
         paint: {
-          'line-color': isDark ? '#64748B' : '#FEEBC8',
+          'line-color': isDark ? '#64748B' : '#FCD34D',
           'line-width': 3.5,
         },
       },

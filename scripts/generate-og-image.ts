@@ -155,14 +155,14 @@ export function generateOgPngBuffer(): Buffer {
   fillRect(raw, 130, 108, 20, 56, COLOR_SURFACE);
   fillRect(raw, 112, 126, 56, 20, COLOR_SURFACE);
 
-  // 5. Tipografia rasterizada legível no cabeçalho do cartão
-  drawBitmapText(raw, 'ONDE PEGO - CUIABA/MT', 212, 100, 6, COLOR_TEXT);
+  // 5. Tipografia rasterizada legível no cabeçalho do cartão (ajustada para não vazar nas margens)
+  drawBitmapText(raw, 'ONDE PEGO - CUIABA/MT', 212, 98, 6, COLOR_TEXT);
   drawBitmapText(
     raw,
     'CONSULTA PUBLICA DE MEDICAMENTOS: SUS E FARMACIA POPULAR',
     212,
     154,
-    3,
+    2,
     COLOR_BRAND,
   );
 
@@ -171,19 +171,19 @@ export function generateOgPngBuffer(): Buffer {
   fillRect(raw, 96, 224, 486, 300, COLOR_BRAND_TINT);
   fillRect(raw, 96, 224, 486, 58, COLOR_BRAND);
   drawBitmapText(raw, 'SUS CUIABA (REMUME)', 124, 242, 3, COLOR_SURFACE);
-  drawBitmapText(raw, 'POSTOS, POLICLINICAS E UPAS', 124, 316, 3, COLOR_TEXT);
-  drawBitmapText(raw, 'DOCUMENTOS E ENDERECOS', 124, 360, 3, COLOR_BRAND);
-  fillRect(raw, 124, 424, 320, 52, COLOR_BRAND);
-  drawBitmapText(raw, 'CONFERIR NA LISTA', 148, 440, 3, COLOR_SURFACE);
+  drawBitmapText(raw, 'POSTOS, POLICLINICAS E UPAS', 124, 314, 2, COLOR_TEXT);
+  drawBitmapText(raw, 'DOCUMENTOS E ENDERECOS', 124, 350, 2, COLOR_BRAND);
+  fillRect(raw, 124, 416, 280, 50, COLOR_BRAND);
+  drawBitmapText(raw, 'CONFERIR NA LISTA', 156, 432, 2, COLOR_SURFACE);
 
   // Placa Direita — Programa Farmácia Popular
   fillRect(raw, 618, 224, 486, 300, COLOR_FREE_TINT);
   fillRect(raw, 618, 224, 486, 58, COLOR_FREE);
   drawBitmapText(raw, 'FARMACIA POPULAR', 646, 242, 3, COLOR_SURFACE);
-  drawBitmapText(raw, '100% GRATUITO NAS CREDENCIADAS', 646, 316, 3, COLOR_TEXT);
-  drawBitmapText(raw, 'POR BAIRRO EM CUIABA', 646, 360, 3, COLOR_FREE);
-  fillRect(raw, 646, 424, 320, 52, COLOR_FREE);
-  drawBitmapText(raw, 'VER DROGARIAS', 670, 440, 3, COLOR_SURFACE);
+  drawBitmapText(raw, '100% GRATUITO NAS CREDENCIADAS', 646, 314, 2, COLOR_TEXT);
+  drawBitmapText(raw, 'POR BAIRRO EM CUIABA', 646, 350, 2, COLOR_FREE);
+  fillRect(raw, 646, 416, 280, 50, COLOR_FREE);
+  drawBitmapText(raw, 'VER DROGARIAS', 700, 432, 2, COLOR_SURFACE);
 
   const signature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
   const ihdr = Buffer.alloc(13);
@@ -237,8 +237,11 @@ if (
 ) {
   const publicDir = path.resolve(process.cwd(), 'public');
   const pngPath = path.join(publicDir, 'og-image.png');
+  const ogCopyPath = path.join(publicDir, 'og.png');
   const svgPath = path.join(publicDir, 'og-image.svg');
-  fs.writeFileSync(pngPath, generateOgPngBuffer());
+  const pngBuffer = generateOgPngBuffer();
+  fs.writeFileSync(pngPath, pngBuffer);
+  fs.writeFileSync(ogCopyPath, pngBuffer);
   fs.writeFileSync(svgPath, generateOgSvgString(), 'utf-8');
-  console.log(`[og-image] Gerados ${pngPath} (1200x630 PNG com tipografia rasterizada) e ${svgPath}`);
+  console.log(`[og-image] Gerados ${pngPath}, ${ogCopyPath} (1200x630 PNG) e ${svgPath}`);
 }

@@ -87,13 +87,13 @@ export function ShortcutChips({
               {/* Quadradinho tintado com ícone */}
               <span
                 aria-hidden="true"
-                className={`inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${item.tintBg} ${item.tintFg}`}
+                className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${item.tintBg} ${item.tintFg}`}
               >
-                <Icon name={item.iconName} className="h-5 w-5" />
+                <Icon name={item.iconName} className="h-4.5 w-4.5" />
               </span>
 
-              {/* Rótulo sem quebra de linha em 360px */}
-              <span className="truncate text-base font-extrabold text-[var(--c-text)] group-hover:text-[var(--c-brand)]">
+              {/* Rótulo visível inteiro sem truncar em telas de 360px e 390px */}
+              <span className="whitespace-nowrap text-[17px] font-extrabold text-[var(--c-text)] group-hover:text-[var(--c-brand)]">
                 {item.label}
               </span>
             </button>

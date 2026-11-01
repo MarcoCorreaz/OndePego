@@ -47,4 +47,15 @@ describe('Cálculo de frescor de dados (freshness)', () => {
     expect(res.diasDesde).toBe(10);
     expect(res.desatualizado).toBe(false);
   });
+
+  it('calcula diasDesde a partir de data_ultima_conferencia quando presente', () => {
+    const metaComConferencia: MetaDados = {
+      ...baseMeta,
+      data_ultima_conferencia: '2026-02-01',
+    };
+    const res = getFreshness(metaComConferencia, '2026-02-11');
+    expect(res.dataReferencia).toBe('2026-02-01');
+    expect(res.diasDesde).toBe(10);
+    expect(res.desatualizado).toBe(false);
+  });
 });
