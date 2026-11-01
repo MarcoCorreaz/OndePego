@@ -76,6 +76,9 @@
     "Nova aba e rota dedicada /mapa/ criada (DedicatedMapView), eliminando o scroll-trap mobile em /unidades/ e /medicamento/[slug]/.",
     "Tema escuro nativo (Dark Mode) implementado com persistência, toggle rápido no header, seletor de acessibilidade e estilo noturno no PMTiles (#0F172A / #1E3A5F).",
     "BottomNav de 5 abas balanceado para mobile (Buscar, Mapa, Unidades, Receita, Plantão) com backdrop blur.",
+    "Marcadores do mapa redesenhados no formato clássico de gota com pontinha inferior (48x56px, anchor: bottom) apontando para a rua exata com sombra projetada.",
+    "Animação elástica ao clicar (@keyframes map-pin-SelectBounce) + anel de pulso (@keyframes map-pin-pulse-ring) e destaque amarelo/dourado (#FFC72C) com respeito a prefers-reduced-motion.",
+    "Novo ícone oficial do app 3D integrado a partir da arte oficial do usuário (public/icon.svg, icon-512.png, icon-192.png, apple-touch-icon.png e BrandMark.tsx no cabeçalho), com fundo transparente nos cantos externos e renderização nítida em alta resolução.",
     "Testado no Chrome headless mobile (390x844) com WebGL ativo e todas as 25 suítes de testes aprovadas (126 testes verdes)."
   ]
 }

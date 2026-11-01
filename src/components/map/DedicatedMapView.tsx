@@ -12,6 +12,7 @@ import {
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { Protocol, PMTiles } from 'pmtiles';
 import { useAccessibility } from '@/components/layout/AccessibilityProvider';
+import { MapPinSvg, renderMapPinSvgHtml } from '@/components/map/MapPin';
 import { OfflineMapDownload } from '@/components/map/OfflineMapDownload';
 import { Icon } from '@/components/ui/Icon';
 import {
@@ -267,14 +268,12 @@ export function DedicatedMapView({
       btn.type = 'button';
       btn.setAttribute('aria-label', `${badge.fullLabel}: ${est.nome_fantasia} (${est.bairro})`);
       btn.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
-      btn.className = `inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border-2 px-2 py-0.5 font-display text-xs font-black shadow-sm transition-transform ${
-        isSelected
-          ? 'z-30 scale-125 border-white bg-[var(--c-attn)] text-black ring-4 ring-[var(--c-brand)]'
-          : badge.isPharmacy
-            ? 'z-10 border-white bg-[var(--c-free)] text-white hover:scale-105'
-            : 'z-10 border-white bg-[var(--c-brand)] text-white hover:scale-105'
-      }`;
-      btn.textContent = badge.code;
+      btn.className = `map-pin-btn ${isSelected ? 'map-pin-selected' : ''}`;
+      btn.innerHTML = renderMapPinSvgHtml({
+        code: badge.code,
+        tipo: est.tipo,
+        isSelected,
+      });
 
       btn.addEventListener('click', () => {
         setSelectedId(est.id);
@@ -285,7 +284,7 @@ export function DedicatedMapView({
         });
       });
 
-      const marker = new Marker({ element: btn })
+      const marker = new Marker({ element: btn, anchor: 'bottom' })
         .setLngLat([est.coordenadas.lng, est.coordenadas.lat])
         .addTo(map);
 
@@ -431,17 +430,16 @@ export function DedicatedMapView({
                 style={{
                   left: `${pos.xPercent}%`,
                   top: `${pos.yPercent}%`,
-                  transform: 'translate(-50%, -50%)',
                 }}
-                className={`absolute inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border-2 px-2 py-0.5 font-display text-xs font-black shadow-sm transition-transform ${
-                  isSelected
-                    ? 'z-30 scale-125 border-white bg-[var(--c-attn)] text-black ring-4 ring-[var(--c-brand)]'
-                    : badge.isPharmacy
-                      ? 'z-10 border-white bg-[var(--c-free)] text-white hover:scale-105'
-                      : 'z-10 border-white bg-[var(--c-brand)] text-white hover:scale-105'
+                className={`map-pin-btn absolute -translate-x-1/2 -translate-y-full ${
+                  isSelected ? 'map-pin-selected' : ''
                 }`}
               >
-                [{badge.code}]
+                <MapPinSvg
+                  code={badge.code}
+                  tipo={est.tipo}
+                  isSelected={isSelected}
+                />
               </button>
             );
           })}

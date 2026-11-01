@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   ...buildRootMetadata(),
   icons: {
     icon: '/icon.svg',
-    apple: '/icon-192.png',
+    apple: '/apple-touch-icon.png',
   },
 };
 

@@ -11,6 +11,7 @@ import {
 } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { Protocol, PMTiles } from 'pmtiles';
+import { MapPinSvg, renderMapPinSvgHtml } from '@/components/map/MapPin';
 import { Icon } from '@/components/ui/Icon';
 import { MapPinIcon, NavigationIcon, PhoneIcon } from '@/components/ui/Icons';
 import { getEstablishmentTypeBadge } from '@/lib/establishmentsFilter';
@@ -244,20 +245,18 @@ export default function EstablishmentMap({
         `${badge.fullLabel}: ${est.nome_fantasia} (${est.bairro})`,
       );
       btn.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
-      btn.className = `inline-flex min-h-[48px] min-w-[48px] items-center justify-center rounded-full border-2 px-2.5 py-1 font-display text-sm font-extrabold shadow-sm transition-transform ${
-        isSelected
-          ? 'z-20 scale-110 border-black bg-[var(--c-attn)] text-black ring-4 ring-black'
-          : badge.isPharmacy
-            ? 'z-10 border-white bg-[var(--c-free)] text-white hover:scale-105'
-            : 'z-10 border-white bg-[var(--c-brand)] text-white hover:scale-105'
-      }`;
-      btn.textContent = badge.code;
+      btn.className = `map-pin-btn ${isSelected ? 'map-pin-selected' : ''}`;
+      btn.innerHTML = renderMapPinSvgHtml({
+        code: badge.code,
+        tipo: est.tipo,
+        isSelected,
+      });
 
       btn.addEventListener('click', () => {
         setSelectedId(est.id);
       });
 
-      const marker = new Marker({ element: btn })
+      const marker = new Marker({ element: btn, anchor: 'bottom' })
         .setLngLat([est.coordenadas.lng, est.coordenadas.lat])
         .addTo(map);
 
@@ -382,18 +381,16 @@ export default function EstablishmentMap({
                   style={{
                     left: `${pos.xPercent}%`,
                     top: `${pos.yPercent}%`,
-                    transform: 'translate(-50%, -50%)',
                   }}
-                  className={`absolute inline-flex min-h-[48px] min-w-[48px] items-center justify-center gap-1 rounded-[var(--r-chip)] border-2 px-3 py-1 font-display text-sm font-extrabold shadow-sm transition-transform ${
-                    isSelected
-                      ? 'z-20 scale-110 border-black bg-[var(--c-attn)] text-black ring-4 ring-black'
-                      : badge.isPharmacy
-                        ? 'z-10 border-white bg-[var(--c-free)] text-white hover:scale-105'
-                        : 'z-10 border-white bg-[var(--c-brand)] text-white hover:scale-105'
+                  className={`map-pin-btn absolute -translate-x-1/2 -translate-y-full ${
+                    isSelected ? 'map-pin-selected' : ''
                   }`}
                 >
-                  <span>[{badge.code}]</span>
-                  <span className="max-w-[120px] truncate">{est.nome_fantasia}</span>
+                  <MapPinSvg
+                    code={badge.code}
+                    tipo={est.tipo}
+                    isSelected={isSelected}
+                  />
                 </button>
               );
             })}

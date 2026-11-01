@@ -8,29 +8,18 @@ export interface BrandMarkProps {
 export function BrandMark({ className = '', showSubtitle = true }: BrandMarkProps) {
   return (
     <div className={`inline-flex items-center gap-2.5 ${className}`}>
-      {/* Poste com duas placas (marca visual do Onde Pego) */}
+      {/* Novo Ícone Oficial do Onde Pego 3D */}
       <span
         aria-hidden="true"
-        className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-[var(--c-brand)] text-white shadow-sm"
+        className="relative inline-flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-[12px] shadow-sm transition-transform active:scale-95"
       >
-        <svg
-          viewBox="0 0 32 32"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={2.4}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="h-6 w-6"
-        >
-          {/* Poste vertical */}
-          <line x1="16" y1="4" x2="16" y2="28" strokeWidth={2.6} />
-          {/* Placa superior apontando para a direita (Via 1 - SUS) */}
-          <path d="M16 8h10l3 3.5-3 3.5H16V8z" fill="currentColor" fillOpacity={0.15} />
-          {/* Placa inferior apontando para a esquerda (Via 2 - Farmácia Popular) */}
-          <path d="M16 17H6l-3 3.5 3 3.5h10v-7z" fill="currentColor" fillOpacity={0.15} />
-          {/* Base do poste */}
-          <line x1="12" y1="28" x2="20" y2="28" strokeWidth={2.6} />
-        </svg>
+        <img
+          src="/icon-192.png"
+          alt=""
+          width={40}
+          height={40}
+          className="h-full w-full object-cover"
+        />
       </span>
 
       <span className="flex flex-col">
