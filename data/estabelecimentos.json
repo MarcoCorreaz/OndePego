@@ -7,10 +7,9 @@
     "endereco_completo": "Av. Agrícola Paes de Barros, s/nº - Verdão, Cuiabá - MT",
     "telefone": "(65) 3617-7500",
     "coordenadas": {
-      "lat": -15.6025,
-      "lng": -56.1215,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "lat": -15.60334,
+      "lng": -56.12091,
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": true,
@@ -26,10 +25,9 @@
     "endereco_completo": "Av. Tancredo Neves, s/nº - Morada do Ouro II, Cuiabá - MT",
     "telefone": "(65) 3617-7600",
     "coordenadas": {
-      "lat": -15.5642,
-      "lng": -56.0683,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "lat": -15.56838,
+      "lng": -56.053,
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": true,
@@ -45,10 +43,9 @@
     "endereco_completo": "Rua Raimundo Pinheiro, 77 - Pascoal Ramos, Cuiabá - MT",
     "telefone": "(65) 3617-7700",
     "coordenadas": {
-      "lat": -15.6881,
-      "lng": -56.0372,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "lat": -15.66318,
+      "lng": -56.04612,
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": true,
@@ -64,10 +61,9 @@
     "endereco_completo": "Rua Militar, s/nº - Jardim Leblon, Cuiabá - MT",
     "telefone": "(65) 3617-7800",
     "coordenadas": {
-      "lat": -15.6068,
-      "lng": -56.0594,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "lat": -15.62225,
+      "lng": -56.10544,
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": true,
@@ -83,10 +79,9 @@
     "endereco_completo": "Avenida Nilton Rabelo de Castro, s/nº - Pedra 90, Cuiabá - MT",
     "telefone": "(65) 3617-1900",
     "coordenadas": {
-      "lat": -15.7032,
-      "lng": -56.0078,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "lat": -15.68819,
+      "lng": -56.00295,
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": true,
@@ -102,10 +97,9 @@
     "endereco_completo": "Rua 24 de Agosto, s/nº - Vista Alegre, Cuiabá - MT",
     "telefone": "(65) 3617-1400",
     "coordenadas": {
-      "lat": -15.6455,
-      "lng": -56.0668,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "lat": -15.6364,
+      "lng": -56.0664,
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": true,
@@ -121,10 +115,9 @@
     "endereco_completo": "Avenida dos Trabalhadores, s/nº - Planalto, Cuiabá - MT",
     "telefone": "(65) 3617-1800",
     "coordenadas": {
-      "lat": -15.5802,
-      "lng": -56.0321,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "lat": -15.57143,
+      "lng": -56.03848,
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": true,
@@ -140,10 +133,9 @@
     "endereco_completo": "Rua Baltazar Navarros, 405 - Bandeirantes, Cuiabá - MT",
     "telefone": "(65) 3617-1312",
     "coordenadas": {
-      "lat": -15.5995,
-      "lng": -56.0892,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "lat": -15.60368,
+      "lng": -56.09675,
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": true,
@@ -159,10 +151,9 @@
     "endereco_completo": "Rua 24 de Agosto, s/nº - Coxipó, Cuiabá - MT",
     "telefone": "(65) 3617-1444",
     "coordenadas": {
-      "lat": -15.646,
-      "lng": -56.066,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "lat": -15.6364,
+      "lng": -56.0664,
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": true,
@@ -180,8 +171,7 @@
     "coordenadas": {
       "lat": -15.5684,
       "lng": -56.0456,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": false,
@@ -199,8 +189,7 @@
     "coordenadas": {
       "lat": -15.5582,
       "lng": -56.0398,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": false,
@@ -218,8 +207,7 @@
     "coordenadas": {
       "lat": -15.6705,
       "lng": -56.0402,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": false,
@@ -237,8 +225,7 @@
     "coordenadas": {
       "lat": -15.6755,
       "lng": -56.0754,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": false,
@@ -256,8 +243,7 @@
     "coordenadas": {
       "lat": -15.5485,
       "lng": -56.0621,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": false,
@@ -275,8 +261,7 @@
     "coordenadas": {
       "lat": -15.6612,
       "lng": -56.0789,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": false,
@@ -294,8 +279,7 @@
     "coordenadas": {
       "lat": -15.6174,
       "lng": -56.0882,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": false,
@@ -313,8 +297,7 @@
     "coordenadas": {
       "lat": -15.6132,
       "lng": -56.0745,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": false,
@@ -332,8 +315,7 @@
     "coordenadas": {
       "lat": -15.6162,
       "lng": -56.0381,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": false,
@@ -351,8 +333,7 @@
     "coordenadas": {
       "lat": -15.6115,
       "lng": -56.0815,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": false,
@@ -370,8 +351,7 @@
     "coordenadas": {
       "lat": -15.5532,
       "lng": -56.0315,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": false,
@@ -389,8 +369,7 @@
     "coordenadas": {
       "lat": -15.5891,
       "lng": -56.0654,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": false,
@@ -408,8 +387,7 @@
     "coordenadas": {
       "lat": -15.5824,
       "lng": -56.0587,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": false,
@@ -427,8 +405,7 @@
     "coordenadas": {
       "lat": -15.5512,
       "lng": -56.0423,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": false,
@@ -446,8 +423,7 @@
     "coordenadas": {
       "lat": -15.6698,
       "lng": -56.0612,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "dispensa_psicotropicos_sus": false,
@@ -464,8 +440,7 @@
     "coordenadas": {
       "lat": -15.6328,
       "lng": -56.0592,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -481,8 +456,7 @@
     "coordenadas": {
       "lat": -15.6561,
       "lng": -55.9767,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -498,8 +472,7 @@
     "coordenadas": {
       "lat": -15.5866,
       "lng": -56.0782,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -515,8 +488,7 @@
     "coordenadas": {
       "lat": -15.6021,
       "lng": -56.0968,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -532,8 +504,7 @@
     "coordenadas": {
       "lat": -15.6148,
       "lng": -56.0694,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -549,8 +520,7 @@
     "coordenadas": {
       "lat": -15.6178,
       "lng": -56.0354,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -566,8 +536,7 @@
     "coordenadas": {
       "lat": -15.5925,
       "lng": -56.1098,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -583,8 +552,7 @@
     "coordenadas": {
       "lat": -15.5842,
       "lng": -56.1158,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -600,8 +568,7 @@
     "coordenadas": {
       "lat": -15.5712,
       "lng": -56.0498,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -617,8 +584,7 @@
     "coordenadas": {
       "lat": -15.6125,
       "lng": -56.0645,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -634,8 +600,7 @@
     "coordenadas": {
       "lat": -15.6152,
       "lng": -56.0688,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -651,8 +616,7 @@
     "coordenadas": {
       "lat": -15.5894,
       "lng": -56.0857,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -668,8 +632,7 @@
     "coordenadas": {
       "lat": -15.5968,
       "lng": -56.0954,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -685,8 +648,7 @@
     "coordenadas": {
       "lat": -15.5981,
       "lng": -56.1093,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -702,8 +664,7 @@
     "coordenadas": {
       "lat": -15.6042,
       "lng": -56.1128,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -719,8 +680,7 @@
     "coordenadas": {
       "lat": -15.5703,
       "lng": -56.028,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -736,8 +696,7 @@
     "coordenadas": {
       "lat": -15.6185,
       "lng": -56.0792,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -753,8 +712,7 @@
     "coordenadas": {
       "lat": -15.7028,
       "lng": -56.0092,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -770,8 +728,7 @@
     "coordenadas": {
       "lat": -15.5866,
       "lng": -56.0782,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -787,8 +744,7 @@
     "coordenadas": {
       "lat": -15.6042,
       "lng": -56.1341,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -804,8 +760,7 @@
     "coordenadas": {
       "lat": -15.5725,
       "lng": -56.0718,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -821,8 +776,7 @@
     "coordenadas": {
       "lat": -15.5915,
       "lng": -56.0832,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -838,8 +792,7 @@
     "coordenadas": {
       "lat": -15.5945,
       "lng": -56.1075,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,
@@ -855,8 +808,7 @@
     "coordenadas": {
       "lat": -15.6314,
       "lng": -56.0089,
-      "auditado_manualmente": true,
-      "sem_localizacao": false
+      "auditado_manualmente": true
     },
     "atributos_operacionais": {
       "credenciamento_pfpb_ativo": true,

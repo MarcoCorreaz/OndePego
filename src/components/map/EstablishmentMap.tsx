@@ -173,6 +173,7 @@ export default function EstablishmentMap({
           center: [customEvent.detail.lng, customEvent.detail.lat],
           zoom: 16,
           duration: 500,
+          padding: { top: 90, bottom: 260, left: 24, right: 24 },
         });
       }
     };
@@ -245,15 +246,21 @@ export default function EstablishmentMap({
         `${badge.fullLabel}: ${est.nome_fantasia} (${est.bairro})`,
       );
       btn.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
-      btn.className = `map-pin-btn ${isSelected ? 'map-pin-selected' : ''}`;
-      btn.innerHTML = renderMapPinSvgHtml({
+      btn.className = `map-pin-container ${isSelected ? 'map-pin-selected' : ''}`;
+      btn.innerHTML = `<div class="map-pin-visual">${renderMapPinSvgHtml({
         code: badge.code,
         tipo: est.tipo,
         isSelected,
-      });
+      })}</div>`;
 
       btn.addEventListener('click', () => {
         setSelectedId(est.id);
+        map.flyTo({
+          center: [est.coordenadas.lng, est.coordenadas.lat],
+          zoom: 15.5,
+          duration: 400,
+          padding: { top: 90, bottom: 260, left: 24, right: 24 },
+        });
       });
 
       const marker = new Marker({ element: btn, anchor: 'bottom' })
@@ -264,10 +271,11 @@ export default function EstablishmentMap({
     }
 
     if (selectedEstablishment && !userCoords) {
-      map.panTo(
-        [selectedEstablishment.coordenadas.lng, selectedEstablishment.coordenadas.lat],
-        { duration: 300 },
-      );
+      map.easeTo({
+        center: [selectedEstablishment.coordenadas.lng, selectedEstablishment.coordenadas.lat],
+        padding: { top: 90, bottom: 260, left: 24, right: 24 },
+        duration: 300,
+      });
     }
   }, [renderMode, estabelecimentosNoMapa, selectedEstablishment, userCoords]);
 
@@ -382,15 +390,17 @@ export default function EstablishmentMap({
                     left: `${pos.xPercent}%`,
                     top: `${pos.yPercent}%`,
                   }}
-                  className={`map-pin-btn absolute -translate-x-1/2 -translate-y-full ${
+                  className={`map-pin-container absolute -translate-x-1/2 -translate-y-full ${
                     isSelected ? 'map-pin-selected' : ''
                   }`}
                 >
-                  <MapPinSvg
-                    code={badge.code}
-                    tipo={est.tipo}
-                    isSelected={isSelected}
-                  />
+                  <div className="map-pin-visual">
+                    <MapPinSvg
+                      code={badge.code}
+                      tipo={est.tipo}
+                      isSelected={isSelected}
+                    />
+                  </div>
                 </button>
               );
             })}

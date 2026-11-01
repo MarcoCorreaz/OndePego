@@ -79,4 +79,12 @@ Público: muitos idosos e pessoas com baixa visão, em celulares simples e 4G in
 
 ## 9. Definição de pronto
 
-Uma tarefa só está pronta quando: tipos compilam em modo strict; `npm run validate`, `npm test` e `npm run build` passam; a checagem de acessibilidade da tela foi feita; nenhuma regra das seções 3 e 4 foi violada; e você resumiu o que mudou, o que **não** foi feito e qualquer dúvida em aberto.
+Uma tarefa só está pronta quando: tipos compilam em modo strict; `npm run validate`, `npm test` e `npm run build` passam; a checagem de acessibilidade da tela foi feita; o protocolo obrigatório de teste interativo (seção 10) foi cumprido; nenhuma regra das seções 3 e 4 foi violada; e você resumiu o que mudou, o que **não** foi feito e qualquer dúvida em aberto.
+
+## 10. Protocolo Obrigatório de Teste Interativo Pós-Mudança (Click & BoundingBox Check)
+
+Sempre que criar, alterar ou corrigir qualquer componente visual, mapa, aba, modal ou animação, é **PROIBIDO** encerrar a tarefa apenas com `npm test`. O agente DEVE obrigatoriamente:
+1. Abrir a página no navegador integrado em viewport mobile (390x844);
+2. Clicar de verdade nos elementos alterados (ex.: clicar em um pino do mapa, trocar de aba, abrir filtro);
+3. Capturar um screenshot DEPOIS do clique e inspecionar via `getBoundingClientRect()` se o elemento continua na posição correta da tela (sem saltar para x=0, y=0 e sem ficar coberto por barras fixas);
+4. Verificar zero erros no console.

@@ -49,8 +49,17 @@ expect(resultados[0]!.exato).toBe(false);
 expect(resolveMatchState(resultados, resultados[0]!.item.slug)).toBe('aproximado');
 ```
 
+## Protocolo Obrigatório de Teste Interativo Pós-Mudança (Click & BoundingBox Check)
+
+Sempre que criar, alterar ou corrigir qualquer componente visual, mapa, aba, modal ou animação, é **PROIBIDO** encerrar a tarefa apenas com `npm test`. O agente DEVE obrigatoriamente:
+1. Abrir a página no navegador em viewport mobile (`390x844`);
+2. Clicar de verdade nos elementos alterados (ex.: clicar em um pino do mapa, trocar de aba, abrir filtro);
+3. Capturar um screenshot DEPOIS do clique e inspecionar via `getBoundingClientRect()` se o elemento continua na posição correta da tela (sem saltar para `x=0, y=0` e sem ficar coberto por barras fixas);
+4. Verificar zero erros no console.
+
 ## Constraints
 
+- **Proibido** encerrar qualquer tarefa com impacto visual sem executar o Protocolo de Teste Interativo (Click & BoundingBox Check).
 - **Proibido** testar apenas o "caminho feliz" com grafia perfeita e GPS ativo.
 - **Proibido** usar dados médicos reais inventados em testes: todas as fixtures de jornada devem carregar `__fixture: true`.
 - **Proibido** aceitar que estabelecimentos com `sem_localizacao: true` ou coordenada igual a `CUIABA_VG_CENTER` renderizem botão `"Ver rota"` ou entrem no cálculo Haversine.

@@ -162,6 +162,10 @@ html[data-contrast="high"] :focus-visible {
 
 /* ====================================================================
    Pinos do Mapa: Formato Clássico com Pontinha e Animação Elástica
+   O elemento raiz (.map-pin-btn / .map-pin-container) é controlado
+   exclusivamente pelo MapLibre via style="transform: translate(...)".
+   NENHUM transform, transition ou animation pode existir no elemento raiz!
+   Toda animação/transform vive no elemento filho (.map-pin-visual).
    ==================================================================== */
 @keyframes map-pin-SelectBounce {
   0% {
@@ -192,29 +196,26 @@ html[data-contrast="high"] :focus-visible {
   }
 }
 
-.map-pin-btn {
+/* Container raiz entregue ao MapLibre: neutro em transform */
+.map-pin-btn,
+.map-pin-container {
   position: relative;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
+  display: block;
   width: 48px;
   height: 56px;
   padding: 0;
+  margin: 0;
   background: transparent;
   border: none;
   cursor: pointer;
   outline: none;
-  transition: transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1);
   user-select: none;
   touch-action: manipulation;
+  /* Proibido transform, transition ou animation aqui no elemento raiz! */
 }
 
-.map-pin-btn:hover:not(.map-pin-selected) {
-  transform: translateY(-3px) scale(1.08);
-}
-
-.map-pin-btn:focus-visible {
+.map-pin-btn:focus-visible,
+.map-pin-container:focus-visible {
   outline: 3px solid var(--c-brand);
   outline-offset: 3px;
   border-radius: 9999px;
@@ -222,6 +223,29 @@ html[data-contrast="high"] :focus-visible {
 
 .map-pin-selected {
   z-index: 35 !important;
+  /* Proibido transform ou animation aqui no elemento raiz! */
+}
+
+/* Filho interno que recebe todo o visual, hover e animações */
+.map-pin-visual {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100%;
+  transform-origin: bottom center;
+  transition: transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+
+.map-pin-btn:hover:not(.map-pin-selected) .map-pin-visual,
+.map-pin-container:hover:not(.map-pin-selected) .map-pin-visual {
+  transform: translateY(-3px) scale(1.08);
+}
+
+.map-pin-selected .map-pin-visual {
   animation: map-pin-SelectBounce 420ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
@@ -238,7 +262,7 @@ html[data-contrast="high"] :focus-visible {
   animation: map-pin-pulse-ring 1.8s cubic-bezier(0.24, 0, 0.38, 1) infinite;
 }
 
-html[data-reduce-motion="true"] .map-pin-selected {
+html[data-reduce-motion="true"] .map-pin-selected .map-pin-visual {
   animation: none !important;
   transform: scale(1.14) !important;
 }

@@ -183,7 +183,8 @@ export function DedicatedMapView({
 
       map.addControl(new NavigationControl({ showCompass: false }), 'bottom-right');
 
-      map.on('error', () => {
+      map.on('error', (err: any) => {
+        console.error('MAPLIBRE_ON_ERROR:', err?.error?.message || err?.message || err?.error || err);
         setRenderMode('schematic_fallback');
       });
 
@@ -268,12 +269,12 @@ export function DedicatedMapView({
       btn.type = 'button';
       btn.setAttribute('aria-label', `${badge.fullLabel}: ${est.nome_fantasia} (${est.bairro})`);
       btn.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
-      btn.className = `map-pin-btn ${isSelected ? 'map-pin-selected' : ''}`;
-      btn.innerHTML = renderMapPinSvgHtml({
+      btn.className = `map-pin-container ${isSelected ? 'map-pin-selected' : ''}`;
+      btn.innerHTML = `<div class="map-pin-visual">${renderMapPinSvgHtml({
         code: badge.code,
         tipo: est.tipo,
         isSelected,
-      });
+      })}</div>`;
 
       btn.addEventListener('click', () => {
         setSelectedId(est.id);
@@ -281,6 +282,7 @@ export function DedicatedMapView({
           center: [est.coordenadas.lng, est.coordenadas.lat],
           zoom: 15.5,
           duration: 400,
+          padding: { top: 90, bottom: 260, left: 24, right: 24 },
         });
       });
 
@@ -431,15 +433,17 @@ export function DedicatedMapView({
                   left: `${pos.xPercent}%`,
                   top: `${pos.yPercent}%`,
                 }}
-                className={`map-pin-btn absolute -translate-x-1/2 -translate-y-full ${
+                className={`map-pin-container absolute -translate-x-1/2 -translate-y-full ${
                   isSelected ? 'map-pin-selected' : ''
                 }`}
               >
-                <MapPinSvg
-                  code={badge.code}
-                  tipo={est.tipo}
-                  isSelected={isSelected}
-                />
+                <div className="map-pin-visual">
+                  <MapPinSvg
+                    code={badge.code}
+                    tipo={est.tipo}
+                    isSelected={isSelected}
+                  />
+                </div>
               </button>
             );
           })}
