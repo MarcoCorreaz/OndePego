@@ -5,7 +5,7 @@ import { CredenciadasSection } from '@/components/medication/CredenciadasSection
 import { MedicationQuickSummary } from '@/components/medication/MedicationQuickSummary';
 import { findSelectedApresentacao, resolveInitialApresentacaoId } from '@/lib/dosageSelection';
 import { getVia1Copy, getVia2Copy } from '@/lib/healthCopy';
-import type { Apresentacao, Estabelecimento, Meta } from '@/types/schema';
+import type { Apresentacao, Estabelecimento, MetaDados } from '@/types/schema';
 
 const AP_UBS_PFPB: Apresentacao = {
   id_apresentacao: 'ap-fixture-1',
@@ -76,15 +76,16 @@ describe('Topo da página do remédio: dosagem sem pré-seleção silenciosa e r
   });
 
   it('5. CredenciadasSection exibe (0) na aba SUS quando apresentação é NAO_CONSTA_REMUME e não mostra aviso contraditório', () => {
-    const meta: Meta = {
+    const meta: MetaDados = {
+      versao: '0.1.0',
       data_remume: '2026-08-17',
-      data_elenco: '2026-01-15',
+      data_elenco_pfpb: '2026-01-15',
+      data_infoms: '2026-01-20',
       data_ultima_conferencia: '2026-10-30',
-      total_medicamentos: 64,
-      total_estabelecimentos: 48,
-      versao_app: '0.1.0',
-      fonte_remume_url: 'https://exemplo.gov.br',
-      fonte_elenco_url: 'https://exemplo.gov.br',
+      ultima_verificacao_ci: '2026-10-31',
+      limite_dias_desatualizado: 45,
+      flags: { estoque_oficial: false },
+      __fixture: true,
     };
 
     const estabelecimentos: Estabelecimento[] = [
@@ -92,25 +93,17 @@ describe('Topo da página do remédio: dosagem sem pré-seleção silenciosa e r
         id: 'farmacia-1',
         tipo: 'FARMACIA_POPULAR',
         nome_fantasia: 'Drogaria Exemplo',
-        razao_social: 'Drogaria Exemplo Ltda',
-        cnpj: '00.000.000/0001-00',
-        municipio: 'Cuiabá',
-        uf: 'MT',
         bairro: 'Centro',
-        logradouro: 'Rua das Flores',
-        numero: '100',
-        cep: '78000-000',
+        endereco_completo: 'Rua das Flores, 100, Centro, Cuiabá - MT',
         telefone: '(65) 3000-0000',
-        horario_funcionamento: 'Seg a Sex 08:00 às 18:00',
-        coordenadas: { lat: -15.59, lng: -56.09, tipo_precisao: 'ROOFTOP' },
+        coordenadas: { lat: -15.59, lng: -56.09, auditado_manualmente: false },
         atributos_operacionais: {
+          credenciamento_pfpb_ativo: true,
           dispensa_psicotropicos_sus: false,
           polo_vacinacao_municipal: false,
           status_funcionamento: 'NORMAL',
         },
-        ativo: true,
-        fontes_dados: ['INFOMS'],
-        data_atualizacao: '2026-10-30',
+        __fixture: true,
       },
     ];
 
