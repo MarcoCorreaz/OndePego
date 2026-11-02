@@ -236,12 +236,10 @@ if (
   path.resolve(process.argv[1]) === path.resolve(__filename)
 ) {
   const publicDir = path.resolve(process.cwd(), 'public');
-  const pngPath = path.join(publicDir, 'og-image.png');
-  const ogCopyPath = path.join(publicDir, 'og.png');
-  const svgPath = path.join(publicDir, 'og-image.svg');
+  const ogPngPath = path.join(publicDir, 'og.png');
+  const svgPath = path.join(publicDir, 'og.svg');
   const pngBuffer = generateOgPngBuffer();
-  fs.writeFileSync(pngPath, pngBuffer);
-  fs.writeFileSync(ogCopyPath, pngBuffer);
+  fs.writeFileSync(ogPngPath, pngBuffer);
   fs.writeFileSync(svgPath, generateOgSvgString(), 'utf-8');
-  console.log(`[og-image] Gerados ${pngPath}, ${ogCopyPath} (1200x630 PNG) e ${svgPath}`);
+  console.log(`[og-image] Gerados ${ogPngPath} (1200x630 PNG) e ${svgPath}`);
 }

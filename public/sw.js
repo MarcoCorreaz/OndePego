@@ -397,7 +397,10 @@ function handleNavigationRequest(event, request, url) {
 
   // Inicia a requisição de rede e agenda a atualização em segundo plano (stale-while-revalidate)
   const networkPromise = fetch(request).then(async (response) => {
-    if (response && response.status < 500 && canCacheResponse(response.status, false)) {
+    if (!response || response.status >= 500) {
+      throw new Error(`SERVER_ERROR_${response ? response.status : 'NO_RESPONSE'}`);
+    }
+    if (canCacheResponse(response.status, false)) {
       const cache = await getActiveShellCache();
       await cache.put(normalizedPath, response.clone());
     }

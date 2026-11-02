@@ -19,37 +19,59 @@ function BuscarContent() {
   const { query, results, scrollY, clearQuery } = useSearchSession();
   const { effectiveReduceMotion } = useAccessibility();
   const trimmedQuery = query.trim();
+  const hasActiveQuery = trimmedQuery.replace(/\s+/g, '').length >= 2;
   const isOnlyApproximate =
     results.length > 0 && results.every((r) => !r.exato && !r.porAssunto);
 
+  // Restaura o scroll apenas na montagem inicial (ex.: ao voltar da tela de um medicamento)
+  const hasRestoredScrollRef = React.useRef(false);
   useEffect(() => {
-    if (scrollY > 0 && typeof window !== 'undefined') {
+    if (!hasRestoredScrollRef.current && scrollY > 0 && typeof window !== 'undefined') {
+      hasRestoredScrollRef.current = true;
       window.scrollTo({ top: scrollY, behavior: 'instant' as ScrollBehavior });
     }
   }, [scrollY]);
 
-  return (
-    <main id="conteudo-principal" className="mx-auto max-w-4xl space-y-6 px-4 py-6 sm:py-8">
-      <header className="space-y-1.5">
-        <h1 className="font-display text-3xl font-extrabold text-[var(--c-text)] sm:text-4xl">
-          Buscar remédio
-        </h1>
-        <p className="text-base text-[var(--c-text-2)]">
-          Confira sempre o princípio ativo e a dosagem na sua receita médica antes de escolher.
-        </p>
-      </header>
+  // Ao digitar uma busca ativa, rola suavemente para o topo para ver o primeiro resultado
+  useEffect(() => {
+    if (hasActiveQuery && typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+    }
+  }, [hasActiveQuery]);
 
-      <section
-        aria-label="Formulário de busca"
-        className="ui-card-elevated space-y-5 p-5 sm:p-6"
-      >
-        <SearchBar navigateOnSubmit={false} />
-        {trimmedQuery.replace(/\s+/g, '').length < 2 && (
-          <div className="border-t border-[var(--c-border-subtle)] pt-4">
-            <ShortcutChips navigateOnSelect={false} />
-          </div>
-        )}
-      </section>
+  return (
+    <main
+      id="conteudo-principal"
+      className={`mx-auto max-w-4xl px-4 ${
+        hasActiveQuery ? 'space-y-3 py-2 sm:py-6' : 'space-y-6 py-6 sm:py-8'
+      }`}
+    >
+      {!hasActiveQuery ? (
+        <>
+          <header className="space-y-1.5">
+            <h1 className="font-display text-3xl font-extrabold text-[var(--c-text)] sm:text-4xl">
+              Buscar remédio
+            </h1>
+            <p className="text-base text-[var(--c-text-2)]">
+              Confira sempre o princípio ativo e a dosagem na sua receita médica antes de escolher.
+            </p>
+          </header>
+
+          <section
+            aria-label="Formulário de busca"
+            className="ui-card-elevated space-y-5 p-5 sm:p-6"
+          >
+            <SearchBar navigateOnSubmit={false} />
+            <div className="border-t border-[var(--c-border-subtle)] pt-4">
+              <ShortcutChips navigateOnSelect={false} />
+            </div>
+          </section>
+        </>
+      ) : (
+        <section aria-label="Formulário de busca" className="pt-1">
+          <SearchBar variant="compact" navigateOnSubmit={false} />
+        </section>
+      )}
 
       <section aria-label="Resultados da busca" className="space-y-4">
         <div role="status" aria-live="polite" className="font-display text-xl font-bold">

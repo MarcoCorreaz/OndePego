@@ -83,5 +83,22 @@ describe('Auditoria de Qualidade e Supressão de Ruído da Busca (37 Consultas)'
     const lozartana = engine.search('lozartana');
     expect(lozartana.length).toBeGreaterThan(0);
     expect(lozartana[0]?.item.slug).toBe('losartana-potassica');
+
+    // 7. Amlodipina e Besilato de amlodipina (grafia comum para besilato-de-anlodipino)
+    const amlodipina = engine.search('amlodipina');
+    expect(amlodipina.length).toBeGreaterThan(0);
+    expect(amlodipina[0]?.item.slug).toBe('besilato-de-anlodipino');
+    expect(amlodipina[0]?.exato).toBe(true);
+
+    const besilatoAmlodipina = engine.search('besilato de amlodipina');
+    expect(besilatoAmlodipina.length).toBeGreaterThan(0);
+    expect(besilatoAmlodipina[0]?.item.slug).toBe('besilato-de-anlodipino');
+    expect(besilatoAmlodipina[0]?.exato).toBe(true);
+
+    // 8. Simvastatina (grafia comum com "m" para sinvastatina)
+    const simvastatina = engine.search('simvastatina');
+    expect(simvastatina.length).toBeGreaterThan(0);
+    expect(simvastatina[0]?.item.slug).toBe('sinvastatina');
+    expect(simvastatina[0]?.exato).toBe(true);
   });
 });

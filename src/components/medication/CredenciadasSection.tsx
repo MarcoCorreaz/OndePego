@@ -171,6 +171,7 @@ export function CredenciadasSection({
     <LazyMotion features={domAnimation} strict>
       <MotionConfig reducedMotion={effectiveReduceMotion ? 'always' : 'user'}>
         <section
+          id="onde-buscar"
           aria-labelledby="credenciadas-heading"
           className="ui-card-elevated space-y-5 p-5 sm:p-7"
         >

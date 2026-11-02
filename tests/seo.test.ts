@@ -60,8 +60,8 @@ describe('SEO Local e Metadados de Compartilhamento no WhatsApp / Open Graph (sr
     ]);
   });
 
-  it('2. Possui imagem estática local public/og-image.png válida em 1200x630px', () => {
-    const ogPngPath = path.resolve(process.cwd(), 'public/og-image.png');
+  it('2. Possui imagem estática local public/og.png válida em 1200x630px', () => {
+    const ogPngPath = path.resolve(process.cwd(), 'public/og.png');
     expect(fs.existsSync(ogPngPath)).toBe(true);
 
     const buf = fs.readFileSync(ogPngPath);

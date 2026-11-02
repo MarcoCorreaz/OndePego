@@ -3,8 +3,7 @@
 import React, { useState } from 'react';
 import { CredenciadasSection } from '@/components/medication/CredenciadasSection';
 import { MedicationDualCard } from '@/components/medication/MedicationDualCard';
-import { ShareMedicationButton } from '@/components/medication/ShareMedicationButton';
-import { AddToPrescriptionButton } from '@/components/prescription/AddToPrescriptionButton';
+import { MedicationStickyBar } from '@/components/medication/MedicationStickyBar';
 import { findSelectedApresentacao, resolveInitialApresentacaoId } from '@/lib/dosageSelection';
 import type { Estabelecimento, Medicamento, MetaDados } from '@/types/schema';
 
@@ -31,7 +30,7 @@ export function MedicationDetailView({
   );
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 pb-40">
       {/* 1. Placas (MedicationDualCard) */}
       <MedicationDualCard
         medicamento={medicamento}
@@ -50,23 +49,12 @@ export function MedicationDetailView({
         />
       )}
 
-      {/* 3. Compartilhar no WhatsApp numa linha única com botão de 48px + Salvar na Receita */}
+      {/* 3. Barra de Ações Fixa posicionada logo acima da BottomNav (D4) */}
       {apresentacaoAtiva && (
-        <section
-          aria-label="Ações para compartilhar ou salvar medicamento"
-          className="flex flex-wrap items-center justify-between gap-3 rounded-[var(--r-card)] border border-[var(--c-border)] bg-[var(--c-surface)] p-4 shadow-2xs sm:p-5"
-        >
-          <div className="flex flex-wrap items-center gap-3">
-            <ShareMedicationButton medicamento={medicamento} compact />
-          </div>
-
-          <div className="flex items-center">
-            <AddToPrescriptionButton
-              medicamento={medicamento}
-              apresentacao={apresentacaoAtiva}
-            />
-          </div>
-        </section>
+        <MedicationStickyBar
+          medicamento={medicamento}
+          apresentacao={apresentacaoAtiva}
+        />
       )}
     </div>
   );

@@ -2,16 +2,21 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useAccessibility } from '@/components/layout/AccessibilityProvider';
 import { useSearchSession } from '@/components/search/SearchSessionProvider';
 import { Icon } from '@/components/ui/Icon';
 import type { ResultadoBusca } from '@/lib/searchEngine';
 import { buildMedicationDetailPath } from '@/lib/share';
+import { navigateWithTransition } from '@/lib/viewTransition';
 
 export interface SearchResultCardProps {
   resultado: ResultadoBusca;
 }
 
 export function SearchResultCard({ resultado }: SearchResultCardProps) {
+  const router = useRouter();
+  const { effectiveReduceMotion } = useAccessibility();
   const { recordScrollY } = useSearchSession();
   const { item, exato, porAssunto } = resultado;
 
@@ -19,10 +24,14 @@ export function SearchResultCard({ resultado }: SearchResultCardProps) {
   const temSus = item.apresentacoes.some((a) => a.status_remume_cuiaba === 'PADRONIZADO_REMUME');
   const temFarmaciaPopular = item.apresentacoes.some((a) => a.farmacia_popular_gratuito);
 
-  const handleNavigate = () => {
+  const handleNavigate = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    e.preventDefault();
     if (typeof window !== 'undefined') {
       recordScrollY(window.scrollY);
     }
+    const targetPath = buildMedicationDetailPath(item.slug);
+    navigateWithTransition(router, targetPath, effectiveReduceMotion);
   };
 
   return (
