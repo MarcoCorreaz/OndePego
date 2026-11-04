@@ -8,6 +8,7 @@ import {
   resolveMatchState,
   saveSearchSession,
   SEARCH_SESSION_STORAGE_KEY,
+  shouldResetSearchOnPath,
 } from '@/lib/searchSession';
 import { MedicamentosFile } from '@/types/schema';
 
@@ -83,5 +84,15 @@ describe('searchSession — resolveMatchState e persistência de sessão (ADR-09
     clearSearchSession(fakeStorage);
     expect(loadSearchSession(fakeStorage)).toEqual(DEFAULT_SEARCH_SESSION);
     expect(parseSearchSession('json-invalido')).toEqual(DEFAULT_SEARCH_SESSION);
+  });
+
+  it('identifica corretamente quando deve limpar o estado de busca ao entrar na Home (/)', () => {
+    expect(shouldResetSearchOnPath('/')).toBe(true);
+    expect(shouldResetSearchOnPath(' / ')).toBe(true);
+    expect(shouldResetSearchOnPath('/buscar/')).toBe(false);
+    expect(shouldResetSearchOnPath('/buscar')).toBe(false);
+    expect(shouldResetSearchOnPath('/medicamento/losartana-potassica/')).toBe(false);
+    expect(shouldResetSearchOnPath(null)).toBe(false);
+    expect(shouldResetSearchOnPath(undefined)).toBe(false);
   });
 });

@@ -89,3 +89,15 @@ export function clearSearchSession(
 
   safeStorageRemoveItem(target as Storage, SEARCH_SESSION_STORAGE_KEY);
 }
+
+/**
+ * Determina se o estado de busca da sessão deve ser limpo ao entrar na rota informada.
+ * Na página inicial (`/`), o campo de busca sempre inicia limpo para permitir nova consulta sem resíduo.
+ */
+export function shouldResetSearchOnPath(pathname: string | null | undefined): boolean {
+  if (!pathname) {
+    return false;
+  }
+  const trimmed = pathname.trim();
+  return trimmed === '/' || trimmed === '';
+}

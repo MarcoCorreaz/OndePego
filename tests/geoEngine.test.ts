@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  buildDestinationQuery,
   calcularDistanciaKm,
   formatarDistancia,
   gerarUrlRotaGoogleMaps,
@@ -105,7 +106,35 @@ describe('Motor geográfico local (src/lib/geoEngine.ts)', () => {
     expect(gerarUrlTransportePublicoOpcional()).toBe('https://pontoos.com.br');
   });
 
-  it('gera URL universal de rota do Google Maps com destino comercial nomeado e modos de transporte', () => {
+  it('gera URL universal de rota do Google Maps com destino comercial sem travelmode fixo e sem duplicar "Cuiabá - MT"', () => {
+    const queryReal = buildDestinationQuery(
+      { lat: -15.5562, lng: -56.0589 },
+      {
+        nomeFantasia: 'UPA Morada do Ouro',
+        enderecoCompleto: 'Rua 1, s/nº - Morada do Ouro, Cuiabá - MT',
+        bairro: 'Morada do Ouro',
+      },
+    );
+
+    // Não duplica o bairro nem o sufixo da cidade
+    expect(queryReal).toBe('UPA Morada do Ouro, Rua 1, s/nº - Morada do Ouro, Cuiabá - MT');
+    expect(queryReal.match(/Cuiab[áa]/gi)).toHaveLength(1);
+
+    const urlSemTravelMode = gerarUrlRotaGoogleMaps(
+      { lat: -15.5562, lng: -56.0589 },
+      {
+        nomeFantasia: 'UPA Morada do Ouro',
+        enderecoCompleto: 'Rua 1, s/nº - Morada do Ouro, Cuiabá - MT',
+        bairro: 'Morada do Ouro',
+      },
+    );
+
+    expect(urlSemTravelMode).toContain('https://www.google.com/maps/dir/?api=1&destination=');
+    expect(urlSemTravelMode).not.toContain('travelmode=');
+    expect(decodeURIComponent(urlSemTravelMode)).not.toContain('Cuiabá - MT, Cuiabá - MT');
+  });
+
+  it('gera URL universal de rota do Google Maps com destino comercial nomeado e modos de transporte quando informado', () => {
     const urlNomeada = gerarUrlRotaGoogleMaps(
       { lat: -15.5866, lng: -56.0782 },
       'transit',

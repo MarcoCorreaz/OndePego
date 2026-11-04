@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { ResetSearchOnHome } from '@/components/search/ResetSearchOnHome';
 import { SearchBar } from '@/components/search/SearchBar';
 import { ShortcutChips } from '@/components/search/ShortcutChips';
 import { ShowcaseGrid } from '@/components/search/ShowcaseGrid';
@@ -59,6 +60,7 @@ const SHOWCASE_MEDS = [
 export default function HomePage() {
   return (
     <>
+      <ResetSearchOnHome />
       <FreshnessBanner meta={meta} />
 
       <main id="conteudo-principal" className="space-y-6">

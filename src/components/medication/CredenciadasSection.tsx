@@ -33,6 +33,7 @@ import {
   ordenarListaComOuSemDistancia,
 } from '@/lib/geoEngine';
 import { NORMATIVE_TEXTS, formatIsoDatePTBR } from '@/lib/healthCopy';
+import { usePagedList } from '@/lib/usePagedList';
 import type { Apresentacao, Estabelecimento, MetaDados } from '@/types/schema';
 
 export interface CredenciadasSectionProps {
@@ -126,6 +127,21 @@ export function CredenciadasSection({
 
     return ordenarListaComOuSemDistancia(filtradasPorBairro, userCoords);
   }, [baseAtiva, bairroSelecionado, userCoords]);
+
+  const {
+    visibleItems: listaPaginada,
+    visibleCount,
+    totalCount,
+    hasMore,
+    nextStepCount,
+    showMore,
+  } = usePagedList({
+    items: listaExibida,
+    initialLimit: 10,
+    step: 10,
+    storageKey: 'credenciadas_med',
+    resetKey: `${activeTab}|${bairroSelecionado}|${Boolean(userCoords)}|${apresentacaoAtiva?.id_apresentacao ?? ''}`,
+  });
 
   const handleSelectTab = (tab: ActiveChannelTab) => {
     setActiveTab(tab);
@@ -389,7 +405,7 @@ export function CredenciadasSection({
                       </div>
                       <Link
                         href="/mapa/"
-                        className="ui-pressable inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-xl bg-[var(--c-brand)] px-5 py-2.5 font-display text-sm font-bold text-white shadow-xs hover:opacity-95 active:scale-[0.98]"
+                        className="ui-pressable inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2 rounded-xl bg-[var(--c-brand)] px-5 py-2.5 font-display text-sm font-bold text-white shadow-xs hover:opacity-95 active:scale-[0.98]"
                       >
                         <Icon name="map" className="h-4 w-4" />
                         <span>Abrir no Mapa</span>
@@ -423,119 +439,138 @@ export function CredenciadasSection({
                 </p>
               </div>
             ) : (
-              <ul className="space-y-3.5">
-                {listaExibida.map(({ estabelecimento, distanciaKm }) => {
-                  const badge = getEstablishmentTypeBadge(estabelecimento.tipo);
-                  const statusOp = estabelecimento.atributos_operacionais.status_funcionamento;
-                  const temCoordenadaValida = hasValidMapCoordinates(estabelecimento);
+              <>
+                <ul className="space-y-3.5">
+                  {listaPaginada.map(({ estabelecimento, distanciaKm }) => {
+                    const badge = getEstablishmentTypeBadge(estabelecimento.tipo);
+                    const statusOp = estabelecimento.atributos_operacionais.status_funcionamento;
+                    const temCoordenadaValida = hasValidMapCoordinates(estabelecimento);
 
-                  return (
-                    <li
-                      key={estabelecimento.id}
-                      className="rounded-[var(--r-plate)] border border-[var(--c-border)] bg-[var(--c-bg)] p-4 sm:p-5"
-                    >
-                      <div className="flex flex-wrap items-start justify-between gap-2.5">
-                        <div>
-                          <h3 className="font-display text-xl font-extrabold text-[var(--c-text)] sm:text-2xl">
-                            {estabelecimento.nome_fantasia}
-                          </h3>
-                          <p className="mt-0.5 inline-flex items-center gap-1.5 text-base font-bold text-[var(--c-brand)]">
-                            <MapPinIcon className="h-4 w-4" />
-                            <span>
-                              Bairro: {estabelecimento.bairro}
-                              {distanciaKm !== null &&
-                                ` • Aprox. ${formatarDistancia(distanciaKm)}`}
+                    return (
+                      <li
+                        key={estabelecimento.id}
+                        className="rounded-[var(--r-plate)] border border-[var(--c-border)] bg-[var(--c-bg)] p-4 sm:p-5"
+                      >
+                        <div className="flex flex-wrap items-start justify-between gap-2.5">
+                          <div>
+                            <h3 className="font-display text-xl font-extrabold text-[var(--c-text)] sm:text-2xl">
+                              {estabelecimento.nome_fantasia}
+                            </h3>
+                            <p className="mt-0.5 inline-flex items-center gap-1.5 text-base font-bold text-[var(--c-brand)]">
+                              <MapPinIcon className="h-4 w-4" />
+                              <span>
+                                Bairro: {estabelecimento.bairro}
+                                {distanciaKm !== null &&
+                                  ` • Aprox. ${formatarDistancia(distanciaKm)}`}
+                              </span>
+                            </p>
+                          </div>
+
+                          {badge.isPharmacy ? (
+                            <span className="inline-flex items-center gap-1.5 rounded-[var(--r-chip)] border border-[var(--c-free)]/25 bg-[var(--c-free-tint)] px-3 py-1 text-sm font-bold text-[var(--c-free)]">
+                              <CheckCircleIcon className="h-4 w-4" />
+                              <span>Credenciada ao Farmácia Popular</span>
                             </span>
-                          </p>
+                          ) : (
+                            <span className="inline-flex items-center gap-1.5 rounded-[var(--r-chip)] border border-[var(--c-brand)]/25 bg-[var(--c-brand-tint)] px-3 py-1 text-sm font-bold text-[var(--c-brand)]">
+                              <BuildingSusIcon className="h-4 w-4" />
+                              <span>
+                                [{badge.code}] {badge.fullLabel}
+                              </span>
+                            </span>
+                          )}
                         </div>
 
-                        {badge.isPharmacy ? (
-                          <span className="inline-flex items-center gap-1.5 rounded-[var(--r-chip)] border border-[var(--c-free)]/25 bg-[var(--c-free-tint)] px-3 py-1 text-sm font-bold text-[var(--c-free)]">
-                            <CheckCircleIcon className="h-4 w-4" />
-                            <span>Credenciada ao Farmácia Popular</span>
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1.5 rounded-[var(--r-chip)] border border-[var(--c-brand)]/25 bg-[var(--c-brand-tint)] px-3 py-1 text-sm font-bold text-[var(--c-brand)]">
-                            <BuildingSusIcon className="h-4 w-4" />
-                            <span>
-                              [{badge.code}] {badge.fullLabel}
-                            </span>
-                          </span>
-                        )}
-                      </div>
-
-                      <p className="mt-2.5 text-base text-[var(--c-text)]">
-                        <strong>Endereço:</strong> {estabelecimento.endereco_completo}
-                      </p>
-
-                      <div className="mt-2">
-                        <EstablishmentContactActions
-                          telefone={estabelecimento.telefone}
-                          endereco={estabelecimento.endereco_completo}
-                          nomeFantasia={estabelecimento.nome_fantasia}
-                        />
-                      </div>
-
-                      {statusOp !== 'NORMAL' && (
-                        <p className="mt-2.5 flex items-start gap-2 rounded-[var(--r-button)] border border-[var(--c-attn-border)] bg-[var(--c-attn)] px-3.5 py-2 text-base font-bold text-[var(--c-text)]">
-                          <AlertTriangleIcon className="mt-0.5 h-5 w-5 shrink-0" />
-                          <span>
-                            Atenção ({statusOp}):{' '}
-                            {estabelecimento.atributos_operacionais.mensagem_contingencia ??
-                              'Confirme o atendimento antes de se deslocar.'}
-                          </span>
+                        <p className="mt-2.5 text-base text-[var(--c-text)]">
+                          <strong>Endereço:</strong> {estabelecimento.endereco_completo}
                         </p>
-                      )}
 
-                      <div className="mt-3.5 space-y-2 border-t border-[var(--c-border-subtle)] pt-3.5">
-                        {!temCoordenadaValida ? (
-                          <p className="rounded-[var(--r-button)] border border-[var(--c-border)] bg-[var(--c-surface)] px-3.5 py-2 text-base font-bold text-[var(--c-text-2)]">
-                            Localização no mapa indisponível. Use o endereço.
+                        <div className="mt-2">
+                          <EstablishmentContactActions
+                            telefone={estabelecimento.telefone}
+                            endereco={estabelecimento.endereco_completo}
+                            nomeFantasia={estabelecimento.nome_fantasia}
+                          />
+                        </div>
+
+                        {statusOp !== 'NORMAL' && (
+                          <p className="mt-2.5 flex items-start gap-2 rounded-[var(--r-button)] border border-[var(--c-attn-border)] bg-[var(--c-attn)] px-3.5 py-2 text-base font-bold text-[var(--c-text)]">
+                            <AlertTriangleIcon className="mt-0.5 h-5 w-5 shrink-0" />
+                            <span>
+                              Atenção ({statusOp}):{' '}
+                              {estabelecimento.atributos_operacionais.mensagem_contingencia ??
+                                'Confirme o atendimento antes de se deslocar.'}
+                            </span>
                           </p>
-                        ) : (
-                          <>
-                            {!estabelecimento.coordenadas.auditado_manualmente && (
-                              <p className="text-sm font-bold text-[var(--c-text-2)]">
-                                Localização aproximada. Confira o endereço.
-                              </p>
-                            )}
-                            <div className="flex flex-wrap gap-3">
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  if (typeof window !== 'undefined') {
-                                    sessionStorage.setItem('ondepego_mapa_foco_id', estabelecimento.id);
-                                    window.location.href = '/mapa/';
-                                  }
-                                }}
-                                className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-[var(--r-button)] border border-[var(--c-brand)]/30 bg-[var(--c-brand-tint)] px-4 py-2 font-display text-base font-bold text-[var(--c-brand)] transition-colors hover:bg-[var(--c-brand)] hover:text-white sm:w-auto"
-                              >
-                                <MapPinIcon className="h-4 w-4 shrink-0" />
-                                <span>Ver no mapa</span>
-                              </button>
-
-                              <a
-                                href={gerarUrlRotaGoogleMaps(estabelecimento.coordenadas, 'transit', {
-                                  nomeFantasia: estabelecimento.nome_fantasia,
-                                  enderecoCompleto: estabelecimento.endereco_completo,
-                                  bairro: estabelecimento.bairro,
-                                })}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label={`Ver rota no mapa para ${estabelecimento.nome_fantasia}`}
-                                className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-[var(--r-button)] bg-[var(--c-brand)] px-4 py-2 text-center font-display text-lg font-bold text-white shadow-xs transition-opacity hover:opacity-95 sm:w-auto"
-                              >
-                                <NavigationIcon className="h-4 w-4 shrink-0" />
-                                <span>Ver rota para {estabelecimento.nome_fantasia}</span>
-                              </a>
-                            </div>
-                          </>
                         )}
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
+
+                        <div className="mt-3.5 space-y-2 border-t border-[var(--c-border-subtle)] pt-3.5">
+                          {!temCoordenadaValida ? (
+                            <p className="rounded-[var(--r-button)] border border-[var(--c-border)] bg-[var(--c-surface)] px-3.5 py-2 text-base font-bold text-[var(--c-text-2)]">
+                              Localização no mapa indisponível. Use o endereço.
+                            </p>
+                          ) : (
+                            <>
+                              {!estabelecimento.coordenadas.auditado_manualmente && (
+                                <p className="text-sm font-bold text-[var(--c-text-2)]">
+                                  Localização aproximada. Confira o endereço.
+                                </p>
+                              )}
+                              <div className="flex flex-wrap gap-3">
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    if (typeof window !== 'undefined') {
+                                      sessionStorage.setItem('ondepego_mapa_foco_id', estabelecimento.id);
+                                      window.location.href = '/mapa/';
+                                    }
+                                  }}
+                                  aria-label={`Ver no mapa: ${estabelecimento.nome_fantasia}`}
+                                  className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-[var(--r-button)] border border-[var(--c-brand)]/30 bg-[var(--c-brand-tint)] px-4 py-2 font-display text-base font-bold text-[var(--c-brand)] transition-colors hover:bg-[var(--c-brand)] hover:text-white sm:w-auto"
+                                >
+                                  <MapPinIcon className="h-4 w-4 shrink-0" />
+                                  <span>Ver no mapa</span>
+                                </button>
+
+                                <a
+                                  href={gerarUrlRotaGoogleMaps(estabelecimento.coordenadas, {
+                                    nomeFantasia: estabelecimento.nome_fantasia,
+                                    enderecoCompleto: estabelecimento.endereco_completo,
+                                    bairro: estabelecimento.bairro,
+                                  })}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  aria-label={`Ver rota para ${estabelecimento.nome_fantasia} no Google Maps`}
+                                  className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-[var(--r-button)] bg-[var(--c-brand)] px-4 py-2 text-center font-display text-lg font-bold text-white shadow-xs transition-opacity hover:opacity-95 sm:w-auto"
+                                >
+                                  <NavigationIcon className="h-4 w-4 shrink-0" />
+                                  <span>Ver rota para {estabelecimento.nome_fantasia}</span>
+                                </a>
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+
+                {hasMore && (
+                  <div className="pt-2 text-center">
+                    <button
+                      type="button"
+                      onClick={showMore}
+                      data-testid="credenciadas-show-more"
+                      className="ui-pressable inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-[var(--r-button)] border border-[var(--c-border)] bg-[var(--c-bg)] px-5 py-3 font-display text-base font-bold text-[var(--c-brand)] shadow-2xs hover:bg-[var(--c-bg-soft)] sm:w-auto"
+                    >
+                      <span>
+                        Mostrar mais {nextStepCount} {nextStepCount === 1 ? 'local' : 'locais'}{' '}
+                        (exibindo {visibleCount} de {totalCount})
+                      </span>
+                    </button>
+                  </div>
+                )}
+              </>
             )}
                 </div>
               </>

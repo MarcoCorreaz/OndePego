@@ -470,7 +470,7 @@ export default function EstablishmentMap({
             )}
             <div className="flex flex-wrap gap-3">
               <a
-                href={gerarUrlRotaGoogleMaps(selectedEstablishment.coordenadas, 'transit', {
+                href={gerarUrlRotaGoogleMaps(selectedEstablishment.coordenadas, {
                   nomeFantasia: selectedEstablishment.nome_fantasia,
                   enderecoCompleto: selectedEstablishment.endereco_completo,
                   bairro: selectedEstablishment.bairro,
@@ -480,7 +480,7 @@ export default function EstablishmentMap({
                 className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[var(--r-button)] bg-[var(--c-brand)] px-4 py-2 font-display text-lg font-bold text-white shadow-xs transition-opacity hover:opacity-95"
               >
                 <NavigationIcon className="h-4 w-4" />
-                <span>Ver rota para {selectedEstablishment.nome_fantasia} (ônibus/carro)</span>
+                <span>Ver rota para {selectedEstablishment.nome_fantasia}</span>
               </a>
 
               <a

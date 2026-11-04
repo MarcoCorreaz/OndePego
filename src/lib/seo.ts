@@ -69,6 +69,62 @@ export function buildRootMetadata(siteUrl = resolveConfiguredSiteUrl()): Metadat
   };
 }
 
+export interface PageMetadataOptions {
+  title: string;
+  description: string;
+  path: string;
+  noIndex?: boolean;
+}
+
+/**
+ * Gera metadados completos (title, description, canonical, OpenGraph e Twitter) para rotas estáticas do app.
+ * Regra inviolável #3: NUNCA promete estoque físico ("disponível", "em estoque", "tem o item").
+ */
+export function buildPageMetadata({
+  title,
+  description,
+  path,
+  noIndex = false,
+}: PageMetadataOptions): Metadata {
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: path,
+    },
+    ...(noIndex
+      ? {
+          robots: {
+            index: false,
+            follow: true,
+          },
+        }
+      : {}),
+    openGraph: {
+      title,
+      description,
+      url: path,
+      siteName: 'Onde Pego Cuiabá',
+      locale: 'pt_BR',
+      type: 'website',
+      images: [
+        {
+          url: OG_IMAGE_PATH,
+          width: OG_IMAGE_WIDTH,
+          height: OG_IMAGE_HEIGHT,
+          alt: OG_IMAGE_ALT,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [OG_IMAGE_PATH],
+    },
+  };
+}
+
 /**
  * Gera os metadados de SEO e Open Graph (WhatsApp / redes sociais) para a página de um medicamento.
  * Regra inviolável #3: NUNCA promete estoque físico ("disponível", "em estoque", "tem o item").

@@ -200,7 +200,7 @@ export function MedicationDualCard({
 
                 <div className="space-y-3.5 p-4 sm:p-5">
                   {/* Linha de status com ícone check + título normativo */}
-                  <h3
+                  <h2
                     id={`via1-heading-${medicamento.slug}`}
                     className="flex items-start gap-2 font-display text-xl sm:text-2xl font-black leading-snug text-[var(--c-text)]"
                   >
@@ -211,7 +211,7 @@ export function MedicationDualCard({
                       }`}
                     />
                     <span>{via1.titulo}</span>
-                  </h3>
+                  </h2>
 
                   {/* Texto normativo LITERAL e VISÍVEL a 17px */}
                   <p className="max-w-[65ch] text-[17px] leading-relaxed text-[var(--c-text)]">
@@ -250,10 +250,10 @@ export function MedicationDualCard({
                   {/* Caixa "O que levar" */}
                   {via1.documentosParaLevar.length > 0 && (
                     <div className="rounded-[var(--r-card)] border border-[var(--c-border-subtle)] bg-[var(--c-bg)] p-3.5 space-y-2">
-                      <h4 className="flex items-center gap-2 font-display text-base font-bold text-[var(--c-text)]">
+                      <h3 className="flex items-center gap-2 font-display text-base font-bold text-[var(--c-text)]">
                         <Icon name="doc" className="h-4 w-4 text-[var(--c-brand)]" />
                         <span>O que levar na unidade de saúde:</span>
-                      </h4>
+                      </h3>
                       <ol className="list-decimal space-y-1 pl-5 text-sm sm:text-base text-[var(--c-text)]">
                         {via1.documentosParaLevar.map((docItem, idx) => (
                           <li key={idx} className="leading-snug">
@@ -318,7 +318,7 @@ export function MedicationDualCard({
 
                 <div className="space-y-3.5 p-4 sm:p-5">
                   {/* Linha de status com ícone check + título normativo */}
-                  <h3
+                  <h2
                     id={`via2-heading-${medicamento.slug}`}
                     className="flex items-start gap-2 font-display text-xl sm:text-2xl font-black leading-snug text-[var(--c-text)]"
                   >
@@ -329,7 +329,7 @@ export function MedicationDualCard({
                       }`}
                     />
                     <span>{via2.titulo}</span>
-                  </h3>
+                  </h2>
 
                   {/* Texto normativo LITERAL e VISÍVEL a 17px */}
                   <p className="max-w-[65ch] text-[17px] leading-relaxed text-[var(--c-text)]">
@@ -339,10 +339,10 @@ export function MedicationDualCard({
                   {/* Caixa "O que levar" */}
                   {via2.documentosParaLevar.length > 0 && (
                     <div className="rounded-[var(--r-card)] border border-[var(--c-border-subtle)] bg-[var(--c-bg)] p-3.5 space-y-2">
-                      <h4 className="flex items-center gap-2 font-display text-base font-bold text-[var(--c-text)]">
+                      <h3 className="flex items-center gap-2 font-display text-base font-bold text-[var(--c-text)]">
                         <Icon name="doc" className="h-4 w-4 text-[var(--c-free)]" />
                         <span>O que levar na farmácia credenciada:</span>
-                      </h4>
+                      </h3>
                       <ol className="list-decimal space-y-1 pl-5 text-sm sm:text-base text-[var(--c-text)]">
                         {via2.documentosParaLevar.map((docItem, idx) => (
                           <li key={idx} className="leading-snug">

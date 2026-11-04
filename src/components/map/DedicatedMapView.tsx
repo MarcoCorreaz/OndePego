@@ -12,6 +12,7 @@ import {
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { Protocol, PMTiles } from 'pmtiles';
 import { useAccessibility } from '@/components/layout/AccessibilityProvider';
+import { MapBottomSheet, type SheetSnapState } from '@/components/map/MapBottomSheet';
 import { MapPinSvg, renderMapPinSvgHtml } from '@/components/map/MapPin';
 import { OfflineMapDownload } from '@/components/map/OfflineMapDownload';
 import { Icon } from '@/components/ui/Icon';
@@ -456,7 +457,7 @@ export function DedicatedMapView({
 
   return (
     <div className="relative h-[calc(100dvh-64px-74px)] w-full overflow-hidden bg-[var(--c-bg)]">
-      {/* 1. Barra Flutuante Superior: Filtros com backdrop blur */}
+      {/* 1. Barra Flutuante Superior: Filtros com backdrop blur (Alvos de toque >= 48px) */}
       <div className="absolute left-0 right-0 top-3 z-20 flex items-center gap-2 overflow-x-auto px-3 py-1 no-scrollbar">
         {FILTER_PILLS.map((pill) => {
           const isCurrent = activeFilter === pill.type;
@@ -466,7 +467,7 @@ export function DedicatedMapView({
               key={pill.type}
               type="button"
               onClick={() => setActiveFilter(pill.type)}
-              className={`ui-pressable inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full border px-3 text-xs font-bold shadow-xs backdrop-blur-md transition-all ${
+              className={`ui-pressable inline-flex min-h-[48px] shrink-0 items-center gap-1.5 rounded-full border px-3.5 text-xs font-bold shadow-xs backdrop-blur-md transition-all ${
                 isCurrent
                   ? 'border-[var(--c-brand)] bg-[var(--c-brand)] text-white shadow-sm'
                   : 'border-[var(--c-border)] bg-[var(--c-surface)]/85 text-[var(--c-text)] hover:bg-[var(--c-surface)]'
@@ -492,7 +493,7 @@ export function DedicatedMapView({
           onClick={handleRequestGps}
           disabled={gpsStatus === 'loading'}
           aria-label="Perto de mim (GPS)"
-          className={`ui-pressable inline-flex h-9 shrink-0 items-center gap-1 rounded-full border px-3 text-xs font-bold shadow-xs backdrop-blur-md transition-all ${
+          className={`ui-pressable inline-flex min-h-[48px] shrink-0 items-center gap-1 rounded-full border px-3.5 text-xs font-bold shadow-xs backdrop-blur-md transition-all ${
             gpsStatus === 'granted'
               ? 'border-[var(--c-free)] bg-[var(--c-free)] text-white'
               : 'border-[var(--c-border)] bg-[var(--c-surface)]/85 text-[var(--c-text)] hover:bg-[var(--c-surface)]'
@@ -513,7 +514,7 @@ export function DedicatedMapView({
           type="button"
           onClick={() => setShowOfflineDialog(true)}
           aria-label="Baixar mapa offline"
-          className="ui-pressable inline-flex h-9 shrink-0 items-center gap-1 rounded-full border border-[var(--c-border)] bg-[var(--c-surface)]/85 px-2.5 text-xs font-bold text-[var(--c-text)] shadow-xs backdrop-blur-md hover:bg-[var(--c-surface)]"
+          className="ui-pressable inline-flex min-h-[48px] shrink-0 items-center gap-1 rounded-full border border-[var(--c-border)] bg-[var(--c-surface)]/85 px-3.5 text-xs font-bold text-[var(--c-text)] shadow-xs backdrop-blur-md hover:bg-[var(--c-surface)]"
         >
           <Icon name="download" className="h-3.5 w-3.5" />
           <span>Offline</span>
@@ -632,7 +633,7 @@ export function DedicatedMapView({
               type="button"
               onClick={() => setSelectedId(null)}
               aria-label="Fechar detalhes"
-              className="ui-pressable inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[var(--c-border)] bg-[var(--c-bg)] text-[var(--c-text-2)] hover:text-[var(--c-text)]"
+              className="ui-pressable inline-flex min-h-[48px] min-w-[48px] shrink-0 items-center justify-center rounded-full border border-[var(--c-border)] bg-[var(--c-bg)] text-[var(--c-text-2)] hover:text-[var(--c-text)]"
             >
               <Icon name="close" className="h-4 w-4" />
             </button>
@@ -650,7 +651,7 @@ export function DedicatedMapView({
             {selectedEstablishment.telefone && (
               <a
                 href={`tel:${selectedEstablishment.telefone.replace(/\D/g, '')}`}
-                className="ui-pressable inline-flex min-h-[44px] flex-1 items-center justify-center gap-1.5 rounded-xl border border-[var(--c-border)] bg-[var(--c-bg)] px-3 text-xs font-bold text-[var(--c-text)] shadow-2xs hover:bg-[var(--c-bg-soft)]"
+                className="ui-pressable inline-flex min-h-[48px] flex-1 items-center justify-center gap-1.5 rounded-xl border border-[var(--c-border)] bg-[var(--c-bg)] px-3 text-xs font-bold text-[var(--c-text)] shadow-2xs hover:bg-[var(--c-bg-soft)]"
               >
                 <Icon name="phone" className="h-3.5 w-3.5 text-[var(--c-brand)]" />
                 <span>Ligar</span>
@@ -658,14 +659,14 @@ export function DedicatedMapView({
             )}
 
             <a
-              href={gerarUrlRotaGoogleMaps(selectedEstablishment.coordenadas, 'transit', {
+              href={gerarUrlRotaGoogleMaps(selectedEstablishment.coordenadas, {
                 nomeFantasia: selectedEstablishment.nome_fantasia,
                 enderecoCompleto: selectedEstablishment.endereco_completo,
                 bairro: selectedEstablishment.bairro,
               })}
               target="_blank"
               rel="noopener noreferrer"
-              className="ui-pressable inline-flex min-h-[44px] flex-1 items-center justify-center gap-1.5 rounded-xl bg-[var(--c-brand)] px-4 text-xs font-bold text-white shadow-xs hover:opacity-95"
+              className="ui-pressable inline-flex min-h-[48px] flex-1 items-center justify-center gap-1.5 rounded-xl bg-[var(--c-brand)] px-4 text-xs font-bold text-white shadow-xs hover:opacity-95"
             >
               <Icon name="pin" className="h-3.5 w-3.5" />
               <span>Ver rota (Maps)</span>
@@ -674,207 +675,22 @@ export function DedicatedMapView({
         </div>
       )}
 
-      {/* 5. Gaveta Deslizante (Bottom Sheet CSS Nativo com 3 Alturas: collapsed, half, full) */}
+      {/* 5. Gaveta Deslizante Nativa (MapBottomSheet com Pointer Events, 3 Alturas e Paginação Progressiva) */}
       {(!selectedEstablishment || sheetState !== 'collapsed') && (
-        <aside
-          aria-label="Lista de estabelecimentos no mapa"
-          className={`absolute bottom-0 left-0 right-0 z-30 flex flex-col rounded-t-2xl border-t border-[var(--c-border)] bg-[var(--c-surface)] shadow-2xl backdrop-blur-md transition-all duration-300 ease-out ${
-            sheetState === 'collapsed'
-              ? 'h-16 border-x'
-              : sheetState === 'half'
-                ? 'h-[50dvh]'
-                : 'h-[85dvh]'
-          }`}
-        >
-          {/* Alça visual de toque (Drag handle) */}
-          <div
-            className="cursor-pointer py-1.5"
-            onClick={() => {
-              if (sheetState === 'collapsed') setSheetState('half');
-              else if (sheetState === 'half') setSheetState('full');
-              else setSheetState('collapsed');
-            }}
-          >
-            <div className="mx-auto h-1 w-10 rounded-full bg-slate-300 dark:bg-slate-600" />
-          </div>
-
-          {/* Cabeçalho da Gaveta */}
-          {sheetState === 'collapsed' ? (
-            <div className="flex flex-1 items-center justify-between px-4 pb-2">
-              <button
-                type="button"
-                onClick={() => setSheetState('half')}
-                aria-label="Abrir lista de unidades"
-                className="ui-pressable flex flex-1 items-center justify-between gap-2 text-left"
-              >
-                <div className="flex items-center gap-2">
-                  <Icon name="list" className="h-5 w-5 text-[var(--c-brand)]" />
-                  <span className="font-display text-sm font-bold text-[var(--c-text)]">
-                    Ver lista de locais ({estabelecimentosFiltrados.length} encontrados)
-                  </span>
-                </div>
-                <Icon
-                  name="chev"
-                  className="h-4 w-4 -rotate-90 text-[var(--c-text-2)] transition-transform"
-                />
-              </button>
-            </div>
-          ) : (
-            <div className="flex flex-col border-b border-[var(--c-border-subtle)] px-4 pb-3">
-              <div className="flex items-center justify-between pb-2">
-                <div className="flex items-center gap-2">
-                  <Icon name="list" className="h-5 w-5 text-[var(--c-brand)]" />
-                  <h2 className="font-display text-base font-bold text-[var(--c-text)]">
-                    Locais encontrados ({estabelecimentosFiltrados.length})
-                  </h2>
-                </div>
-
-                <div className="flex items-center gap-1">
-                  {sheetState === 'half' ? (
-                    <button
-                      type="button"
-                      onClick={() => setSheetState('full')}
-                      aria-label="Expandir para tela cheia"
-                      className="ui-pressable inline-flex h-8 w-8 items-center justify-center rounded-full hover:bg-[var(--c-bg-soft)] text-[var(--c-text-2)]"
-                    >
-                      <Icon name="chev" className="h-4 w-4 -rotate-90" />
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => setSheetState('half')}
-                      aria-label="Reduzir para meia tela"
-                      className="ui-pressable inline-flex h-8 w-8 items-center justify-center rounded-full hover:bg-[var(--c-bg-soft)] text-[var(--c-text-2)]"
-                    >
-                      <Icon name="chev" className="h-4 w-4 rotate-90" />
-                    </button>
-                  )}
-
-                  <button
-                    type="button"
-                    onClick={() => setSheetState('collapsed')}
-                    aria-label="Recolher lista"
-                    className="ui-pressable inline-flex h-8 w-8 items-center justify-center rounded-full hover:bg-[var(--c-bg-soft)] text-[var(--c-text-2)]"
-                  >
-                    <Icon name="close" className="h-4 w-4" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Filtros rápidos dentro da gaveta */}
-              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                <input
-                  type="search"
-                  value={buscaTexto}
-                  onChange={(e) => setBuscaTexto(e.target.value)}
-                  placeholder="Buscar por nome, bairro ou rua..."
-                  aria-label="Buscar unidade por nome, bairro ou rua"
-                  className="h-10 w-full rounded-xl border border-[var(--c-border)] bg-[var(--c-bg)] px-3 text-xs font-medium text-[var(--c-text)] placeholder-[var(--c-text-2)] focus:border-[var(--c-brand)] focus:outline-hidden"
-                />
-
-                <select
-                  value={bairroFiltro}
-                  onChange={(e) => setBairroFiltro(e.target.value)}
-                  aria-label="Filtrar unidades por bairro"
-                  className="h-10 w-full rounded-xl border border-[var(--c-border)] bg-[var(--c-bg)] px-3 text-xs font-bold text-[var(--c-text)] focus:border-[var(--c-brand)] focus:outline-hidden"
-                >
-                  <option value="">Todos os bairros ({bairrosDisponiveis.length})</option>
-                  {bairrosDisponiveis.map((bairro) => (
-                    <option key={bairro} value={bairro}>
-                      {bairro}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          )}
-
-          {/* Conteúdo com rolagem da lista quando expandida */}
-          {sheetState !== 'collapsed' && (
-            <div className="flex-1 space-y-3 overflow-y-auto p-4">
-              {listaOrdenadaGaveta.length === 0 ? (
-                <div className="py-8 text-center text-sm text-[var(--c-text-2)]">
-                  Nenhum estabelecimento encontrado com os filtros atuais.
-                </div>
-              ) : (
-                listaOrdenadaGaveta.map(({ estabelecimento: est, distanciaKm }) => {
-                  const badge = getEstablishmentTypeBadge(est.tipo);
-                  const isSelected = est.id === selectedEstablishment?.id;
-
-                  return (
-                    <article
-                      key={est.id}
-                      className={`rounded-xl border p-3 transition-colors ${
-                        isSelected
-                          ? 'border-[var(--c-brand)] bg-[var(--c-brand)]/5'
-                          : 'border-[var(--c-border)] bg-[var(--c-surface)]'
-                      }`}
-                    >
-                      <div className="flex flex-wrap items-center justify-between gap-1.5">
-                        <span
-                          className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-black text-white ${
-                            badge.isPharmacy ? 'bg-[var(--c-free)]' : 'bg-[var(--c-brand)]'
-                          }`}
-                        >
-                          [{badge.code}] {badge.shortLabel}
-                        </span>
-
-                        {distanciaKm !== null && (
-                          <span className="text-xs font-bold text-[var(--c-brand)]">
-                            Aprox. {formatarDistancia(distanciaKm)}
-                          </span>
-                        )}
-                      </div>
-
-                      <h3 className="mt-1 font-display text-sm font-bold text-[var(--c-text)]">
-                        {est.nome_fantasia}
-                      </h3>
-
-                      <p className="mt-0.5 text-xs text-[var(--c-text-2)]">
-                        <strong>Bairro:</strong> {est.bairro} • {est.endereco_completo}
-                      </p>
-
-                      <div className="mt-2.5 flex flex-wrap items-center gap-2 border-t border-[var(--c-border-subtle)] pt-2">
-                        <button
-                          type="button"
-                          onClick={() => handleFocusOnMap(est)}
-                          className="ui-pressable inline-flex min-h-[38px] flex-1 items-center justify-center gap-1 rounded-lg bg-[var(--c-brand)] px-2.5 text-xs font-bold text-white shadow-2xs hover:opacity-95"
-                        >
-                          <Icon name="pin" className="h-3.5 w-3.5" />
-                          <span>Ver no mapa</span>
-                        </button>
-
-                        {est.telefone && (
-                          <a
-                            href={`tel:${est.telefone.replace(/\D/g, '')}`}
-                            className="ui-pressable inline-flex min-h-[38px] items-center justify-center gap-1 rounded-lg border border-[var(--c-border)] bg-[var(--c-bg)] px-2.5 text-xs font-bold text-[var(--c-text)] shadow-2xs hover:bg-[var(--c-bg-soft)]"
-                          >
-                            <Icon name="phone" className="h-3.5 w-3.5 text-[var(--c-brand)]" />
-                            <span>Ligar</span>
-                          </a>
-                        )}
-
-                        <a
-                          href={gerarUrlRotaGoogleMaps(est.coordenadas, 'transit', {
-                            nomeFantasia: est.nome_fantasia,
-                            enderecoCompleto: est.endereco_completo,
-                            bairro: est.bairro,
-                          })}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="ui-pressable inline-flex min-h-[38px] items-center justify-center gap-1 rounded-lg border border-[var(--c-border)] bg-[var(--c-bg)] px-2.5 text-xs font-bold text-[var(--c-text)] shadow-2xs hover:bg-[var(--c-bg-soft)]"
-                        >
-                          <Icon name="pin" className="h-3.5 w-3.5" />
-                          <span>Rota</span>
-                        </a>
-                      </div>
-                    </article>
-                  );
-                })
-              )}
-            </div>
-          )}
-        </aside>
+        <MapBottomSheet
+          sheetState={sheetState}
+          onChangeState={setSheetState}
+          items={listaOrdenadaGaveta}
+          totalFilteredCount={estabelecimentosFiltrados.length}
+          selectedId={selectedEstablishment?.id ?? null}
+          buscaTexto={buscaTexto}
+          onChangeBuscaTexto={setBuscaTexto}
+          bairroFiltro={bairroFiltro}
+          onChangeBairroFiltro={setBairroFiltro}
+          bairrosDisponiveis={bairrosDisponiveis}
+          onFocusOnMap={handleFocusOnMap}
+          resetKey={`${activeFilter}|${bairroFiltro}|${buscaTexto}|${Boolean(userCoords)}`}
+        />
       )}
 
       {/* 6. Modal / Dialog para download offline */}
@@ -889,7 +705,7 @@ export function DedicatedMapView({
                 type="button"
                 onClick={() => setShowOfflineDialog(false)}
                 aria-label="Fechar"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-full text-[var(--c-text-2)] hover:bg-[var(--c-bg-soft)]"
+                className="inline-flex min-h-[48px] min-w-[48px] items-center justify-center rounded-full text-[var(--c-text-2)] hover:bg-[var(--c-bg-soft)]"
               >
                 <Icon name="close" className="h-4 w-4" />
               </button>

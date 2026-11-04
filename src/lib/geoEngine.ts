@@ -157,39 +157,71 @@ export interface EstabelecimentoDestinoInfo {
 }
 
 /**
- * Gera link universal de rota no Google Maps (sem necessidade de chave de API).
- * Se fornecidas informações de nome e endereço, direciona o Google Maps para o ponto comercial exato,
- * evitando marcações no centro de avenidas extensas.
+ * Monta a query textual de destino para o Google Maps sem duplicar bairro nem o sufixo "Cuiabá - MT".
  */
-export function gerarUrlRotaGoogleMaps(
+export function buildDestinationQuery(
   destino: LatLng,
-  modo?: GoogleMapsTravelMode,
   estabelecimento?: EstabelecimentoDestinoInfo,
 ): string {
   const lat = Number(destino.lat);
   const lng = Number(destino.lng);
 
-  let destinationQuery = `${lat},${lng}`;
-  if (estabelecimento?.nomeFantasia || estabelecimento?.enderecoCompleto) {
-    const parts: string[] = [];
-    if (estabelecimento.nomeFantasia) {
-      parts.push(estabelecimento.nomeFantasia);
-    }
-    if (estabelecimento.enderecoCompleto) {
-      parts.push(estabelecimento.enderecoCompleto);
-    }
-    if (
-      estabelecimento.bairro &&
-      (!estabelecimento.enderecoCompleto ||
-        !estabelecimento.enderecoCompleto.includes(estabelecimento.bairro))
-    ) {
-      parts.push(estabelecimento.bairro);
-    }
-    parts.push(`${estabelecimento.municipio || 'Cuiabá'} - MT`);
-    destinationQuery = parts.join(', ');
+  const nome = estabelecimento?.nomeFantasia?.trim() ?? '';
+  const endereco = estabelecimento?.enderecoCompleto?.trim() ?? '';
+  const bairro = estabelecimento?.bairro?.trim() ?? '';
+
+  if (!nome && !endereco) {
+    return `${lat},${lng}`;
   }
 
+  const parts: string[] = [];
+  if (nome) {
+    parts.push(nome);
+  }
+  if (endereco) {
+    parts.push(endereco);
+  }
+  if (bairro && (!endereco || !normalizePTBR(endereco).includes(normalizePTBR(bairro)))) {
+    parts.push(bairro);
+  }
+
+  const municipio = (estabelecimento?.municipio || 'Cuiabá').trim();
+  const normalizedExisting = normalizePTBR(parts.join(' '));
+  const normalizedMunicipio = normalizePTBR(municipio);
+  const hasCityAlready =
+    normalizedExisting.includes(normalizedMunicipio) ||
+    normalizedExisting.includes('cuiaba') ||
+    normalizedExisting.includes('varzea grande');
+
+  if (!hasCityAlready) {
+    parts.push(`${municipio} - MT`);
+  }
+
+  return parts.join(', ');
+}
+
+/**
+ * Gera link universal de rota no Google Maps (sem necessidade de chave de API).
+ * Por padrão (Opção A), não fixa `travelmode`, deixando o Google Maps escolher a melhor rota nativamente.
+ * Se fornecidas informações de nome e endereço, direciona o Google Maps para o ponto comercial exato,
+ * evitando marcações no centro de avenidas extensas e sem duplicar "Cuiabá - MT".
+ */
+export function gerarUrlRotaGoogleMaps(
+  destino: LatLng,
+  modoOuEstabelecimento?: GoogleMapsTravelMode | EstabelecimentoDestinoInfo,
+  estabelecimentoOpcional?: EstabelecimentoDestinoInfo,
+): string {
+  const isModoString = typeof modoOuEstabelecimento === 'string';
+  const modo: GoogleMapsTravelMode | undefined = isModoString
+    ? modoOuEstabelecimento
+    : undefined;
+  const estabelecimento: EstabelecimentoDestinoInfo | undefined = isModoString
+    ? estabelecimentoOpcional
+    : modoOuEstabelecimento;
+
+  const destinationQuery = buildDestinationQuery(destino, estabelecimento);
   const base = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destinationQuery)}`;
+
   if (!modo) {
     return base;
   }

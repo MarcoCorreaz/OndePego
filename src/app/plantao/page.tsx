@@ -112,7 +112,7 @@ export default function PlantaoPage() {
 
                     {temCoordenadaValida && (
                       <a
-                        href={gerarUrlRotaGoogleMaps(unidade.coordenadas, 'transit', {
+                        href={gerarUrlRotaGoogleMaps(unidade.coordenadas, {
                           nomeFantasia: unidade.nome_fantasia,
                           enderecoCompleto: unidade.endereco_completo,
                           bairro: unidade.bairro,
@@ -194,7 +194,7 @@ export default function PlantaoPage() {
 
                     {temCoordenada && (
                       <a
-                        href={gerarUrlRotaGoogleMaps(unidade.coordenadas, 'transit', {
+                        href={gerarUrlRotaGoogleMaps(unidade.coordenadas, {
                           nomeFantasia: unidade.nome_fantasia,
                           enderecoCompleto: unidade.endereco_completo,
                           bairro: unidade.bairro,
@@ -263,7 +263,7 @@ export default function PlantaoPage() {
 
                     {temCoordenada && (
                       <a
-                        href={gerarUrlRotaGoogleMaps(unidade.coordenadas, 'transit', {
+                        href={gerarUrlRotaGoogleMaps(unidade.coordenadas, {
                           nomeFantasia: unidade.nome_fantasia,
                           enderecoCompleto: unidade.endereco_completo,
                           bairro: unidade.bairro,

@@ -1,11 +1,14 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { metadata as buscarMetadata } from '@/app/buscar/page';
+import { metadata as minhaReceitaMetadata } from '@/app/minha-receita/page';
 import {
   OG_IMAGE_HEIGHT,
   OG_IMAGE_PATH,
   OG_IMAGE_WIDTH,
   buildMedicationMetadata,
+  buildPageMetadata,
   buildRobotsConfig,
   buildRootMetadata,
   buildStaticSitemapEntries,
@@ -101,5 +104,28 @@ describe('SEO Local e Metadados de Compartilhamento no WhatsApp / Open Graph (sr
 
     const robotsConfigured = buildRobotsConfig(customSiteUrl);
     expect(robotsConfigured.sitemap).toBe(`${customSiteUrl}/sitemap.xml`);
+  });
+
+  it('4. Gera metadados dedicados (buildPageMetadata) para /buscar/ e /minha-receita/ sem prometer estoque físico', () => {
+    const customPageMeta = buildPageMetadata({
+      title: 'Buscar remédio — SUS e Farmácia Popular em Cuiabá | Onde Pego',
+      description: 'Pesquise pelo nome comercial ou princípio ativo.',
+      path: '/buscar/',
+      noIndex: true,
+    });
+
+    expect(customPageMeta.title).toBe('Buscar remédio — SUS e Farmácia Popular em Cuiabá | Onde Pego');
+    expect(customPageMeta.alternates?.canonical).toBe('/buscar/');
+    expect(customPageMeta.robots).toEqual({ index: false, follow: true });
+
+    expect(String(buscarMetadata.title)).toContain('Buscar remédio');
+    expect(String(minhaReceitaMetadata.title)).toContain('Minha Receita');
+    expect(buscarMetadata.title).not.toBe(minhaReceitaMetadata.title);
+
+    const forbidden = /(dispon[ií]vel|em estoque|tem o item|garantido)/i;
+    expect(String(buscarMetadata.title)).not.toMatch(forbidden);
+    expect(String(buscarMetadata.description)).not.toMatch(forbidden);
+    expect(String(minhaReceitaMetadata.title)).not.toMatch(forbidden);
+    expect(String(minhaReceitaMetadata.description)).not.toMatch(forbidden);
   });
 });

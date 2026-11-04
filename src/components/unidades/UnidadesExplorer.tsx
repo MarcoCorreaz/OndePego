@@ -22,6 +22,7 @@ import {
   ordenarListaComOuSemDistancia,
 } from '@/lib/geoEngine';
 import { NORMATIVE_TEXTS, formatIsoDatePTBR } from '@/lib/healthCopy';
+import { usePagedList } from '@/lib/usePagedList';
 import type { Estabelecimento, MetaDados } from '@/types/schema';
 
 export interface UnidadesExplorerProps {
@@ -78,6 +79,21 @@ export function UnidadesExplorer({ estabelecimentos, meta }: UnidadesExplorerPro
     const porBairro = ordenarEstabelecimentosPorBairro(estabelecimentosFiltrados);
     return ordenarListaComOuSemDistancia(porBairro, userCoords);
   }, [estabelecimentosFiltrados, userCoords]);
+
+  const {
+    visibleItems: listaPaginada,
+    visibleCount,
+    totalCount,
+    hasMore,
+    nextStepCount,
+    showMore,
+  } = usePagedList({
+    items: listaOrdenada,
+    initialLimit: 12,
+    step: 12,
+    storageKey: 'unidades_lista',
+    resetKey: `${tipoFiltro}|${bairroFiltro}|${buscaTexto}|${Boolean(userCoords)}`,
+  });
 
   // Contagem de filtros ativos
   const activeFiltersCount =
@@ -522,6 +538,7 @@ export function UnidadesExplorer({ estabelecimentos, meta }: UnidadesExplorerPro
                             window.location.href = '/mapa/';
                           }
                         }}
+                        aria-label={`Ver no mapa: ${est.nome_fantasia}`}
                         className="ui-pressable inline-flex min-h-[48px] shrink-0 items-center justify-center gap-1.5 rounded-[var(--r-button)] border border-[var(--c-brand)]/30 bg-[var(--c-brand-tint)] px-3.5 py-2 font-display text-base font-bold text-[var(--c-brand)] hover:bg-[var(--c-brand)] hover:text-white active:scale-[0.98]"
                       >
                         <Icon name="pin" className="h-4 w-4" />
@@ -529,13 +546,14 @@ export function UnidadesExplorer({ estabelecimentos, meta }: UnidadesExplorerPro
                       </button>
 
                       <a
-                        href={gerarUrlRotaGoogleMaps(est.coordenadas, 'transit', {
+                        href={gerarUrlRotaGoogleMaps(est.coordenadas, {
                           nomeFantasia: est.nome_fantasia,
                           enderecoCompleto: est.endereco_completo,
                           bairro: est.bairro,
                         })}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={`Ver rota para ${est.nome_fantasia}`}
                         className="ui-pressable inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2 rounded-[var(--r-button)] bg-[var(--c-brand)] px-4 py-2 font-display text-base font-bold text-white shadow-xs hover:opacity-95 active:scale-[0.98]"
                       >
                         <Icon name="pin" className="h-4 w-4" />
@@ -582,7 +600,7 @@ export function UnidadesExplorer({ estabelecimentos, meta }: UnidadesExplorerPro
           </div>
         ) : (
           <div className="space-y-3">
-            {listaOrdenada.map((item) => {
+            {listaPaginada.map((item) => {
               const est = item.estabelecimento;
               const temCoordenadas = hasValidMapCoordinates(est);
               const badge = getEstablishmentTypeBadge(est.tipo);
@@ -632,6 +650,7 @@ export function UnidadesExplorer({ estabelecimentos, meta }: UnidadesExplorerPro
                               }),
                             );
                           }}
+                          aria-label={`Ver no mapa: ${est.nome_fantasia}`}
                           className="ui-pressable inline-flex min-h-[48px] shrink-0 items-center justify-center gap-1.5 rounded-[var(--r-button)] border border-[var(--c-brand)]/30 bg-[var(--c-brand-tint)] px-3.5 py-2 font-display text-base font-bold text-[var(--c-brand)] hover:bg-[var(--c-brand)] hover:text-white active:scale-[0.98]"
                         >
                           <Icon name="pin" className="h-4 w-4" />
@@ -639,13 +658,14 @@ export function UnidadesExplorer({ estabelecimentos, meta }: UnidadesExplorerPro
                         </button>
 
                         <a
-                          href={gerarUrlRotaGoogleMaps(est.coordenadas, 'transit', {
+                          href={gerarUrlRotaGoogleMaps(est.coordenadas, {
                             nomeFantasia: est.nome_fantasia,
                             enderecoCompleto: est.endereco_completo,
                             bairro: est.bairro,
                           })}
                           target="_blank"
                           rel="noopener noreferrer"
+                          aria-label={`Ver rota para ${est.nome_fantasia}`}
                           className="ui-pressable inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2 rounded-[var(--r-button)] bg-[var(--c-brand)] px-4 py-2 font-display text-base font-bold text-white shadow-xs hover:opacity-95 active:scale-[0.98]"
                         >
                           <Icon name="pin" className="h-4 w-4" />
@@ -665,6 +685,22 @@ export function UnidadesExplorer({ estabelecimentos, meta }: UnidadesExplorerPro
                 </article>
               );
             })}
+
+            {hasMore && (
+              <div className="pt-2 text-center">
+                <button
+                  type="button"
+                  onClick={showMore}
+                  data-testid="unidades-list-show-more"
+                  className="ui-pressable inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-[var(--r-button)] border border-[var(--c-border)] bg-[var(--c-surface)] px-5 py-3 font-display text-base font-bold text-[var(--c-brand)] shadow-2xs hover:bg-[var(--c-bg-soft)] sm:w-auto"
+                >
+                  <span>
+                    Mostrar mais {nextStepCount} {nextStepCount === 1 ? 'local' : 'locais'}{' '}
+                    (exibindo {visibleCount} de {totalCount})
+                  </span>
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

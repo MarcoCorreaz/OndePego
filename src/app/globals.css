@@ -334,6 +334,16 @@ html[data-contrast="high"] :focus-visible {
   /* Proibido transform, transition ou animation aqui no elemento raiz! */
 }
 
+/* Alvos de toque acessíveis (48x48px) nos controles nativos do MapLibre (Bloco B1) */
+.maplibregl-ctrl-group button {
+  width: 48px !important;
+  height: 48px !important;
+}
+
+.maplibregl-ctrl-bottom-right {
+  margin-bottom: 76px !important;
+}
+
 html[data-reduce-motion="true"] .map-pin-selected .map-pin-visual {
   animation: none !important;
   transform: scale(1.14) !important;
