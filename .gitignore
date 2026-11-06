@@ -6,3 +6,6 @@ next-env.d.ts
 public/precache-manifest.json
 .DS_Store
 Thumbs.db
+test-results/
+playwright-report/
+
