@@ -121,5 +121,27 @@ describe('Primitivas de UI: Skeleton e StatusBanner (Tarefa 1)', () => {
       expect(html).toContain('Voltar ao início');
       expect(html).toContain('Fazer uma busca');
     });
+
+    it('todos os atalhos neutros da 404 existem em data/medicamentos.json e possuem apresentações válidas', async () => {
+      const fs = await import('node:fs');
+      const path = await import('node:path');
+      const rawCatalog = fs.readFileSync(path.resolve(process.cwd(), 'data/medicamentos.json'), 'utf-8');
+      const catalog = JSON.parse(rawCatalog) as Array<{ slug: string; principio_ativo: string; apresentacoes: unknown[] }>;
+
+      const slugsCatalogo = new Set(catalog.map((m) => m.slug));
+
+      const atalhos404 = [
+        'losartana-potassica',
+        'dipirona-sodica',
+        'atenolol',
+      ];
+
+      for (const slug of atalhos404) {
+        expect(slugsCatalogo.has(slug)).toBe(true);
+        const med = catalog.find((m) => m.slug === slug);
+        expect(med).toBeDefined();
+        expect(med!.apresentacoes.length).toBeGreaterThan(0);
+      }
+    });
   });
 });

@@ -143,6 +143,12 @@ export function SearchBar({
       onSubmit={handleSubmit}
       className={`relative w-full ${isCompact ? '' : 'space-y-2.5'}`}
     >
+      {/* Região viva para leitor de tela anunciar imediatamente quando o dropdown informativo abre */}
+      <div role="status" aria-live="polite" className="sr-only">
+        {isOpen && hasNoResults
+          ? 'Não encontramos esse nome na nossa lista. Confira a escrita na receita ou toque em Buscar.'
+          : ''}
+      </div>
       <div className={isHero || isCompact ? 'sr-only' : 'space-y-1'}>
         <label
           htmlFor={inputId}
