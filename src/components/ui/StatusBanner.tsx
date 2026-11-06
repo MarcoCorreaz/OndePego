@@ -17,6 +17,7 @@ export interface StatusBannerProps {
   children: React.ReactNode;
   action?: StatusBannerAction;
   onDismiss?: () => void;
+  returnFocusRef?: React.RefObject<HTMLElement | null>;
   icon?: IconName;
   className?: string;
 }
@@ -27,8 +28,8 @@ const VARIANT_CONFIG: Record<
     container: string;
     iconName: IconName;
     iconColor: string;
-    role: 'status' | 'alert';
-    ariaLive: 'polite' | 'assertive';
+    role: 'status';
+    ariaLive: 'polite';
   }
 > = {
   info: {
@@ -42,8 +43,8 @@ const VARIANT_CONFIG: Record<
     container: 'bg-[var(--c-attn-tint)] text-[var(--c-text)] border-[var(--c-attn-border)]',
     iconName: 'info',
     iconColor: 'text-[var(--c-attn-ink)]',
-    role: 'alert',
-    ariaLive: 'assertive',
+    role: 'status',
+    ariaLive: 'polite',
   },
   success: {
     container: 'bg-[var(--c-free-tint)] text-[var(--c-text)] border-[var(--c-free)]/25',
@@ -65,6 +66,7 @@ export function StatusBanner({
   children,
   action,
   onDismiss,
+  returnFocusRef,
   icon,
   className = '',
 }: StatusBannerProps) {
@@ -118,7 +120,12 @@ export function StatusBanner({
         {onDismiss && (
           <button
             type="button"
-            onClick={onDismiss}
+            onClick={() => {
+              onDismiss();
+              if (returnFocusRef && returnFocusRef.current) {
+                returnFocusRef.current.focus();
+              }
+            }}
             aria-label="Fechar aviso"
             className="ui-pressable inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-[var(--c-text-2)] hover:bg-black/5 hover:text-[var(--c-text)] active:scale-95"
           >

@@ -48,14 +48,14 @@ describe('Primitivas de UI: Skeleton e StatusBanner (Tarefa 1)', () => {
       expect(html).toContain('bg-[var(--c-brand-tint)]');
     });
 
-    it('variante "warning" renderiza com role="alert" e aria-live="assertive"', () => {
+    it('variante "warning" renderiza com role="status" e aria-live="polite"', () => {
       const html = renderToStaticMarkup(
         <StatusBanner variant="warning" title="Alerta importante">
           Mensagem de atenção
         </StatusBanner>,
       );
-      expect(html).toContain('role="alert"');
-      expect(html).toContain('aria-live="assertive"');
+      expect(html).toContain('role="status"');
+      expect(html).toContain('aria-live="polite"');
       expect(html).toContain('Alerta importante');
       expect(html).toContain('bg-[var(--c-attn-tint)]');
     });
@@ -101,6 +101,25 @@ describe('Primitivas de UI: Skeleton e StatusBanner (Tarefa 1)', () => {
       );
       expect(html).toContain('aria-label="Fechar aviso"');
       expect(html).toContain('h-12 w-12');
+    });
+  });
+
+  describe('NotFoundPage (404)', () => {
+    it('renderiza ilustração, textos normativos e atalhos neutros reais', async () => {
+      const NotFoundPage = (await import('@/app/not-found')).default;
+      const html = renderToStaticMarkup(<NotFoundPage />);
+
+      expect(html).toContain('Página não encontrada');
+      expect(html).toContain('O endereço que você tentou acessar não existe ou mudou de lugar.');
+      expect(html).toContain('Tente buscar por:');
+      expect(html).toContain('Losartana');
+      expect(html).toContain('Dipirona');
+      expect(html).toContain('Atenolol');
+      expect(html).toContain('href="/medicamento/losartana-potassica');
+      expect(html).toContain('href="/medicamento/dipirona-sodica');
+      expect(html).toContain('href="/medicamento/atenolol');
+      expect(html).toContain('Voltar ao início');
+      expect(html).toContain('Fazer uma busca');
     });
   });
 });

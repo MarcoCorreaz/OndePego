@@ -39,29 +39,36 @@ export function SearchCardSkeletonList({
       role="status"
       aria-busy="true"
       aria-live="polite"
-      className={`flex flex-col gap-3 ${className}`}
+      className={`flex flex-col gap-4 ${className}`}
     >
       <span className="sr-only">{label}</span>
       {Array.from({ length: count }).map((_, index) => (
         <div
           key={index}
           aria-hidden="true"
-          className="ui-card flex flex-col gap-3 rounded-[var(--r-card)] border border-[var(--c-border)] bg-[var(--c-surface)] p-4 shadow-card sm:p-5"
+          className="ui-card relative overflow-hidden rounded-[var(--r-card)] border border-[var(--c-border)] bg-[var(--c-surface)] p-5 shadow-2xs sm:p-6"
         >
-          <div className="flex items-start justify-between gap-3">
-            <div className="flex flex-1 flex-col gap-2">
-              <Skeleton className="h-6 w-3/4 rounded-md" />
-              <Skeleton className="h-4 w-1/2 rounded-md" />
-            </div>
-            <Skeleton className="h-6 w-20 rounded-full" />
-          </div>
+          {/* Barra lateral simulada */}
+          <div className="absolute inset-y-0 left-0 w-2 bg-[var(--c-bg-soft)]" />
 
-          <div className="mt-1 flex flex-col gap-2 border-t border-[var(--c-border-subtle)] pt-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex gap-2">
-              <Skeleton className="h-5 w-24 rounded-full" />
-              <Skeleton className="h-5 w-28 rounded-full" />
+          <div className="space-y-3 pl-2">
+            {/* Selo superior */}
+            <Skeleton className="h-[34px] w-44 rounded-[var(--r-chip)]" />
+
+            {/* Nome do medicamento */}
+            <Skeleton className="h-8 w-3/5 rounded-lg" />
+
+            {/* Dosagens */}
+            <Skeleton className="h-5 w-4/5 rounded-md" />
+
+            {/* Vias de acesso e botão de detalhe */}
+            <div className="mt-4 flex flex-col gap-3 border-t border-[var(--c-border-subtle)] pt-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex flex-wrap gap-2">
+                <Skeleton className="h-7 w-32 rounded-full" />
+                <Skeleton className="h-7 w-28 rounded-full" />
+              </div>
+              <Skeleton className="h-12 w-36 rounded-[var(--r-button)]" />
             </div>
-            <Skeleton className="h-8 w-24 rounded-lg" />
           </div>
         </div>
       ))}

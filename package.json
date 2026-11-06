@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "prebuild": "tsx scripts/generate-precache.ts",
-    "build": "next build",
-    "build:prod": "npm run validate:prod && next build",
+    "build": "next build --webpack",
+    "build:prod": "npm run validate:prod && next build --webpack",
     "validate": "tsx scripts/validate-schemas.ts",
     "validate:prod": "tsx scripts/validate-schemas.ts --prod",
     "import:medicamentos": "tsx scripts/import-medicamentos.ts",

@@ -11,6 +11,7 @@ import { useSearchSession } from '@/components/search/SearchSessionProvider';
 import { ShortcutChips } from '@/components/search/ShortcutChips';
 import { FreshnessBanner } from '@/components/ui/FreshnessBanner';
 import { usePagedList } from '@/lib/usePagedList';
+import { SearchCardSkeletonList } from '@/components/ui/Skeleton';
 import type { MetaDados } from '@/types/schema';
 
 export interface BuscarClientProps {
@@ -173,7 +174,7 @@ export function BuscarClient({ meta }: BuscarClientProps) {
       <Suspense
         fallback={
           <main id="conteudo-principal" className="mx-auto max-w-4xl px-4 py-8">
-            <p className="font-display text-xl font-bold">Carregando busca...</p>
+            <SearchCardSkeletonList count={3} />
           </main>
         }
       >
