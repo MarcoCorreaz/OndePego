@@ -38,16 +38,17 @@ export function SearchBar({
 
   const trimmedQuery = query.trim();
   const suggestions = enableSuggestions && trimmedQuery.length >= 2 ? results.slice(0, 4) : [];
+  const hasNoResults = enableSuggestions && trimmedQuery.length >= 2 && results.length === 0;
 
   // Abre o dropdown sempre que houver query >= 2 letras
   useEffect(() => {
-    if (enableSuggestions && trimmedQuery.length >= 2 && suggestions.length > 0) {
+    if (enableSuggestions && trimmedQuery.length >= 2 && (suggestions.length > 0 || hasNoResults)) {
       setIsOpen(true);
       setHighlightedIndex(-1);
     } else {
       setIsOpen(false);
     }
-  }, [trimmedQuery, enableSuggestions, suggestions.length]);
+  }, [trimmedQuery, enableSuggestions, suggestions.length, hasNoResults]);
 
   // Fecha o dropdown ao clicar fora
   useEffect(() => {
@@ -84,9 +85,26 @@ export function SearchBar({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (!isOpen || suggestions.length === 0) {
+    if (!isOpen) {
       if (e.key === 'ArrowDown' && trimmedQuery.length >= 2) {
         setIsOpen(true);
+      }
+      return;
+    }
+
+    if (hasNoResults) {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        setHighlightedIndex(0);
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        setIsOpen(false);
+      } else if (e.key === 'Enter') {
+        if (highlightedIndex === 0) {
+          e.preventDefault();
+          setIsOpen(false);
+          router.push('/buscar/');
+        }
       }
       return;
     }
@@ -159,19 +177,23 @@ export function SearchBar({
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onFocus={() => {
-                if (enableSuggestions && trimmedQuery.length >= 2 && suggestions.length > 0) {
+                if (enableSuggestions && trimmedQuery.length >= 2 && (suggestions.length > 0 || hasNoResults)) {
                   setIsOpen(true);
                 }
               }}
               onKeyDown={handleKeyDown}
               role="combobox"
-              aria-expanded={isOpen && suggestions.length > 0}
+              aria-expanded={isOpen && (suggestions.length > 0 || hasNoResults)}
               aria-autocomplete="list"
               aria-controls={listboxId}
               aria-activedescendant={
-                highlightedIndex >= 0 && highlightedIndex < suggestions.length
-                  ? `${listboxId}-option-${highlightedIndex}`
-                  : undefined
+                hasNoResults && highlightedIndex === 0
+                  ? `${listboxId}-empty-option`
+                  : highlightedIndex >= 0 && highlightedIndex < suggestions.length
+                    ? `${listboxId}-option-${highlightedIndex}`
+                    : highlightedIndex === suggestions.length
+                      ? `${listboxId}-option-all`
+                      : undefined
               }
               aria-describedby={hintId}
               autoComplete="off"
@@ -280,6 +302,9 @@ export function SearchBar({
 
               {/* Opção final: Ver todos os resultados */}
               <button
+                id={`${listboxId}-option-all`}
+                role="option"
+                aria-selected={highlightedIndex === suggestions.length}
                 type="button"
                 onClick={() => {
                   setIsOpen(false);
@@ -296,6 +321,45 @@ export function SearchBar({
                   →
                 </span>
               </button>
+            </div>
+          )}
+
+          {/* Dropdown informativo quando não há resultados correspondentes */}
+          {isOpen && hasNoResults && (
+            <div
+              id={listboxId}
+              role="listbox"
+              aria-label="Aviso de medicamento não encontrado"
+              className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-2xl border border-[var(--c-border)] bg-[var(--c-surface)] p-2 shadow-2xl backdrop-blur-md"
+            >
+              <div
+                id={`${listboxId}-empty-option`}
+                role="option"
+                aria-selected={highlightedIndex === 0}
+                onClick={() => {
+                  setIsOpen(false);
+                  router.push('/buscar/');
+                }}
+                className={`flex min-h-[52px] cursor-pointer flex-col gap-1 rounded-xl p-3.5 transition-colors ${
+                  highlightedIndex === 0
+                    ? 'bg-[var(--c-brand-tint)] text-[var(--c-brand)] ring-2 ring-inset ring-[var(--c-brand)]'
+                    : 'text-[var(--c-text)] hover:bg-[var(--c-bg-soft)]'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <Icon
+                    name="search"
+                    className="h-5 w-5 shrink-0 text-[var(--c-brand)]"
+                    aria-hidden="true"
+                  />
+                  <span className="font-display text-base font-bold text-[var(--c-text)] sm:text-lg">
+                    Não encontramos esse nome na nossa lista
+                  </span>
+                </div>
+                <p className="pl-7 font-sans text-sm font-medium text-[var(--c-text-2)] sm:text-base">
+                  Confira a escrita na receita ou toque em Buscar.
+                </p>
+              </div>
             </div>
           )}
         </div>
